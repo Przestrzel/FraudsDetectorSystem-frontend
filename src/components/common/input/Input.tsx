@@ -2,6 +2,8 @@ import React, { HTMLInputTypeAttribute, useCallback } from 'react';
 import { Controller, Control } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
 
+import styles from './Input.module.scss';
+
 type Props = {
   label: string;
   control: Control;
@@ -13,7 +15,7 @@ type Props = {
 const Input = ({ label, type, className, control, name }: Props) => {
   const getInput = useCallback(({ field }) => {
     return <TextField
-      className={ className ?? '' }
+      className={ `${ styles.input } ${ className ?? '' }` }
       label={ label }
       size='medium'
       type={ type ?? 'text' }
