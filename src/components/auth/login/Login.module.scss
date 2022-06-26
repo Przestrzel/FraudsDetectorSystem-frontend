@@ -1,0 +1,21 @@
+@import 'styles/_variables.scss';
+
+.loginPage{
+  background-color: $white;
+  height: 100vh;
+  &Card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 600px;
+    height: 400px;
+    display: flex;
+
+    h2{
+      @include h2;
+      color: $active-primary;
+      text-align: center;
+    }
+  }
+}

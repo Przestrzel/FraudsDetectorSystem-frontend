@@ -2,7 +2,7 @@ $primary: #007FFF;
 $active-primary: #0072E5;
 
 $gray: #6F7E8C;
-$lightGray: #E3F2FD;
+$lightGray: #D3D3D3;
 
 $text-color: #1A2027;
 
@@ -10,3 +10,33 @@ $white: #ffffff;
 
 $error-red: #DA2700;
 $success-green: #86DC68;
+
+@mixin text {
+  font-size: 14px;
+  line-height: 157%;
+  letter-spacing: 0.25px;
+}
+
+@mixin unselectableText {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin h1 {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 72px;
+
+  @media (max-width: $md) {
+    font-size: 32px;
+  }
+}
+
+@mixin h2 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.15px;
+}
