@@ -34,9 +34,7 @@
   &Buttons{
     display: flex;
     justify-content: space-between;
-    margin-top: -20px;
     &:last-child {
-      margin-top: 5px;
     }
   }
 }

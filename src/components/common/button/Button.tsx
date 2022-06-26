@@ -5,11 +5,12 @@ type Props = {
   text: string;
   variant?: 'contained' | 'text' | 'outlined';
   size?: 'small' | 'medium';
+  type?: 'button' | 'submit';
 };
 
-const Button = ({ text, variant='text', size='medium' }: Props) => {
+const Button = ({ text, variant='text', size='medium', type='button' }: Props) => {
   return (
-    <MUIButton variant={ variant } size={ size }>
+    <MUIButton variant={ variant } size={ size } type={ type }>
       { text }
     </MUIButton>
   );
