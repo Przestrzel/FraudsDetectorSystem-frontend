@@ -14,8 +14,29 @@
 
     h2{
       @include h2;
-      color: $active-primary;
+      margin-top: 10px;
+      color: $secondary;
       text-align: center;
+    }
+  }
+
+  &Inputs{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 100px;
+  }
+
+  &Input{
+    margin-bottom: 25px;
+  }
+
+  &Buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: -20px;
+    &:last-child {
+      margin-top: 5px;
     }
   }
 }
