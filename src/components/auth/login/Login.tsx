@@ -28,12 +28,11 @@ const Login = () => {
   return (
     <div className={ styles.loginPage }>
       <Card className={ styles.loginPageCard }>
-        <h2>Log in</h2>
+        <h2>Welcome!</h2>
         <form onSubmit={ handleSubmit(onSubmit) }>
           <div className={ styles.loginPageInputs }>
             { inputs.map((input) => (
               <Input
-                className={ styles.loginPageInput }
                 key={ input.label }
                 control={ control }
                 label={ input.label }

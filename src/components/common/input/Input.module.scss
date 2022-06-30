@@ -1,3 +1,9 @@
+@import 'styles/_variables.scss';
+
 .input {
-  margin-bottom: 15px;
+  margin-bottom: 10px !important;
+
+  & + div + div:hover{
+    border-color: $primary !important;
+  }
 }

@@ -27,14 +27,10 @@
     padding: 0px 60px;
   }
 
-  &Input{
-    margin-bottom: 25px;
-  }
-
   &Buttons{
     display: flex;
     justify-content: space-between;
-    margin-top: -10px;
+    margin-top: 5px;
     &:last-child {
       margin-top: 10px;
     }
