@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Card from 'components/common/card/Card';
+import AuthCard from 'components/auth/authCard/AuthCard';
 import Input from 'components/common/input/Input';
 import Button from 'components/common/button/Button';
 
@@ -34,31 +34,29 @@ const Login = () => {
   };
 
   return (
-    <div className={ styles.loginPage }>
-      <Card className={ styles.loginPageCard }>
-        <h2>Welcome!</h2>
-        <form onSubmit={ handleSubmit(onSubmit) }>
-          <div className={ styles.loginPageInputs }>
-            { inputs.map((input) => (
-              <Input
-                key={ input.label }
-                control={ control }
-                label={ input.label }
-                type={ input.type }
-                name={ input.name }
-              />
-            )) }
-            <div className={ styles.loginPageButtons }>
-              <Button text='Forgot password?' size='small' onClick={ onForgotPassword } />
-            </div>
-            <div className={ styles.loginPageButtons }>
-              <Button text='Sign up' />
-              <Button text='Log in' variant='contained' type='submit'/>
-            </div>
+    <AuthCard>
+      <h2>Welcome!</h2>
+      <form onSubmit={ handleSubmit(onSubmit) }>
+        <div className={ styles.loginPageInputs }>
+          { inputs.map((input) => (
+            <Input
+              key={ input.label }
+              control={ control }
+              label={ input.label }
+              type={ input.type }
+              name={ input.name }
+            />
+          )) }
+          <div className={ styles.loginPageButtons }>
+            <Button text='Forgot password?' size='small' onClick={ onForgotPassword } />
           </div>
-        </form>
-      </Card>
-    </div>
+          <div className={ styles.loginPageButtons }>
+            <Button text='Sign up' />
+            <Button text='Log in' variant='contained' type='submit'/>
+          </div>
+        </div>
+      </form>
+    </AuthCard>
   );
 };
 
