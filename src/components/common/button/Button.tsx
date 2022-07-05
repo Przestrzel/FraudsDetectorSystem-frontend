@@ -6,11 +6,16 @@ type Props = {
   variant?: 'contained' | 'text' | 'outlined';
   size?: 'small' | 'medium';
   type?: 'button' | 'submit';
+  onClick?: () => void;
 };
 
-const Button = ({ text, variant='text', size='medium', type='button' }: Props) => {
+const Button = ({ text, onClick,variant='text', size='medium', type='button' }: Props) => {
   return (
-    <MUIButton variant={ variant } size={ size } type={ type }>
+    <MUIButton
+      variant={ variant }
+      size={ size }
+      type={ type }
+      onClick={ onClick }>
       { text }
     </MUIButton>
   );
