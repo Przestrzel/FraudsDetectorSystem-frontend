@@ -12,6 +12,7 @@ const inputs = [
   {
     name: 'email',
     label: 'E-mail',
+    type: 'e-mail'
   },
   {
     name: 'password',

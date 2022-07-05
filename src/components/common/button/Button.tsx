@@ -9,7 +9,7 @@ type Props = {
   onClick?: () => void;
 };
 
-const Button = ({ text, onClick,variant='text', size='medium', type='button' }: Props) => {
+const Button = ({ text, onClick, variant='text', size='medium', type='button' }: Props) => {
   return (
     <MUIButton
       variant={ variant }
