@@ -2,26 +2,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import AuthCard from 'components/auth/authCard/AuthCard';
-import Input from 'components/common/input/Input';
 import Button from 'components/common/button/Button';
+import Input from 'components/common/input/Input';
 
-import styles from './Login.module.scss';
+import styles from './SignUp.module.scss';
 import { routes } from 'utils/config.utils';
 
-const inputs = [
-  {
-    name: 'email',
-    label: 'E-mail',
-    type: 'e-mail'
-  },
-  {
-    name: 'password',
-    label: 'Password',
-    type: 'password',
-  }
-];
+const inputs = [];
 
-const Login = () => {
+const SignUp = () => {
   const { control, handleSubmit } = useForm();
   const navigate = useNavigate();
 
@@ -29,19 +18,15 @@ const Login = () => {
     console.log(data);
   };
 
-  const onForgotPassword = () => {
-    navigate(routes.forgotPassword);
-  };
-
-  const onSignUp = () => {
-    navigate(routes.signUp);
+  const onGoBackToLogin = () => {
+    navigate(routes.login);
   };
 
   return (
     <AuthCard>
-      <h2>Welcome!</h2>
+      <h2>Register</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
-        <div className={ styles.loginPageInputs }>
+        <div className={ styles.signUpPageInputs }>
           { inputs.map((input) => (
             <Input
               key={ input.label }
@@ -51,12 +36,11 @@ const Login = () => {
               name={ input.name }
             />
           )) }
-          <div className={ styles.loginPageButtons }>
-            <Button text='Forgot password?' size='small' onClick={ onForgotPassword } />
+          <div className={ styles.signUpButtons }>
           </div>
-          <div className={ styles.loginPageButtons }>
-            <Button text='Sign up' onClick={ onSignUp }/>
-            <Button text='Log in' variant='contained' type='submit'/>
+          <div className={ styles.signUpButtons }>
+            <Button text='Go back to login' onClick={ onGoBackToLogin }/>
+            <Button text='Sign up' variant='contained' type='submit'/>
           </div>
         </div>
       </form>
@@ -64,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

@@ -10,6 +10,7 @@
     transform: translate(-50%, -60%);
     width: 520px;
     height: 460px;
+    border: 1px solid $lightGray;
 
     & > div {
       height: min-content;
