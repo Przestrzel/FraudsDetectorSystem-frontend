@@ -8,4 +8,7 @@ const routes = {
   signUp: '/sign-up'
 };
 
-export { routes };
+const NOTIFICATION_DURATION = 5_000;
+const NOTIFICATION_SNACK_LENGTH = 5;
+
+export { routes, NOTIFICATION_DURATION, NOTIFICATION_SNACK_LENGTH };

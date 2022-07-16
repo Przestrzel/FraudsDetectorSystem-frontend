@@ -12,6 +12,9 @@ import { login } from 'services/__mocked__/auth.service';
 import { useDispatch } from 'react-redux';
 import { saveUser } from 'store/auth.slice';
 import { setAuthToken } from 'utils/auth.utils';
+import { useSnackbar, withSnackbar } from 'notistack';
+import { messages } from 'utils/messages.utils';
+import { NotificationType } from 'types/app.types';
 
 const inputs = [
   {
@@ -28,6 +31,8 @@ const inputs = [
 
 const Login = () => {
   const { control, handleSubmit } = useForm();
+  const { enqueueSnackbar } = useSnackbar();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,8 +43,13 @@ const Login = () => {
         delete user.token;
         dispatch(saveUser(user));
         setAuthToken(userData.token);
-      }).catch(err => {
-        console.log(err);
+        enqueueSnackbar('You have successfully logged in!', {
+          variant: NotificationType.SUCCESS
+        });
+      }).catch(() => {
+        enqueueSnackbar(messages.unExpected, {
+          variant: NotificationType.ERROR
+        });
       });
   };
 
@@ -78,4 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default withSnackbar(Login);
