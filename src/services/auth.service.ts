@@ -1,5 +1,5 @@
 const login = () => {
-  return null;
+  return {};
 };
 
 export { login };

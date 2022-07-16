@@ -1,6 +1,6 @@
-import { User } from 'types/auth.types';
+import { UserAuth } from 'types/auth.types';
 
-const login = (): Promise<User> => {
+const login = (): Promise<UserAuth> => {
   return Promise.resolve({
     name: 'name',
     email: 'example@example.com',
