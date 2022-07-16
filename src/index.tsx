@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import ReactDOM from 'react-dom/client';
+import { store } from 'store/store';
 import App from 'components/app/App';
 import reportWebVitals from './reportWebVitals';
 
@@ -10,9 +12,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <LocalizationProvider dateAdapter={ AdapterDayjs }>
-      <App />
-    </LocalizationProvider>
+    <Provider store={ store }>
+      <LocalizationProvider dateAdapter={ AdapterDayjs }>
+        <App />
+      </LocalizationProvider>
+    </Provider>
   </React.StrictMode>
 );
 

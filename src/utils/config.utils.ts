@@ -5,7 +5,8 @@ const routes = {
   login: '/login',
   forgotPassword: '/forgot-password',
   changePassword: '/change-password',
-  signUp: '/sign-up'
+  signUp: '/sign-up',
+  dashboard: '/dashboard',
 };
 
 const NOTIFICATION_DURATION = 3_000;
