@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSnackbar, withSnackbar } from 'notistack';
+import { withSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import AuthCard from 'components/auth/authCard/AuthCard';
@@ -11,6 +11,7 @@ import { routes } from 'utils/config.utils';
 import dayjs from 'dayjs';
 import { signUp } from 'services/__mocked__/auth.service';
 import { NotificationType } from 'types/app.types';
+import useNotification from 'hooks/useNotification';
 
 const inputs = [
   {
@@ -48,15 +49,13 @@ const inputs = [
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm();
-  const { enqueueSnackbar } = useSnackbar();
+  const { notify } = useNotification();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     signUp(data)
       .then(() => {
-        enqueueSnackbar('You have successfully sign up!', {
-          variant: NotificationType.SUCCESS
-        });
+        notify('You have successfully sign up!', NotificationType.SUCCESS);
       });
   };
 

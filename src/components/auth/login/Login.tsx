@@ -1,18 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { withSnackbar } from 'notistack';
+import { cloneDeep } from 'lodash';
+import { useDispatch } from 'react-redux';
+import useNotification from 'hooks/useNotification';
 import AuthCard from 'components/auth/authCard/AuthCard';
 import Input from 'components/common/input/Input';
 import Button from 'components/common/button/Button';
-import { cloneDeep } from 'lodash';
 
 import styles from './Login.module.scss';
 import { routes } from 'utils/config.utils';
 import { login } from 'services/__mocked__/auth.service';
-import { useDispatch } from 'react-redux';
 import { saveUser } from 'store/auth.slice';
 import { setAuthToken } from 'utils/auth.utils';
-import { useSnackbar, withSnackbar } from 'notistack';
 import { messages } from 'utils/messages.utils';
 import { NotificationType } from 'types/app.types';
 
@@ -31,7 +32,7 @@ const inputs = [
 
 const Login = () => {
   const { control, handleSubmit } = useForm();
-  const { enqueueSnackbar } = useSnackbar();
+  const { notify } = useNotification();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,13 +44,9 @@ const Login = () => {
         delete user.token;
         dispatch(saveUser(user));
         setAuthToken(userData.token);
-        enqueueSnackbar('You have successfully logged in!', {
-          variant: NotificationType.SUCCESS
-        });
+        notify('You have successfully logged in!', NotificationType.SUCCESS);
       }).catch(() => {
-        enqueueSnackbar(messages.unExpected, {
-          variant: NotificationType.ERROR
-        });
+        notify(messages.unExpected, NotificationType.ERROR);
       });
   };
 
