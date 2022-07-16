@@ -6,4 +6,12 @@ const signUp = () => {
   return {};
 };
 
-export { login, signUp };
+const getUserData = () => {
+  return {};
+};
+
+const logout = () => {
+  return {};
+};
+
+export { login, signUp, getUserData, logout };

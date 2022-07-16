@@ -24,4 +24,8 @@ const getUserData = () => {
   });
 };
 
-export { login, signUp, getUserData };
+const logout = () => {
+  return Promise.resolve();
+};
+
+export { login, signUp, getUserData, logout };
