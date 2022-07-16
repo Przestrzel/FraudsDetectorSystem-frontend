@@ -10,9 +10,10 @@ type Props = {
   name: string;
   type?: HTMLInputTypeAttribute;
   className?: string;
+  defaultValue?: string;
 };
 
-const Input = ({ label, type, className, control, name }: Props) => {
+const Input = ({ label, type, className, control, name, defaultValue }: Props) => {
   const getInput = useCallback(({ field }) => {
     return <TextField
       className={ `${ styles.input } ${ className ?? '' }` }
@@ -28,7 +29,7 @@ const Input = ({ label, type, className, control, name }: Props) => {
       name={ name }
       control={ control }
       render={ getInput }
-      defaultValue=''
+      defaultValue={ defaultValue ?? '' }
     />
   );
 };

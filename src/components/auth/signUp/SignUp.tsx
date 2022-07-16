@@ -7,6 +7,7 @@ import Input from 'components/common/input/Input';
 
 import styles from './SignUp.module.scss';
 import { routes } from 'utils/config.utils';
+import dayjs from 'dayjs';
 
 const inputs = [
   {
@@ -33,6 +34,12 @@ const inputs = [
     name: 'last-name',
     label: 'Last name',
     type: 'text',
+  },
+  {
+    name: 'date',
+    label: 'Birthdate',
+    type: 'date',
+    defaultValue: dayjs().format('YYYY-MM-DD'),
   },
 ];
 
@@ -62,6 +69,7 @@ const SignUp = () => {
                 type={ input.type }
                 name={ input.name }
                 className={ `${ styles[ input.name ] }` }
+                { ...input }
               />
             )) }
             <div className={ styles.signUpButtons }>

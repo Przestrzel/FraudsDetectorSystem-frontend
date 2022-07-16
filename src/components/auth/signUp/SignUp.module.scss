@@ -2,7 +2,7 @@
 
 .signUpPageInputs {
   padding: 4px 6px;
-  margin-top: 30px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,8 @@
 .password,
 .confirm-password,
 .first-name,
-.last-name{
+.last-name,
+.date{
   width: 47.5%;
   margin-right: 10px !important;
 }
