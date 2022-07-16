@@ -4,9 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import AuthCard from 'components/auth/authCard/AuthCard';
 import Input from 'components/common/input/Input';
 import Button from 'components/common/button/Button';
+import { cloneDeep } from 'lodash';
 
 import styles from './Login.module.scss';
 import { routes } from 'utils/config.utils';
+import { login } from 'services/__mocked__/auth.service';
+import { useDispatch } from 'react-redux';
+import { saveUser } from 'store/auth.slice';
+import { setAuthToken } from 'utils/auth.utils';
 
 const inputs = [
   {
@@ -23,10 +28,19 @@ const inputs = [
 
 const Login = () => {
   const { control, handleSubmit } = useForm();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
+    login(data)
+      .then(userData => {
+        const user = cloneDeep(userData);
+        delete user.token;
+        dispatch(saveUser(user));
+        setAuthToken(userData.token);
+      }).catch(err => {
+        console.log(err);
+      });
   };
 
   const onForgotPassword = () => {

@@ -1,9 +1,10 @@
-import { UserAuth } from 'types/auth.types';
+import { UserAuth, UserLoginInputs } from 'types/auth.types';
 
-const login = (): Promise<UserAuth> => {
+const login = (data: UserLoginInputs): Promise<UserAuth> => {
+  console.log(data);
   return Promise.resolve({
-    name: 'name',
     email: 'example@example.com',
+    name: 'name',
     id: 0,
     token: 'mocked__token'
   });

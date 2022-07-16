@@ -7,3 +7,8 @@ export type User = {
 export type UserAuth = {
   token: string;
 } & User;
+
+export type UserLoginInputs = {
+  email: string;
+  password: string;
+};
