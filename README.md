@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+## Project setup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+In the project directory create `.env` file based on `.env.example` by
+
+### `cp .env.example .env`
 
 ## Available Scripts
 
