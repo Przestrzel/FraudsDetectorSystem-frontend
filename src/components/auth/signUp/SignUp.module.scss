@@ -1,1 +1,31 @@
 @import 'styles/_variables.scss';
+
+.signUpPageInputs {
+  padding: 4px 6px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &Centered{
+    width: 400px;
+  }
+}
+.email{
+  width: calc(95% + 10px);
+  margin: 0 auto;
+}
+
+.password,
+.confirm-password,
+.first-name,
+.last-name{
+  width: 47.5%;
+  margin-right: 10px !important;
+}
+
+.signUpButtons{
+  width: calc(95% + 10px);
+  display: flex;
+  justify-content: space-between;
+}

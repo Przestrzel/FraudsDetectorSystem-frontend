@@ -8,7 +8,33 @@ import Input from 'components/common/input/Input';
 import styles from './SignUp.module.scss';
 import { routes } from 'utils/config.utils';
 
-const inputs = [];
+const inputs = [
+  {
+    name: 'email',
+    label: 'E-mail',
+    type: 'e-mail'
+  },
+  {
+    name: 'password',
+    label: 'Password',
+    type: 'password',
+  },
+  {
+    name: 'confirm-password',
+    label: 'Confirm password',
+    type: 'password',
+  },
+  {
+    name: 'first-name',
+    label: 'First name',
+    type: 'text',
+  },
+  {
+    name: 'last-name',
+    label: 'Last name',
+    type: 'text',
+  },
+];
 
 const SignUp = () => {
   const { control, handleSubmit } = useForm();
@@ -27,20 +53,21 @@ const SignUp = () => {
       <h2>Register</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.signUpPageInputs }>
-          { inputs.map((input) => (
-            <Input
-              key={ input.label }
-              control={ control }
-              label={ input.label }
-              type={ input.type }
-              name={ input.name }
-            />
-          )) }
-          <div className={ styles.signUpButtons }>
-          </div>
-          <div className={ styles.signUpButtons }>
-            <Button text='Go back to login' onClick={ onGoBackToLogin }/>
-            <Button text='Sign up' variant='contained' type='submit'/>
+          <div className={ styles.signUpPageInputsCentered }>
+            { inputs.map((input) => (
+              <Input
+                key={ input.label }
+                control={ control }
+                label={ input.label }
+                type={ input.type }
+                name={ input.name }
+                className={ `${ styles[ input.name ] }` }
+              />
+            )) }
+            <div className={ styles.signUpButtons }>
+              <Button text='Go back to login' onClick={ onGoBackToLogin }/>
+              <Button text='Sign up' variant='contained' type='submit'/>
+            </div>
           </div>
         </div>
       </form>

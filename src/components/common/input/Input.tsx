@@ -19,6 +19,7 @@ const Input = ({ label, type, className, control, name }: Props) => {
       label={ label }
       size='medium'
       type={ type ?? 'text' }
+      value=''
       { ...field } />;
   }, []);
 
@@ -27,6 +28,7 @@ const Input = ({ label, type, className, control, name }: Props) => {
       name={ name }
       control={ control }
       render={ getInput }
+      defaultValue=''
     />
   );
 };
