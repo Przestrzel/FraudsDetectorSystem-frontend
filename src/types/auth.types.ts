@@ -12,3 +12,12 @@ export type UserLoginInputs = {
   email: string;
   password: string;
 };
+
+export type UserSignUpInputs = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  birthdate: string;
+};

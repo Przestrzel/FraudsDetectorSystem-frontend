@@ -1,4 +1,4 @@
-import { UserAuth, UserLoginInputs } from 'types/auth.types';
+import { UserAuth, UserLoginInputs, UserSignUpInputs } from 'types/auth.types';
 
 const login = (data: UserLoginInputs): Promise<UserAuth> => {
   console.log(data);
@@ -10,4 +10,9 @@ const login = (data: UserLoginInputs): Promise<UserAuth> => {
   });
 };
 
-export { login };
+const signUp = (data: UserSignUpInputs) => {
+  console.log(data);
+  return Promise.resolve();
+};
+
+export { login, signUp };
