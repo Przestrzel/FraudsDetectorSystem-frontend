@@ -2,4 +2,8 @@ const login = () => {
   return {};
 };
 
-export { login };
+const signUp = () => {
+  return {};
+};
+
+export { login, signUp };

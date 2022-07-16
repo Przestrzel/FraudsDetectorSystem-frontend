@@ -15,4 +15,13 @@ const signUp = (data: UserSignUpInputs) => {
   return Promise.resolve();
 };
 
-export { login, signUp };
+const getUserData = () => {
+  return Promise.resolve({
+    email: 'example@example.com',
+    name: 'name',
+    id: 0,
+    token: 'mocked__token'
+  });
+};
+
+export { login, signUp, getUserData };
