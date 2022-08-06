@@ -5,12 +5,13 @@ import styles from './Layout.module.scss';
 
 type Props = {
   children: React.ReactNode;
+  isLoggedIn: boolean;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, isLoggedIn }: Props) => {
   return (
     < >
-      <Navbar />
+      <Navbar isLoggedIn={ isLoggedIn } />
       <div className={ styles.layout }>
         { children }
       </div>

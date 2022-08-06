@@ -24,6 +24,7 @@
   &:last-of-type{
     flex-grow: 1
   };
+  margin-right: 15px;
 }
 
 .logout{
@@ -35,4 +36,8 @@
     transition: all 0.2s ease-out;
     transform: rotate(180deg);
   }
+}
+
+.rightNav {
+  display: flex;
 }

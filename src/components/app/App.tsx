@@ -36,20 +36,22 @@ const App = () => {
   return (
     <SnackbarProvider maxSnack={ NOTIFICATION_SNACK_LENGTH }>
       <BrowserRouter>
-        { ! isLoggedIn() ?
-          <Routes>
-            <Route path={ routes.login } element={ <Login/> }/>
-            <Route path={ routes.signUp } element={ <SignUp/> }/>
-            <Route path='*' element={ <Navigate to={ routes.login }/> }/>
-          </Routes>
-          :
-          <Layout>
+        <Layout isLoggedIn={ isLoggedIn() }>
+          { !isLoggedIn() ?
             <Routes>
-              <Route path={ routes.dashboard } element={ <div/> }/>
-              <Route path='*' element={ <Navigate to={ routes.dashboard }/> }/>
+              <Route path={ routes.login } element={ <Login/> }/>
+              <Route path={ routes.signUp } element={ <SignUp/> }/>
+              <Route path={ routes.auctions.list } element={ <div/> }/>
+              <Route path='*' element={ <Navigate to={ routes.auctions.list }/> }/>
             </Routes>
-          </Layout>
-        }
+            :
+            <Routes>
+              <Route path={ routes.auctions.list } element={ <div/> }/>
+              <Route path={ routes.auctions.add } element={ <div/> }/>
+              <Route path='*' element={ <Navigate to={ routes.auctions.list }/> }/>
+            </Routes>
+          }
+        </Layout>
       </BrowserRouter>
     </SnackbarProvider>
   );

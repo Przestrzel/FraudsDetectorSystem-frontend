@@ -1,20 +1,26 @@
 import React, { useCallback } from 'react';
 import { AppBar, Container, Toolbar } from '@mui/material';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import LogoutIcon from '@mui/icons-material/Logout';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DescriptionIcon from '@mui/icons-material/Description';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LoginIcon from '@mui/icons-material/Login';
 import { routes } from 'utils/config.utils';
 import { Link } from 'react-router-dom';
 
 import styles from './Navbar.module.scss';
 import { logout } from 'services/__mocked__/auth.service';
 import { setAuthToken } from 'utils/auth.utils';
-import { withSnackbar } from 'notistack';
+import { withSnackbar, WithSnackbarProps } from 'notistack';
 import useNotification from 'hooks/useNotification';
 import { NotificationType } from 'types/app.types';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'store/auth.slice';
 
-const Navbar = () => {
+type Props = {
+  isLoggedIn: boolean;
+} & WithSnackbarProps;
+
+const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
   const dispatch = useDispatch();
 
@@ -42,15 +48,29 @@ const Navbar = () => {
     <AppBar position='sticky'>
       <Container maxWidth={ false }>
         <Toolbar disableGutters={ true } variant='dense'>
-          <Link to={ routes.dashboard } className={ styles.link }>
-            <HomeRoundedIcon sx={ iconSx(true) } />
-            Home
+          <Link to={ routes.auctions.list } className={ styles.link }>
+            <DescriptionIcon sx={ iconSx(true) } />
+            Auctions
           </Link>
+          { isLoggedIn &&
+          <Link to={ routes.auctions.add } className={ styles.link }>
+            <AddCircleIcon sx={ iconSx(true) } />
+            Add auction
+          </Link>
+          }
+          <div className={ styles.rightNav }>
+            { isLoggedIn ?
+              <button className={ styles.logout } onClick={ onLogout }>
+                Logout
+                <ExitToAppIcon sx={ iconSx(false) } />
+              </button> :
+              <Link to={ routes.login } className={ styles.logout }>
+                Log in
+                <LoginIcon sx={ iconSx(false) } />
+              </Link>
 
-          <button className={ styles.logout } onClick={ onLogout }>
-            Logout
-            <LogoutIcon sx={ iconSx(false) } />
-          </button>
+            }
+          </div>
         </Toolbar>
       </Container>
     </AppBar>
