@@ -1,0 +1,17 @@
+@import 'styles/_variables.scss';
+
+
+.auctionPage{
+  margin: 0px 250px;
+  padding: 8px 16px;
+  min-height: calc(100vh - 66px);
+  border-right: 1px solid rgba($gray, 0.2);
+  border-left: 1px solid rgba($gray, 0.2);
+
+  .auctionFilters {
+    color: $header-primary;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+}
