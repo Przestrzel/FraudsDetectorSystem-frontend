@@ -1,4 +1,6 @@
 
 .auctionFilters {
   margin-top: 5px;
+  input[type=date] { color: transparent !important; }
+  .active input[type=date] { color: inherit !important; }
 }

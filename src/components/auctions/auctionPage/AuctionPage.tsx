@@ -10,9 +10,13 @@ const AuctionPage = () => {
   return (
     <div className={ styles.auctionPage }>
       <div className={ styles.auctionFilters }>
-        Auction filters
+        <div>
+          <div className={ styles.auctionFiltersTitle }>
+            Auction filters
+          </div>
+          <AuctionFilters control={ control }/>
+        </div>
       </div>
-      <AuctionFilters control={ control }/>
     </div>
   );
 };
