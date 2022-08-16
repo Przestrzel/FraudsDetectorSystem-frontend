@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import AuctionFilters from '../auctionFilters/AuctionFilters';
+import AuctionList from '../auctionList/AuctionList';
 
 import styles from './AuctionPage.module.scss';
 
@@ -15,6 +16,7 @@ const AuctionPage = () => {
             Auction filters
           </div>
           <AuctionFilters control={ control }/>
+          <AuctionList />
         </div>
       </div>
     </div>
