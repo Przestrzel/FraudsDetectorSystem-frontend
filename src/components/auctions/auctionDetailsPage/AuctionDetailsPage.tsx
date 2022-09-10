@@ -77,11 +77,13 @@ const AuctionDetailsPage = () => {
             </div>
           </div>
       }
-      <AddOfferModal
-        auctionId={ auction.id }
-        isOpen={ isModalOpen }
-        onClose={ () => setIsModalOpen(false) }
-      />
+      {
+        auction?.id && <AddOfferModal
+          auctionId={ auction.id }
+          isOpen={ isModalOpen }
+          onClose={ () => setIsModalOpen(false) }
+        />
+      }
     </div>
   );
 };
