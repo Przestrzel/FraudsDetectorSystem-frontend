@@ -17,7 +17,31 @@ const getAuction = (id: string) => {
     status: 'Rozstrzygnięte' as AuctionStatus,
     redFlag: true,
     criteria: 'price',
-    offers: []
+    offers: [ {
+      id: 1,
+      name: 'Moja Szkoła Kornelia Klamann',
+      price: 45228.33
+    },
+    {
+      id: 2,
+      name: '7 Zmysłów Integracja Sensoryczna Marcin Bielecki',
+      price: 58432.00,
+    },
+    {
+      id: 3,
+      name: 'Grupa Invest Sp. z o.o.',
+      price: 71212.96
+    },
+    {
+      id: 4,
+      name: 'Moje Bambino Sp. z o.o., Sp.k.',
+      price: 62728.63
+    },
+    {
+      id: 5,
+      name: 'Nowa Szkoła Sp. z o.o.',
+      price: 48910.00
+    } ]
   });
 };
 

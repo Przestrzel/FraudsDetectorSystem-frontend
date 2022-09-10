@@ -7,6 +7,7 @@ import { ReactComponent as Flag } from 'assets/icons/flag.svg';
 
 import styles from './AuctionDetailsPage.module.scss';
 import { Tooltip } from '@mui/material';
+import AuctionOffers from '../auctionOffers/AuctionOffers';
 
 const AuctionDetailsPage = () => {
   const [ auction, setAuction ] = useState<AuctionDetails>(null);
@@ -58,6 +59,10 @@ const AuctionDetailsPage = () => {
                 <div>{ auction.criteria }</div>
               </div>
             </div>
+          </div>
+          <div className={ styles.offers }>
+            <div className={ styles.auctionLabel }>Offers</div>
+            <AuctionOffers offers={ auction.offers } />
           </div>
         </div> }
     </div>

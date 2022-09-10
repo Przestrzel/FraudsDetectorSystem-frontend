@@ -2,7 +2,7 @@
 
 .auctionDetailsPage {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -11,6 +11,7 @@
 
 .auction {
   width: 70%;
+  height: 100%;
   position: relative;
   @include text;
   font-size: 16px;
@@ -60,5 +61,11 @@
   &Title{
     max-height: 250px;
     overflow-y: auto;
+  }
+
+  .offers{
+    max-width: 700px;
+    margin: 0 auto;
+    margin-top: 20px;
   }
 }
