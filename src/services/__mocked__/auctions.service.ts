@@ -15,7 +15,7 @@ const getAuction = (id: string) => {
     startDate: '2022-05-19',
     endDate: '2022-05-27',
     status: 'Rozstrzygnięte' as AuctionStatus,
-    redFlag: false,
+    redFlag: true,
     criteria: 'price',
     offers: []
   });
