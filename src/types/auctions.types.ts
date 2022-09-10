@@ -11,3 +11,17 @@ export enum AuctionStatus {
   CLOSED = 'Zamknięte',
   CANCELED = 'Anulowane',
 }
+
+export type AuctionCriteria = 'price' | 'quality';
+
+export type AuctionDetails = Auction & {
+  criteria: AuctionCriteria;
+  offers: AuctionOffer[];
+  redFlag: boolean;
+};
+
+export type AuctionOffer = {
+  id: number;
+  companyName: string;
+  price: number;
+};
