@@ -9,7 +9,7 @@ import { ReactComponent as Flag } from 'assets/icons/flag.svg';
 import styles from './AuctionDetailsPage.module.scss';
 import { Tooltip } from '@mui/material';
 import AuctionOffers from '../auctionOffers/AuctionOffers';
-import Modal from 'components/common/modal/Modal';
+import AddOfferModal from '../addOfferModal/AddOfferModal';
 
 const AuctionDetailsPage = () => {
   const [ auction, setAuction ] = useState<AuctionDetails>(null);
@@ -77,9 +77,7 @@ const AuctionDetailsPage = () => {
             </div>
           </div>
       }
-      <Modal isOpen={ isModalOpen } onClose={ () => setIsModalOpen(false) }>
-        <div></div>
-      </Modal>
+      <AddOfferModal isOpen={ isModalOpen } onClose={ () => setIsModalOpen(false) } />
     </div>
   );
 };
