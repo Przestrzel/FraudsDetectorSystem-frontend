@@ -6,10 +6,7 @@ const routes = {
   forgotPassword: '/forgot-password',
   changePassword: '/change-password',
   signUp: '/sign-up',
-  auctions: {
-    list: '/auctions',
-    add: '/auctions/add',
-  },
+  auctions: '/auctions',
 };
 
 const NOTIFICATION_DURATION = 3_000;

@@ -14,6 +14,7 @@ import { getUserData } from 'services/__mocked__/auth.service';
 import { saveUser } from 'store/auth.slice';
 import 'styles/index.scss';
 import AuctionPage from 'components/auctions/auctionPage/AuctionPage';
+import AuctionDetailsPage from 'components/auctions/auctionDetailsPage/AuctionDetailsPage';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -42,14 +43,16 @@ const App = () => {
             <Routes>
               <Route path={ routes.login } element={ <Login/> }/>
               <Route path={ routes.signUp } element={ <SignUp/> }/>
-              <Route path={ routes.auctions.list } element={ <AuctionPage /> }/>
-              <Route path='*' element={ <Navigate to={ routes.auctions.list }/> }/>
+              <Route path={ routes.auctions } element={ <AuctionPage /> }/>
+              <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
             :
             <Routes>
-              <Route path={ routes.auctions.list } element={ <AuctionPage /> }/>
-              <Route path={ routes.auctions.add } element={ <div/> }/>
-              <Route path='*' element={ <Navigate to={ routes.auctions.list }/> }/>
+              <Route path={ routes.auctions }>
+                <Route path=':id' element={ <AuctionDetailsPage /> }/>
+                <Route path='' element={ <AuctionPage /> }/>
+              </Route>
+              <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
           }
         </Layout>

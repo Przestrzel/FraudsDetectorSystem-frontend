@@ -48,12 +48,12 @@ const Navbar = ({ isLoggedIn }: Props ) => {
     <AppBar position='sticky'>
       <Container maxWidth={ false }>
         <Toolbar disableGutters={ true } variant='dense'>
-          <Link to={ routes.auctions.list } className={ styles.link }>
+          <Link to={ routes.auctions } className={ styles.link }>
             <DescriptionIcon sx={ iconSx(true) } />
             Auctions
           </Link>
           { isLoggedIn &&
-          <Link to={ routes.auctions.add } className={ styles.link }>
+          <Link to={ routes.auctions } className={ styles.link }>
             <AddCircleIcon sx={ iconSx(true) } />
             Add auction
           </Link>
