@@ -1,3 +1,5 @@
+import { AuctionOffer } from 'types/auctions.types';
+
 const getAuctions = () => {
   return [];
 };
@@ -6,4 +8,8 @@ const getAuction = (id: string) => {
   return { id };
 };
 
-export { getAuctions, getAuction };
+const postOffer = (id: number, offer: AuctionOffer) => {
+  return { id, offer };
+};
+
+export { getAuctions, getAuction, postOffer };

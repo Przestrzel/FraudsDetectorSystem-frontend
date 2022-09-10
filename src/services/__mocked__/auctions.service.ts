@@ -1,4 +1,4 @@
-import { Auction, AuctionDetails, AuctionStatus } from 'types/auctions.types';
+import { Auction, AuctionDetails, AuctionOffer, AuctionStatus } from 'types/auctions.types';
 import auctions from './data/auctions';
 
 const getAuctions = () => {
@@ -45,4 +45,8 @@ const getAuction = (id: string) => {
   });
 };
 
-export { getAuctions, getAuction };
+const postOffer = (id: number, offer: AuctionOffer) => {
+  return Promise.resolve<AuctionOffer>(offer);
+};
+
+export { getAuctions, getAuction, postOffer };
