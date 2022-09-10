@@ -68,4 +68,31 @@
     margin: 0 auto;
     margin-top: 20px;
   }
+  &AddOffer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .addOffer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $primary;
+    font-weight: 500;
+    border-radius: 4px;
+
+    svg{
+      fill: $primary;
+      margin-right: 5px;
+    }
+
+    &:hover{
+      background-color: rgba($gray, 0.15);
+    }
+
+    &:active{
+      background-color: rgba($gray, 0.25);
+
+    }
+  }
 }
