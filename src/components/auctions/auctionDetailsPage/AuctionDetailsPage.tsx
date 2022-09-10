@@ -9,9 +9,11 @@ import { ReactComponent as Flag } from 'assets/icons/flag.svg';
 import styles from './AuctionDetailsPage.module.scss';
 import { Tooltip } from '@mui/material';
 import AuctionOffers from '../auctionOffers/AuctionOffers';
+import Modal from 'components/common/modal/Modal';
 
 const AuctionDetailsPage = () => {
   const [ auction, setAuction ] = useState<AuctionDetails>(null);
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
 
@@ -65,12 +67,19 @@ const AuctionDetailsPage = () => {
             <div className={ styles.offers }>
               <div className={ styles.auctionAddOffer }>
                 <div className={ styles.auctionLabel }>Offers</div>
-                <button className={ styles.addOffer }><AddCircleIcon />Add offer</button>
+                <button
+                  onClick={ () => setIsModalOpen(true) }
+                  className={ styles.addOffer }>
+                  <AddCircleIcon />Add offer
+                </button>
               </div>
               <AuctionOffers offers={ auction.offers } />
             </div>
           </div>
       }
+      <Modal isOpen={ isModalOpen } onClose={ () => setIsModalOpen(false) }>
+        <div></div>
+      </Modal>
     </div>
   );
 };
