@@ -1,3 +1,4 @@
+import AuctionStatus from 'components/auctions/auctionStatus/AuctionStatus';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Auction } from 'types/auctions.types';
@@ -15,6 +16,7 @@ const AuctionElement = ({ auction }: Props) => {
   const onClick = useCallback(() => {
     navigate(`${ routes.auctions }/${ auction.id }`);
   }, [ auction ]);
+  console.log(auction);
 
   return (
     <div className={ styles.auction } onClick={ onClick }>
@@ -30,7 +32,7 @@ const AuctionElement = ({ auction }: Props) => {
         </div>
         <div className={ styles.auctionDetailsElement }>
           <div>Status</div>
-          <div>{ auction.status }</div>
+          <AuctionStatus status={ auction.status } />
         </div>
       </div>
     </div>

@@ -1,0 +1,13 @@
+@import 'styles/_variables.scss';
+
+.Anulowane {
+  color: $error-red;
+}
+
+.Zamknięte{
+  color: black;
+}
+
+.Rozstrzygnięte{
+  color: darken($success-green, 20%);
+}
