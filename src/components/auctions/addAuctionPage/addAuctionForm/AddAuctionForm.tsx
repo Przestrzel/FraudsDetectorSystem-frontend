@@ -5,6 +5,7 @@ import Input from 'components/common/input/Input';
 import { MenuItem, Select } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
+import dayjs from 'dayjs';
 
 import styles from './AddAuctionForm.module.scss';
 import { useForm } from 'react-hook-form';
@@ -37,8 +38,8 @@ const inputs = [
     name: 'status',
     type: 'select',
     label: 'Status',
-    options: Object.keys(AuctionStatus).map(status => ({
-      label: capitalizeFirstLetter(AuctionStatus[ status ]),
+    options: Object.values(AuctionStatus).map(status => ({
+      label: capitalizeFirstLetter(status),
       value: status,
     })),
   },
@@ -54,27 +55,27 @@ const inputs = [
 ];
 
 const AddAuctionForm = () => {
-  const { control, handleSubmit, reset } = useForm({ defaultValues: {
+  const { control, handleSubmit, register, reset } = useForm({ defaultValues: {
     name: '',
     city: '',
-    start_date: new Date(),
-    end_date: new Date(),
+    start_date: dayjs(new Date()).format('YYYY-MM-DD'),
+    end_date: dayjs(new Date()).format('YYYY-MM-DD'),
     status: AuctionStatus.RESOLVED,
     criteria: 'price',
   } });
 
   const renderInput = (input) => (
     input.type === 'select' ? (
-      <FormControl className={ styles[ input.name ] } key={ input.label } >
+      <FormControl className={ styles[ input.name ] } key={ input.label }>
         <InputLabel id={ input.label }>{ input.label }</InputLabel>
         <Controller
+          { ...register(input.name) }
           control={ control }
-          name={ input.label }
+          name={ input.name }
           render={ ({ field }) => (
             <Select
               labelId={ input.label }
               label={ input.label }
-              autoWidth={ true }
               { ...field }
             >
               { input.options.map(option => <MenuItem
@@ -88,6 +89,7 @@ const AddAuctionForm = () => {
     ) :
       (
         <Input
+          { ...register(input.name) }
           key={ input.label }
           control={ control }
           label={ input.label }

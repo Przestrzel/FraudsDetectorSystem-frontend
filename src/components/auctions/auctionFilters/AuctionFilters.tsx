@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { MenuItem, Select } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import { Controller } from 'react-hook-form';
+import { Control, Controller, UseFormRegister } from 'react-hook-form';
 
 import styles from './AuctionFilters.module.scss';
 
 type Props = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: any;
+  control: Control<any, any>;
+  register: UseFormRegister<any>;
 };
 
 const cityOptions = [
@@ -19,11 +20,12 @@ const cityOptions = [
   { label: 'Grudziądz', value: 3 }
 ];
 
-const AuctionFilters = ({ control }: Props) => {
+const AuctionFilters = ({ control, register }: Props) => {
   return (
     <div className={ styles.auctionFilters }>
       <FormControl sx={ { m: 1, minWidth: 360 } } >
         <Controller
+          { ...register('auction') }
           control={ control }
           name='auction'
           render={ ({ field }) => (
@@ -37,6 +39,7 @@ const AuctionFilters = ({ control }: Props) => {
       <FormControl sx={ { m: 1, minWidth: 120 } } size='small' >
         <InputLabel id='city-label'>City</InputLabel>
         <Controller
+          { ...register('city') }
           control={ control }
           name='city'
           render={ ({ field }) => (
@@ -56,8 +59,9 @@ const AuctionFilters = ({ control }: Props) => {
       </FormControl>
       <FormControl sx={ { m: 1, minWidth: 90 } } >
         <Controller
+          { ...register('start_date') }
           control={ control }
-          name='start-date'
+          name='start_date'
           render={ ({ field }) => (
             <TextField
               size='small'
@@ -70,8 +74,9 @@ const AuctionFilters = ({ control }: Props) => {
       </FormControl>
       <FormControl sx={ { m: 1, minWidth: 90 } } >
         <Controller
+          { ...register('end_date') }
           control={ control }
-          name='end-date'
+          name='end_date'
           render={ ({ field }) => (
             <TextField
               size='small'
