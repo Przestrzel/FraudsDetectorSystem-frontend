@@ -16,7 +16,6 @@ const AuctionElement = ({ auction }: Props) => {
   const onClick = useCallback(() => {
     navigate(`${ routes.auctions }/${ auction.id }`);
   }, [ auction ]);
-  console.log(auction);
 
   return (
     <div className={ styles.auction } onClick={ onClick }>

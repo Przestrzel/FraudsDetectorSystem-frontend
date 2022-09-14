@@ -7,6 +7,7 @@ const routes = {
   changePassword: '/change-password',
   signUp: '/sign-up',
   auctions: '/auctions',
+  addAuction: '/auctions/add'
 };
 
 const NOTIFICATION_DURATION = 3_000;

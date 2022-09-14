@@ -53,7 +53,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
             Auctions
           </Link>
           { isLoggedIn &&
-          <Link to={ routes.auctions } className={ styles.link }>
+          <Link to={ routes.addAuction } className={ styles.link }>
             <AddCircleIcon sx={ iconSx(true) } />
             Add auction
           </Link>

@@ -4,6 +4,8 @@ import { getAuctions } from 'services/__mocked__/auctions.service';
 import { Auction } from 'types/auctions.types';
 import AuctionElement from './auctionElement/AuctionElement';
 
+import styles from './AuctionList.module.scss';
+
 const AuctionList = () => {
   const [ auctions, setAuctions ] = useState<Auction[]>([]);
   const [ isLoading, setIsLoading ] = useState(true);
@@ -18,7 +20,7 @@ const AuctionList = () => {
   }, []);
 
   return (
-    <div>
+    <div className={ styles.auctionList }>
       { isLoading ?
         <Loader /> :
         auctions.map((auction) => (

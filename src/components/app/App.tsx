@@ -15,6 +15,7 @@ import { saveUser } from 'store/auth.slice';
 import 'styles/index.scss';
 import AuctionPage from 'components/auctions/auctionPage/AuctionPage';
 import AuctionDetailsPage from 'components/auctions/auctionDetailsPage/AuctionDetailsPage';
+import AddAuctionPage from 'components/auctions/addAuctionPage/AddAuctionPage';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -49,6 +50,7 @@ const App = () => {
             :
             <Routes>
               <Route path={ routes.auctions }>
+                <Route path={ routes.addAuction } element={ <AddAuctionPage /> }/>
                 <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
