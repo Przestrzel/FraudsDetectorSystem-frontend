@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { HTMLInputTypeAttribute, useCallback } from 'react';
 import { Controller, Control } from 'react-hook-form';
 import TextField from '@mui/material/TextField';
@@ -6,7 +7,7 @@ import styles from './Input.module.scss';
 
 type Props = {
   label: string;
-  control: Control;
+  control: Control<any, any>;
   name: string;
   type?: HTMLInputTypeAttribute;
   className?: string;

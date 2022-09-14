@@ -1,0 +1,20 @@
+@import 'styles/_variables.scss';
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: calc(100% - 100px);
+  width: 100%;
+  padding: 16px 120px;
+
+  .title{
+    h3 {
+      font-size: 24px;
+      font-weight: 500;
+      color: $header-primary;
+      margin-bottom: 16px;
+    }
+  }
+}

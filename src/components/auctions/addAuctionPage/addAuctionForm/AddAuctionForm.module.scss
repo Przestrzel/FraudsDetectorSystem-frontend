@@ -1,0 +1,31 @@
+@import 'styles/_variables.scss';
+
+.formLayout {
+  padding-left: 8px;
+  .input {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    color: $gray;
+    outline: none;
+  }
+
+  .start_date,
+  .status {
+    width: calc(50% - 8px);
+    margin-right: 16px !important;
+  }
+  .end_date,
+  .criteria{
+    width: calc(50% - 8px);
+  }
+
+  .buttons {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
