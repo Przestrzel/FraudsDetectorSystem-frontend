@@ -9,6 +9,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './src/:/app/src'
+    container_name: react
     ports:
       - '3000:3000'
 
@@ -18,5 +19,6 @@ services:
         dockerfile: Dockerfile.ganache
     environment:
       - NODE_OPTIONS=--openssl-legacy-provider
+    container_name: ganache
     ports:
       - "8545:8545"
