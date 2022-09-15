@@ -2,6 +2,8 @@ version: '3.7'
 
 services:
   react-dev:
+    depends_on:
+        - "ganache"
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,3 +11,12 @@ services:
       - './src/:/app/src'
     ports:
       - '3000:3000'
+
+  ganache:
+    build:
+        context: .
+        dockerfile: Dockerfile.ganache
+    environment:
+      - NODE_OPTIONS=--openssl-legacy-provider
+    ports:
+      - "8545:8545"

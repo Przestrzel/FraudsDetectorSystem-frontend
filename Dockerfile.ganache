@@ -1,0 +1,9 @@
+# node:alpine will be our base image to create this image
+# to have node.js installed
+FROM node:alpine
+# Set the /app directory as working directory
+WORKDIR /app
+# Install ganache-cli globally
+RUN npm install -g ganache-cli
+# Set the default command for the image
+CMD ["ganache-cli", "--account", "0x1869e665a44b4062cfa8242ec88ccb36819d88217a0a0d403858699e2d275f14, 100000000000000000000000000000", "--account", "0x1869e665a44b4062cfa8245f06439e36819d88217a0a0d403858699e2d275f14, 100000000000000000000000000000", "-h", "0.0.0.0", "--mnemonic", "our new cute mnemonic for ganache application chocolate smooth crumble sweet cake", "--networkId", "100", "--db", "."]
