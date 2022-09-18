@@ -10,6 +10,6 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package*.json /app/
 COPY ./ /app/
 
-RUN truffle init -y && truffle migrate
+# RUN truffle init -y && truffle migrate
 
 CMD ["npm", "start"]
