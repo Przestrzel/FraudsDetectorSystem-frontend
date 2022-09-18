@@ -23,45 +23,26 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON("Auctions.json", function(auction) {
+    $.getJSON("Tenders.json", function(tender) {
       // Instantiate a new truffle contract from the artifact
-      App.contracts.Auctions = TruffleContract(auction);
+      App.contracts.Tenders = TruffleContract(tender);
       // Connect provider to interact with contract
-      App.contracts.Auctions.setProvider(App.web3Provider);
-
-   //   App.listenForEvents();
+      App.contracts.Tenders.setProvider(App.web3Provider);
 
       return App.render();
     });
   },
   
   
-  // Listen for events emitted from the contract
-  /*listenForEvents: function() {
-    App.contracts.Election.deployed().then(function(instance) {
-      // Restart Chrome if you are unable to receive this event
-      // This is a known issue with Metamask
-      // https://github.com/MetaMask/metamask-extension/issues/2393
-      instance.votedEvent({}, {
-        fromBlock: 0,
-        toBlock: 'latest'
-      }).watch(function(error, event) {
-        console.log("event triggered", event)
-        // Reload when a new vote is recorded
-        App.render();
-      });
-    });
-  },*/
-
   render: function() {
-    var auctionInstance;
+    var tenderInstance;
     var loader = $("#loader");
     var content = $("#content");
 
     loader.show();
     content.hide();
 
-    // Load account data
+    // Wyświetlanie stanu konta na stronie
     web3.eth.getCoinbase(function(err, account) {
       if (err === null) {
         App.account = account;
@@ -69,12 +50,12 @@ App = {
       }
     });
 
-
-    App.contracts.Auctions.deployed().then(function(instance) {
-      auctionInstance = instance;
-      return auctionInstance.advertisers(App.account);
+    // przykład, nie trzeba kopiować
+    App.contracts.Tenders.deployed().then(function(instance) {
+      tenderInstance = instance;
+      return tenderInstance.advertisers(App.account);
     }).then(function(advertisers) {
-      var candidatesResults = $("#auctionResults");
+      var candidatesResults = $("#tenderResults");
       candidatesResults.empty();
       var candidateTemplate = "<tr> <th>"+ advertisers[0] +"</th></tr>"
       candidatesResults.append(candidateTemplate);
@@ -85,7 +66,10 @@ App = {
     });
     },
 
+    //doładowanie pieniędzy
     MoreMoney: function() {
+      // te web2 i web3 to workaroundy, ale niestety musi tak zostać żeby banglało
+      //(jakbyś tu coś musiał zmienić to mi napisz, because it's complicated)
       web2 = new Web3.providers.HttpProvider('http://localhost:8545');
       web4 = new Web3(web2);
         web4.eth.getAccounts(function(error, result) {
@@ -105,9 +89,9 @@ App = {
   registerAdvertiser: function() {
   var name = $('#fname').val();
   var city = $('#city').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.registerAdvertiser(name, city, { from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.registerAdvertiser(name, city, { from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -126,9 +110,9 @@ registerOfferent: function() {
   var name = $('#offname').val();
   var NIP = $('#NIP').val();
   var owner = $('#owner').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.registerOfferent(name, NIP, owner ,{ from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.registerOfferent(name, NIP, owner ,{ from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -145,13 +129,16 @@ registerOfferent: function() {
 });
 },
 
-createAuction: function() {
-  var name = $('#auctionname').val();
+createTender: function() {
+  //trzeba dodać pobieranie id, na ten moment random
+  var id = Math.random();
+  var name = $('#tendername').val();
+  //w solidity nie ma dat -> muszą być liczbą
   var sdate =  Math.floor(document.getElementById('sdate').valueAsNumber / 1000); //value in seconds
   var edate =  Math.floor(document.getElementById('edate').valueAsNumber / 1000); //value in seconds
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.createAuction(name, sdate, edate ,{ from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.createTender(id, name, sdate, edate ,{ from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -167,11 +154,14 @@ createAuction: function() {
 },
 
 makeOffer: function() {
+   //trzeba dodać pobieranie id, na ten moment random
+   var id = Math.random();
   var name = $('#a_o_name').val();
+  // *100 bo w solidity nie ma floatów i musi być przechowywane w groszach
   var price = document.getElementById('price').valueAsNumber * 100;
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.makeOffer(name, price, { from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.makeOffer(id, name, price, { from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -179,19 +169,19 @@ makeOffer: function() {
     $("#error").html("Transakcja nie powiodła się");
     if (err.message.includes("You are not registered as an offerent"))
     $("#message").html("Aby dodać przetarg należy być zarejestrowanym")
-    else if(err.message.includes("There is no auction with this name"))
-    $("#message").html("Nie ma przetargu o podanej nazwie");
-    else if(err.message.includes("There is no auction"))
-    $("#message").html("Żaden przetarg nie został zarejestrowany");
+    else if(err.message.includes("There is no tender with this id"))
+    $("#message").html("Podany przetarg nie został zarejestrowany w blockchainie");
 });
 },
 
-setAuctionStatus: function() {
+setTenderStatus: function() {
+  //trzeba dodać pobieranie id, na ten moment random
+  var id = Math.random();
   var name = $('#s_name').val();
   var status = $('#status').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.setAuctionStatus(name, status, { from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.setTenderStatus(id, name, status, { from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -199,21 +189,21 @@ setAuctionStatus: function() {
     $("#error").html("Transakcja nie powiodła się");
     if (err.message.includes("You are not registered as an advertiser"))
     $("#message").html("Aby dokonać zmiany w przetargu należy być zarejestrowanym")
-    else if (err.message.includes("You are allowed to change only your auctions"))
+    else if (err.message.includes("You are allowed to change only your tenders"))
     $("#message").html("Można dokonywać zmiany jedynie swojego przetargu")
-    else if(err.message.includes("There is no auction with this name"))
-    $("#message").html("Nie ma przetargu o podanej nazwie");
-    else if(err.message.includes("There is no auction"))
-    $("#message").html("Żaden przetarg nie został zarejestrowany");
+    else if(err.message.includes("There is no tender with this id"))
+    $("#message").html("Podany przetarg nie został zarejestrowany w blockchainie");
 });
 },
 
-setAuctionWinner: function() {
+setTenderWinner: function() {
+  //trzeba dodać pobieranie id, na ten moment random
+  var id = Math.random();
   var name = $('#w_name').val();
   var winner = $('#winner').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.setAuctionWinner(name, winner, { from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.setTenderWinner(id, name, winner, { from: App.account });
   }).then(function(result) {
     $("#content").hide();
     $("#loader").show();
@@ -221,107 +211,52 @@ setAuctionWinner: function() {
     $("#error").html("Transakcja nie powiodła się");
     if (err.message.includes("You are not registered as an advertiser"))
     $("#message").html("Aby dokonać zmiany w przetargu należy być zarejestrowanym")
-    else if (err.message.includes("You are allowed to change only your auctions"))
+    else if (err.message.includes("You are allowed to change only your tenders"))
     $("#message").html("Można dokonywać zmiany jedynie swojego przetargu")
-    else if(err.message.includes("There is no auction with this name"))
-    $("#message").html("Nie ma przetargu o podanej nazwie");
-    else if(err.message.includes("There is no auction"))
-    $("#message").html("Żaden przetarg nie został zarejestrowany");
-    else if (err.message.includes("Auction has no offer with this offerent"))
+    else if(err.message.includes("There is no tender with this id"))
+    $("#message").html("Podany przetarg nie został zarejestrowany w blockchainie");
+    else if (err.message.includes("Tender has no offer with this offerent"))
     $("#message").html("Przetarg nie posiada oferty tego oferenta")
 });
 },
-getAuctionWinner: function() {
+getTenderWinner: function() {
+  //trzeba dodać pobieranie id, na ten moment random
+  var id = Math.random();
   var name = $('#g_w_name').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.getAuctionWinner(name,{ from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.getTenderWinner(id, name,{ from: App.account });
   }).then(function(result) {
-    return auctionInstance.offerents(result);
+    return tenderInstance.offerents(result);
   }).then(function(off) {
     $('#result').html(off[0]);
   })
   .catch(function(err) {
     console.log(err)
     $("#error_get").html("Transakcja nie powiodła się");
-    if(err.data.message.includes("There is no auction with this name"))
-    $("#message_get").html("Nie ma przetargu o podanej nazwie");
-    else if(err.data.message.includes("This auction has no winner"))
+    if(err.data.message.includes("There is no tender with this id"))
+    $("#message_get").html("Podany przetarg nie został zarejestrowany w blockchainie");
+    else if(err.data.message.includes("This tender has no winner"))
     $("#message_get").html("Ten przetarg nie został jeszcze rozstrzygnięty")
-    else if(err.data.message.includes("There is no auction"))
-    $("#message_get").html("Żaden przetarg nie został zarejestrowany");
 });
 },
-getAuctionStatus: function() {
+getTenderStatus: function() {
+  //trzeba dodać pobieranie id, na ten moment random
+  var id = Math.random();
   var name = $('#g_s_name').val();
-  App.contracts.Auctions.deployed().then(function(instance) {
-    auctionInstance = instance;
-    return auctionInstance.getAuctionStatus(name,{ from: App.account });
+  App.contracts.Tenders.deployed().then(function(instance) {
+    tenderInstance = instance;
+    return tenderInstance.getTenderStatus(id, name,{ from: App.account });
   }).then(function(result) {
    
     $('#result').html(result);
   }).catch(function(err) {
     console.log(err);
     $("#error_get").html("Transakcja nie powiodła się");
-    if(err.data.message.includes("There is no auction with this name"))
-    $("#message_get").html("Nie ma przetargu o podanej nazwie");
-    else if(err.data.message.includes("There is no auction"))
-    $("#message_get").html("Żaden przetarg nie został zarejestrowany");
+    if(err.data.message.includes("There is no tender with this id"))
+    $("#message_get").html("Podany przetarg nie został zarejestrowany w blockchainie");
 });
 },
-
-
-
-  /*castVote: function() {
-    var candidateId = $('#candidatesSelect').val();
-    App.contracts.Election.deployed().then(function(instance) {
-      return instance.vote(candidateId, { from: App.account });
-    }).then(function(result) {
-      // Wait for votes to update
-      $("#content").hide();
-      $("#loader").show();
-    }).catch(function(err) {
-      console.error(err);
-    });
-  }*/
-  /* // Load contract data
-    App.contracts.Election.deployed().then(function(instance) {
-      electionInstance = instance;
-      return electionInstance.candidatesCount();
-    }).then(function(candidatesCount) {
-      var candidatesResults = $("#candidatesResults");
-      candidatesResults.empty();
-
-      var candidatesSelect = $('#candidatesSelect');
-      candidatesSelect.empty();
-
-      for (var i = 1; i <= candidatesCount; i++) {
-        electionInstance.candidates(i).then(function(candidate) {
-          var id = candidate[0];
-          var name = candidate[1];
-          var voteCount = candidate[2];
-
-          // Render candidate Result
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
-          candidatesResults.append(candidateTemplate);
-
-          // Render candidate ballot option
-          var candidateOption = "<option value='" + id + "' >" + name + "</ option>"
-          candidatesSelect.append(candidateOption);
-        });
-      }
-      return electionInstance.voters(App.account);
-    }).then(function(hasVoted) {
-      // Do not allow a user to vote
-      if(hasVoted) {
-        $('form').hide();
-      }
-      loader.hide();
-      content.show();
-    }).catch(function(error) {
-      console.warn(error);
-    });
-  },*/
 
 };
 
