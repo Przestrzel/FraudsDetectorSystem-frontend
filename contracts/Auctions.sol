@@ -1,10 +1,10 @@
 pragma solidity   >=0.4.22 <0.8.0;
 pragma experimental ABIEncoderV2;
 
-contract Tenders {
+contract Auctions {
 
-    struct Tender {
-        string tender_name; 
+    struct Auction {
+        string auction_name; 
         address advertiser_addr; 
         uint start_date; 
         uint end_date;
@@ -35,7 +35,7 @@ contract Tenders {
     mapping(address => Advertiser) public advertisers;
     mapping(address => Offerent) public offerents;
 
-    mapping(uint => Tender) public tenders;
+    mapping(uint => Auction) public auctions;
 
     constructor() public{    
     }
@@ -60,100 +60,100 @@ contract Tenders {
         offerents[msg.sender] = newOfferent;
     }
 
-    function createTender(uint id, string memory name, uint startDate, uint endDate) public {
+    function createAuction(uint id, string memory name, uint startDate, uint endDate) public {
         require(bytes(advertisers[msg.sender].advertiser_name).length != 0, "You are not registered as an advertiser"); // advertiser exists
         require(bytes(name).length != 0, "Name has to be provided");
         require(startDate <= endDate, "End date must be later than start date");
-        Tender storage tender = tenders[id];
-        tender.tender_name = name;
-        tender.advertiser_addr = msg.sender;
-        tender.start_date = startDate;
-        tender.end_date = endDate;
-        tender.status = "open";
-        tender.id_winner = -1;
-        tender.offersCounter = 0;
+        Auction storage auction = auctions[id];
+        auction.auction_name = name;
+        auction.advertiser_addr = msg.sender;
+        auction.start_date = startDate;
+        auction.end_date = endDate;
+        auction.status = "open";
+        auction.id_winner = -1;
+        auction.offersCounter = 0;
     }
 
-    function setTenderStatus(uint tender_id, string memory tender_name, string memory status) public {
+    function setAuctionStatus(uint auction_id, string memory auction_name, string memory status) public {
         require(bytes(advertisers[msg.sender].advertiser_name).length != 0, "You are not registered as an advertiser"); 
-        if (strcmp(tenders[tender_id].tender_name, tender_name)) {
-            if(tenders[tender_id].advertiser_addr == msg.sender) {
-                tenders[tender_id].status = status;
+        if (strcmp(auctions[auction_id].auction_name, auction_name)) {
+            if(auctions[auction_id].advertiser_addr == msg.sender) {
+                auctions[auction_id].status = status;
                 return;
             }
             else {
-                revert("You are allowed to change only your tenders"); 
+                revert("You are allowed to change only your auctions"); 
             }
         }
-        revert("There is no tender with this id");
+        revert("There is no auction with this id");
     }
 
-    function setTenderWinner(uint tender_id, string memory tender_name, address winnerAddr) public {
+    function setAuctionWinner(uint auction_id, string memory auction_name, address winnerAddr) public {
         require(bytes(advertisers[msg.sender].advertiser_name).length != 0, "You are not registered as an advertiser");
-        if (strcmp(tenders[tender_id].tender_name, tender_name)) {
-            if(tenders[tender_id].advertiser_addr == msg.sender) {
-                    for (uint256 j = 0; j < tenders[tender_id].offersCounter; j++)
+        if (strcmp(auctions[auction_id].auction_name, auction_name)) {
+            if(auctions[auction_id].advertiser_addr == msg.sender) {
+                    for (uint256 j = 0; j < auctions[auction_id].offersCounter; j++)
                     {
-                        if(tenders[tender_id].offers[j].offerent_addr == winnerAddr)
+                        if(auctions[auction_id].offers[j].offerent_addr == winnerAddr)
                         {
-                            tenders[tender_id].id_winner = int(j);
-                            tenders[tender_id].status = "settled"; //rozstrzygnięte
+                            auctions[auction_id].id_winner = int(j);
+                            auctions[auction_id].status = "settled"; //rozstrzygnięte
                             return;
                         }
                     }
-                    revert("Tender has no offer with this offerent");
+                    revert("Auction has no offer with this offerent");
                 }
                 else {
-                    revert("You are allowed to change only your tenders"); 
+                    revert("You are allowed to change only your auctions"); 
                 }
         }
-        revert("There is no tender with this id");
+        revert("There is no auction with this id");
     }
 
-    function makeOffer(uint tender_id, string memory tender_name, uint price) public{
+    function makeOffer(uint auction_id, string memory auction_name, uint price) public{
         require(bytes(offerents[msg.sender].offerent_name).length != 0, "You are not registered as an offerent");
-         if (strcmp(tenders[tender_id].tender_name, tender_name)) {
+         if (strcmp(auctions[auction_id].auction_name, auction_name)) {
             Offer memory newOffer = Offer(msg.sender, price);
-            tenders[tender_id].offers[tenders[tender_id].offersCounter] = newOffer;
-            tenders[tender_id].offersCounter++;
+            auctions[auction_id].offers[auctions[auction_id].offersCounter] = newOffer;
+            auctions[auction_id].offersCounter++;
             return;
          }
-        revert("There is no tender with this id");
+        revert("There is no auction with this id");
     }
 
 /*
-    function getTenderOffers(string memory tenderName) public view returns(Offer[] memory) {
-        require(tendersCounter > 0, "There is no tender");
-        for (uint256 i = 0; i < tendersCounter; i++) {
-            if (strcmp(tenders[i].tender_name, tenderName)) {
-                Offer[] memory newOffers = new Offer[](tenders[i].offersCounter);
-                for (uint j = 0; j < tenders[i].offersCounter; j++) {
-                    newOffers[j] = tenders[i].offers[j];
+    function getAuctionOffers(string memory auctionName) public view returns(Offer[] memory) {
+        require(auctionsCounter > 0, "There is no auction");
+        for (uint256 i = 0; i < auctionsCounter; i++) {
+            if (strcmp(auctions[i].auction_name, auctionName)) {
+                Offer[] memory newOffers = new Offer[](auctions[i].offersCounter);
+                for (uint j = 0; j < auctions[i].offersCounter; j++) {
+                    newOffers[j] = auctions[i].offers[j];
                 }
                 return newOffers;
             }
         }
-        revert("There is no tender with this name");
+        revert("There is no auction with this name");
     }*/
 
-    function getTenderStatus(uint tender_id, string memory tender_name) public view returns (string memory){
-        if (strcmp(tenders[tender_id].tender_name, tender_name)) {
-            return tenders[tender_id].status;
+    function getAuctionStatus(uint auction_id, string memory auction_name) public view returns (string memory){
+        if (strcmp(auctions[auction_id].auction_name, auction_name)) {
+            return auctions[auction_id].status;
         }
-        revert("There is no tender with this id");
+        revert("There is no auction with this id");
     }
 
-    function getTenderWinner(uint tender_id, string memory tender_name) public view returns(address){
-        if (strcmp(tenders[tender_id].tender_name, tender_name)) {
-             if(tenders[tender_id].id_winner >= 0){
-                    return tenders[tender_id].offers[uint(tenders[tender_id].id_winner)].offerent_addr;
+    function getAuctionWinner(uint auction_id, string memory auction_name) public view returns(address){
+        if (strcmp(auctions[auction_id].auction_name, auction_name)) {
+             if(auctions[auction_id].id_winner >= 0){
+                    return auctions[auction_id].offers[uint(auctions[auction_id].id_winner)].offerent_addr;
                 }
                 else 
                 {
-                    revert("This tender has no winner");
+                    revert("This auction has no winner");
                 }
         }
-        revert("There is no tender with this id");
+        revert("There is no auction with this id");
     }
 
     function memcmp(bytes memory a, bytes memory b) internal pure returns(bool) {

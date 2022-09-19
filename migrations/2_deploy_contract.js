@@ -1,5 +1,5 @@
-var Tenders = artifacts.require('./Tenders.sol');
+var Auctions = artifacts.require('./Auctions.sol');
 
 module.exports = function(deployer) {
-  deployer.deploy(Tenders);
+  deployer.deploy(Auctions);
 };
