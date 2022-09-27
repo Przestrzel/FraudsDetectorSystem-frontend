@@ -3,6 +3,8 @@ import { AppBar, Container, Toolbar } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import LoginIcon from '@mui/icons-material/Login';
 import { routes } from 'utils/config.utils';
 import { Link } from 'react-router-dom';
@@ -15,6 +17,7 @@ import useNotification from 'hooks/useNotification';
 import { NotificationType } from 'types/app.types';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'store/auth.slice';
+import { useWeb3React } from '@web3-react/core';
 
 type Props = {
   isLoggedIn: boolean;
@@ -22,6 +25,7 @@ type Props = {
 
 const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
+  const { active } = useWeb3React();
   const dispatch = useDispatch();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
@@ -59,6 +63,9 @@ const Navbar = ({ isLoggedIn }: Props ) => {
           </Link>
           }
           <div className={ styles.rightNav }>
+            { active ?
+              <div className={ styles.connected }>Connected <CheckCircleIcon /></div> :
+              <div className={ styles.disconnected }>Not connected <RemoveCircleIcon /></div> }
             { isLoggedIn ?
               <button className={ styles.logout } onClick={ onLogout }>
                 Logout
@@ -68,7 +75,6 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                 Log in
                 <LoginIcon sx={ iconSx(false) } />
               </Link>
-
             }
           </div>
         </Toolbar>

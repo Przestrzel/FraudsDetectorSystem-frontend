@@ -16,13 +16,23 @@ import 'styles/index.scss';
 import AuctionPage from 'components/auctions/auctionPage/AuctionPage';
 import AuctionDetailsPage from 'components/auctions/auctionDetailsPage/AuctionDetailsPage';
 import AddAuctionPage from 'components/auctions/addAuctionPage/AddAuctionPage';
+import { useWeb3React } from '@web3-react/core';
+import { injected } from '../../blockchain/connectors';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const { active, activate, deactivate, account, chainId } = useWeb3React();
   const dispatch = useDispatch();
 
   const isLoggedIn = () => {
     return user !== null;
+  };
+  const connect = async() => {
+    try{
+      await activate(injected);
+    }catch(e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +44,14 @@ const App = () => {
           dispatch(saveUser(userData));
         });
     }
+    if(!active){
+      connect();
+    }
+
+    return () => deactivate();
   }, []);
+
+  console.log(active, account, chainId);
 
   return (
     <SnackbarProvider maxSnack={ NOTIFICATION_SNACK_LENGTH }>

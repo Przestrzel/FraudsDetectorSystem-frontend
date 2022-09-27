@@ -4,19 +4,32 @@ import { Provider } from 'react-redux';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { store } from 'store/store';
-import App from 'components/app/App';
+import { Web3ReactProvider } from '@web3-react/core';
+import { ethers } from 'ethers';
 import reportWebVitals from './reportWebVitals';
+
+import App from 'components/app/App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getLibrary = (provider: any) => {
+  const library = new ethers.providers.Web3Provider(provider);
+  library.pollingInterval = 8000;
+  return library;
+};
+
 root.render(
   <React.StrictMode>
-    <Provider store={ store }>
-      <LocalizationProvider dateAdapter={ AdapterDayjs }>
-        <App />
-      </LocalizationProvider>
-    </Provider>
+    <Web3ReactProvider getLibrary={ getLibrary }>
+      <Provider store={ store }>
+        <LocalizationProvider dateAdapter={ AdapterDayjs }>
+          <App />/
+        </LocalizationProvider>
+      </Provider>
+    </Web3ReactProvider>
   </React.StrictMode>
 );
 

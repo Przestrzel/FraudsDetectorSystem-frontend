@@ -41,3 +41,33 @@
 .rightNav {
   display: flex;
 }
+
+@mixin metamaskConnection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  margin-right: 15px;
+  font-weight: 500;
+  svg {
+    margin-left: 8px;
+  }
+}
+
+.connected {
+  @include metamaskConnection;
+  svg {
+    path {
+      fill: $success-green;
+    }
+  }
+}
+
+.disconnected{
+  @include metamaskConnection;
+  svg{
+    path{
+      fill: darken($error-red, 5%);
+    }
+  }
+}
