@@ -28,7 +28,7 @@ type Props = {
 const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
   const { active } = useWeb3React();
-  const { contract, addMoney } = useBlockchain();
+  const { addMoney } = useBlockchain();
   const dispatch = useDispatch();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
