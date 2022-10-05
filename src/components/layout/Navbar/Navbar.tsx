@@ -5,6 +5,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import Button from 'components/common/button/Button';
 import LoginIcon from '@mui/icons-material/Login';
 import { routes } from 'utils/config.utils';
 import { Link } from 'react-router-dom';
@@ -18,6 +19,7 @@ import { NotificationType } from 'types/app.types';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from 'store/auth.slice';
 import { useWeb3React } from '@web3-react/core';
+import useBlockchain from 'hooks/useBlockchain';
 
 type Props = {
   isLoggedIn: boolean;
@@ -26,6 +28,7 @@ type Props = {
 const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
   const { active } = useWeb3React();
+  const { contract, addMoney } = useBlockchain();
   const dispatch = useDispatch();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
@@ -64,7 +67,13 @@ const Navbar = ({ isLoggedIn }: Props ) => {
           }
           <div className={ styles.rightNav }>
             { active ?
-              <div className={ styles.connected }>Connected <CheckCircleIcon /></div> :
+              <div className={ styles.connected }>
+                <Button
+                  className={ styles.addMoneyButton }
+                  text='Add money'
+                  onClick={ () => addMoney() } />
+                Connected <CheckCircleIcon />
+              </div> :
               <div className={ styles.disconnected }>Not connected <RemoveCircleIcon /></div> }
             { isLoggedIn ?
               <button className={ styles.logout } onClick={ onLogout }>
