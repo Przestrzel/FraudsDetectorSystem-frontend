@@ -26,7 +26,7 @@ root.render(
     <Web3ReactProvider getLibrary={ getLibrary }>
       <Provider store={ store }>
         <LocalizationProvider dateAdapter={ AdapterDayjs }>
-          <App />/
+          <App />
         </LocalizationProvider>
       </Provider>
     </Web3ReactProvider>

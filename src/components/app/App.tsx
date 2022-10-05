@@ -21,7 +21,7 @@ import { injected } from '../../blockchain/connectors';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const { active, activate, deactivate, account, chainId } = useWeb3React();
+  const { active, activate, deactivate } = useWeb3React();
   const dispatch = useDispatch();
 
   const isLoggedIn = () => {
@@ -50,8 +50,6 @@ const App = () => {
 
     return () => deactivate();
   }, []);
-
-  console.log(active, account, chainId);
 
   return (
     <SnackbarProvider maxSnack={ NOTIFICATION_SNACK_LENGTH }>
