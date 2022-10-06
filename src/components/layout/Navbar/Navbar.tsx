@@ -71,7 +71,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                 <Button
                   className={ styles.addMoneyButton }
                   text='Register advertiser'
-                  onClick={ () => registerAdvertiser() } />
+                  onClick={ () => registerAdvertiser('ss', 'cc') } />
                 <Button
                   className={ styles.addMoneyButton }
                   text='Add money'

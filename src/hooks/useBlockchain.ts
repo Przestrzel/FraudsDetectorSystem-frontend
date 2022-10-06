@@ -1,15 +1,24 @@
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import Web3 from 'web3';
+import { getContractAddress } from '@ethersproject/address';
 import Auctions from '../build/contracts/Auctions.json';
-
-const contractAddress = '';
 
 const useBlockchain = () => {
   const { account, library: provider } = useWeb3React();
 
-  const initContract = () => {
+  const initContract = async () => {
+    if(!provider) {
+      return;
+    }
+
     const signer = provider.getSigner();
+    const transactionCounts = await signer.getTransactionCount();
+    const contractAddress = getContractAddress({
+      from: account,
+      nonce: transactionCounts,
+    });
+
     return new ethers.Contract(contractAddress, Auctions.abi, signer);
   };
 
@@ -33,10 +42,10 @@ const useBlockchain = () => {
   };
 
   const registerAdvertiser = async (name: string, city: string) => {
-    const contract = initContract();
+    const contract = await initContract();
     if(!contract) return;
 
-    await contract.registerAdvertiser(name, city, { from: account });
+    contract.registerAdvertiser(name, city, { from: account });
   };
 
   return {
