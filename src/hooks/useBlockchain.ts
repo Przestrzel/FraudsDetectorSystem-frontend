@@ -32,10 +32,18 @@ const useBlockchain = () => {
     });
   };
 
+  const registerAdvertiser = async (name: string, city: string) => {
+    const contract = initContract();
+    if(!contract) return;
+
+    await contract.registerAdvertiser(name, city, { from: account });
+  };
+
   return {
     contract: initContract(),
     account,
-    addMoney
+    addMoney,
+    registerAdvertiser
   };
 };
 

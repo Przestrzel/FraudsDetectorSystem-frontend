@@ -28,7 +28,7 @@ type Props = {
 const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
   const { active } = useWeb3React();
-  const { addMoney } = useBlockchain();
+  const { addMoney, registerAdvertiser } = useBlockchain();
   const dispatch = useDispatch();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
@@ -68,6 +68,10 @@ const Navbar = ({ isLoggedIn }: Props ) => {
           <div className={ styles.rightNav }>
             { active ?
               <div className={ styles.connected }>
+                <Button
+                  className={ styles.addMoneyButton }
+                  text='Register advertiser'
+                  onClick={ () => registerAdvertiser() } />
                 <Button
                   className={ styles.addMoneyButton }
                   text='Add money'
