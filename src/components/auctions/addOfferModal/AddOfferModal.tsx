@@ -6,12 +6,15 @@ import Input from 'components/common/input/Input';
 import styles from './AddOfferModal.module.scss';
 import Button from 'components/common/button/Button';
 import { postOffer } from 'services/__mocked__/auctions.service';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 
-type Props = {
-  auctionId: number;
-  isOpen: boolean;
-  onClose: () => void;
-};
+const validationSchema = yup.object({
+  name: yup.string().required(),
+  price: yup.string().required(),
+  date: yup.date().required(),
+});
 
 const inputs = [
   {
@@ -31,8 +34,21 @@ const inputs = [
   }
 ];
 
+type Props = {
+  auctionId: number;
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
-  const { handleSubmit, control, reset } = useForm();
+  const { handleSubmit, control, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: '',
+      price: '',
+      date: dayjs().format('YYYY-MM-DD'),
+    }
+  });
 
   const onSubmit = (data) => {
     postOffer(auctionId, data).then((offer) => {
@@ -55,6 +71,7 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
               label={ input.label }
               type={ input.type }
               name={ input.name }
+              error={ errors[ input.name ]?.message != null }
             />
           )) }
         </div>

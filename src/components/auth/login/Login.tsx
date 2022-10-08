@@ -16,6 +16,13 @@ import { saveUser } from 'store/auth.slice';
 import { setAuthToken } from 'utils/auth.utils';
 import { messages } from 'utils/messages.utils';
 import { NotificationType } from 'types/app.types';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validationSchema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
 
 const inputs = [
   {
@@ -31,7 +38,8 @@ const inputs = [
 ];
 
 const Login = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
     defaultValues: {
       email: '',
       password: ''
@@ -71,6 +79,7 @@ const Login = () => {
               label={ input.label }
               type={ input.type }
               name={ input.name }
+              error={ errors[ input.name ]?.message != null }
             />
           )) }
           <div className={ styles.loginPageButtons }>
