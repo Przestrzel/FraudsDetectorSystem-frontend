@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withSnackbar } from 'notistack';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import { signUp } from 'services/auth.service';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
+import CheckboxLabel from 'components/common/checkboxLabel/CheckboxLabel';
 
 const inputs = [
   {
@@ -48,6 +49,25 @@ const inputs = [
   },
 ];
 
+const companyInputs = [
+  {
+    name: 'company-name',
+    label: 'Company name',
+    type: 'text',
+  },
+  {
+    name: 'nip',
+    label: 'NIP',
+    type: 'text',
+  },
+  {
+    name: 'krs',
+    label: 'KRS',
+    type: 'text',
+    defaultValue: dayjs().format('YYYY-MM-DD'),
+  },
+];
+
 const SignUp = () => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -57,9 +77,13 @@ const SignUp = () => {
       'name': '',
       'surname': '',
       date: dayjs().format('YYYY-MM-DD'),
+      'company-name': null,
+      nip: null,
+      krs: null
     } });
   const { notify } = useNotification();
   const navigate = useNavigate();
+  const [ isCompany, setIsCompany ] = useState(false);
 
   const onSubmit = (data) => {
     signUp(data)
@@ -76,7 +100,9 @@ const SignUp = () => {
   };
 
   return (
-    <AuthCard>
+    <AuthCard className={ `
+    ${ styles.registerContainer }
+    ${ isCompany ? styles.registerExtended : '' }` }>
       <h2>Register</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.signUpPageInputs }>
@@ -92,6 +118,27 @@ const SignUp = () => {
                 { ...input }
               />
             )) }
+
+            <CheckboxLabel
+              isChecked={ isCompany }
+              onCheck={ (isChecked: boolean) => setIsCompany(isChecked) }
+              text='Are you part of company?' />
+
+            <div className={ `
+            ${ styles.companyContainer }
+            ${ isCompany ? styles.companyVisible : '' }` }>
+              { companyInputs.map((input) => (
+                <Input
+                  key={ input.label }
+                  control={ control }
+                  label={ input.label }
+                  type={ input.type }
+                  name={ input.name }
+                  className={ `${ styles[ input.name ] }` }
+                  { ...input }
+                />
+              )) }
+            </div>
             <div className={ styles.signUpButtons }>
               <Button text='Go back to login' onClick={ onGoBackToLogin }/>
               <Button text='Sign up' variant='contained' type='submit'/>
