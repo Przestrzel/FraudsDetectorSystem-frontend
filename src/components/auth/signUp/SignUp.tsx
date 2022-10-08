@@ -122,7 +122,7 @@ const SignUp = () => {
             <CheckboxLabel
               isChecked={ isCompany }
               onCheck={ (isChecked: boolean) => setIsCompany(isChecked) }
-              text='Are you part of company?' />
+              text='Do you represent company?' />
 
             <div className={ `
             ${ styles.companyContainer }
@@ -138,6 +138,7 @@ const SignUp = () => {
                   { ...input }
                 />
               )) }
+              <div className={ styles.companyInfo }>*NIP and KRS are optional</div>
             </div>
             <div className={ styles.signUpButtons }>
               <Button text='Go back to login' onClick={ onGoBackToLogin }/>

@@ -47,6 +47,10 @@
   margin-right: 10px !important;
 }
 
+.companyInfo {
+  color: darken($gray, 10%);
+}
+
 .signUpButtons{
   width: calc(95% + 10px);
   display: flex;
@@ -63,6 +67,6 @@
     max-height: 90px;
     opacity: 1;
     visibility: visible;
-    margin-bottom: 45px;
+    margin-bottom: 65px;
   }
 }
