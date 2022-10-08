@@ -12,6 +12,17 @@ import { useForm } from 'react-hook-form';
 import { AuctionStatus } from 'types/auctions.types';
 import { capitalizeFirstLetter } from 'utils/string.utils';
 import Button from 'components/common/button/Button';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validationSchema = yup.object({
+  name: yup.string().email().required(),
+  city: yup.string().required(),
+  'start_date': yup.date().required(),
+  'end_date': yup.date().required(),
+  status: yup.string().required(),
+  criteria: yup.string().required(),
+});
 
 const inputs = [
   {
@@ -55,14 +66,16 @@ const inputs = [
 ];
 
 const AddAuctionForm = () => {
-  const { control, handleSubmit, register, reset } = useForm({ defaultValues: {
-    name: '',
-    city: '',
-    start_date: dayjs(new Date()).format('YYYY-MM-DD'),
-    end_date: dayjs(new Date()).format('YYYY-MM-DD'),
-    status: AuctionStatus.RESOLVED,
-    criteria: 'price',
-  } });
+  const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: '',
+      city: '',
+      start_date: dayjs(new Date()).format('YYYY-MM-DD'),
+      end_date: dayjs(new Date()).format('YYYY-MM-DD'),
+      status: AuctionStatus.RESOLVED,
+      criteria: 'price',
+    } });
 
   const renderInput = (input) => (
     input.type === 'select' ? (
@@ -95,6 +108,7 @@ const AddAuctionForm = () => {
           label={ input.label }
           type={ input.type }
           name={ input.name }
+          error={ errors[ input.name ]?.message != null }
           className={ `${ styles.input } ${ styles[ input.name ] }` }
         />
       )
