@@ -1,6 +1,7 @@
 export type User = {
   id: number;
   name: string;
+  surname: string;
   email: string;
 };
 
@@ -9,13 +10,9 @@ export type CompanyUser = User & {
   companyId: number;
 };
 
-export enum Roles {
-  USER = 'ROLE_USER',
-}
-
-type HashedUsername = string;
+type HashedEmail = string;
 export type UserAuth = {
-  username: HashedUsername;
+  email: HashedEmail;
   accessToken: string;
   refreshToken: string;
 } & User;

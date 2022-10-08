@@ -17,7 +17,7 @@ const endpoints = {
   logout: '/api/logout',
 };
 
-const NOTIFICATION_DURATION = 3_000;
+const NOTIFICATION_DURATION = 2_000;
 const NOTIFICATION_SNACK_LENGTH = 4;
 
 export { endpoints, routes, NOTIFICATION_DURATION, NOTIFICATION_SNACK_LENGTH };

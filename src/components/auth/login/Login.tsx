@@ -11,7 +11,7 @@ import Button from 'components/common/button/Button';
 
 import styles from './Login.module.scss';
 import { routes } from 'utils/config.utils';
-import { login } from 'services/__mocked__/auth.service';
+import { login } from 'services/auth.service';
 import { saveUser } from 'store/auth.slice';
 import { setAuthToken } from 'utils/auth.utils';
 import { messages } from 'utils/messages.utils';
@@ -44,10 +44,11 @@ const Login = () => {
     login(data)
       .then(userData => {
         const user = cloneDeep(userData);
+        setAuthToken(userData.accessToken);
+        setAuthToken(userData.refreshToken, false);
         delete user.accessToken;
         delete user.refreshToken;
         dispatch(saveUser(user));
-        setAuthToken(userData.accessToken);
         notify('You have successfully logged in!', NotificationType.SUCCESS);
       }).catch(() => {
         notify(messages.unexpected, NotificationType.ERROR);

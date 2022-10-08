@@ -8,7 +8,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import Button from 'components/common/button/Button';
 import LoginIcon from '@mui/icons-material/Login';
 import { routes } from 'utils/config.utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Navbar.module.scss';
 import { logout } from 'services/__mocked__/auth.service';
@@ -31,6 +31,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
   const { notify } = useNotification();
   const { active } = useWeb3React();
   const { addMoney } = useBlockchain();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
@@ -47,9 +48,11 @@ const Navbar = ({ isLoggedIn }: Props ) => {
       .then(() => {
         dispatch(logoutUser());
         setAuthToken('');
+        setAuthToken('', true);
       })
       .finally(() => {
         notify('You have been logged out', NotificationType.INFO);
+        navigate(routes.login);
       });
   }, []);
 
