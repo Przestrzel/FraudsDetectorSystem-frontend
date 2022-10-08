@@ -21,7 +21,7 @@ import { injected } from '../../blockchain/connectors';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-  const { active, activate, deactivate } = useWeb3React();
+  const { active, activate } = useWeb3React();
   const dispatch = useDispatch();
 
   const isLoggedIn = () => {
@@ -47,8 +47,6 @@ const App = () => {
     if(!active){
       connect();
     }
-
-    return () => deactivate();
   }, []);
 
   return (

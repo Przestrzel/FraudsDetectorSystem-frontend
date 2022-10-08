@@ -48,7 +48,15 @@ const inputs = [
 ];
 
 const SignUp = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+      'confirm-password': '',
+      'first-name': '',
+      'last-name': '',
+      date: dayjs().format('YYYY-MM-DD'),
+    } });
   const { notify } = useNotification();
   const navigate = useNavigate();
 

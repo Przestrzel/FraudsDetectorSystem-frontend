@@ -31,7 +31,11 @@ const inputs = [
 ];
 
 const Login = () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: '',
+      password: ''
+    } });
   const { notify } = useNotification();
 
   const dispatch = useDispatch();
@@ -41,9 +45,10 @@ const Login = () => {
     login(data)
       .then(userData => {
         const user = cloneDeep(userData);
-        delete user.token;
+        delete user.accessToken;
+        delete user.refreshToken;
         dispatch(saveUser(user));
-        setAuthToken(userData.token);
+        setAuthToken(userData.accessToken);
         notify('You have successfully logged in!', NotificationType.SUCCESS);
       }).catch(() => {
         notify(messages.unExpected, NotificationType.ERROR);

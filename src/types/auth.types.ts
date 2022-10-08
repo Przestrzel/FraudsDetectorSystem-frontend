@@ -1,11 +1,14 @@
 export type User = {
+  id: number;
   name: string;
   email: string;
-  id: number;
 };
 
+type HashedUsername = string;
 export type UserAuth = {
-  token: string;
+  username: HashedUsername;
+  accessToken: string;
+  refreshToken: string;
 } & User;
 
 export type UserLoginInputs = {

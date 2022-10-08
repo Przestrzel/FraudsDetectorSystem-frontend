@@ -1,4 +1,4 @@
-export const apiUrl = process.env.REACT_APP_API_URL;
+export const apiUrl = 'localhost:8080';
 
 const routes = {
   home: '/',

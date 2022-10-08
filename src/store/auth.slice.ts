@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from 'types/auth.types';
 
-const initialState = {
+type AuthStateType = {
+  user: User;
+};
+
+const initialState: AuthStateType = {
   user: null
 };
 

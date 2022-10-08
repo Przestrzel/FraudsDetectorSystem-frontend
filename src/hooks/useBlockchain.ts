@@ -9,6 +9,9 @@ const useBlockchain = () => {
   const { account, library: provider } = useWeb3React();
 
   const initContract = () => {
+    if(!provider){
+      return null;
+    }
     const signer = provider.getSigner();
     return new ethers.Contract(contractAddress, Auctions.abi, signer);
   };

@@ -6,7 +6,9 @@ const login = (data: UserLoginInputs): Promise<UserAuth> => {
     email: 'example@example.com',
     name: 'name',
     id: 0,
-    token: 'mocked__token'
+    accessToken: 'mocked__token',
+    refreshToken: 'mocked__token',
+    username: '',
   });
 };
 
