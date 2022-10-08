@@ -22,6 +22,7 @@ const getUserData = () => {
   return Promise.resolve({
     email: 'example@example.com',
     name: 'name',
+    surname: 'surname',
     id: 0,
     token: 'mocked__token'
   });

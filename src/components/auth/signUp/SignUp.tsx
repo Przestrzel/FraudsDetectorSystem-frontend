@@ -14,6 +14,22 @@ import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
 import CheckboxLabel from 'components/common/checkboxLabel/CheckboxLabel';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+const validationSchema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+  'confirm-password': yup.string().required().oneOf(
+    [ yup.ref('password'), null ], 'Passwords must match'
+  ),
+  name: yup.string().required(),
+  surname: yup.string().required(),
+  birthdate: yup.date().required(),
+  'company-name': yup.string().optional().nullable(),
+  nip: yup.string().optional().nullable(),
+  krs: yup.string().optional().nullable()
+});
 
 const inputs = [
   {
@@ -69,7 +85,8 @@ const companyInputs = [
 ];
 
 const SignUp = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(validationSchema),
     defaultValues: {
       email: '',
       password: '',
@@ -114,6 +131,7 @@ const SignUp = () => {
                 label={ input.label }
                 type={ input.type }
                 name={ input.name }
+                error={ errors[ input.name ]?.message != null }
                 className={ `${ styles[ input.name ] }` }
                 { ...input }
               />
@@ -134,6 +152,7 @@ const SignUp = () => {
                   label={ input.label }
                   type={ input.type }
                   name={ input.name }
+                  error={ errors[ input.name ]?.message != null }
                   className={ `${ styles[ input.name ] }` }
                   { ...input }
                 />
