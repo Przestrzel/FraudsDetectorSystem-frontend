@@ -9,9 +9,10 @@ import Input from 'components/common/input/Input';
 import styles from './SignUp.module.scss';
 import { routes } from 'utils/config.utils';
 import dayjs from 'dayjs';
-import { signUp } from 'services/__mocked__/auth.service';
+import { signUp } from 'services/auth.service';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
+import { messages } from 'utils/messages.utils';
 
 const inputs = [
   {
@@ -30,17 +31,17 @@ const inputs = [
     type: 'password',
   },
   {
-    name: 'first-name',
+    name: 'name',
     label: 'First name',
     type: 'text',
   },
   {
-    name: 'last-name',
+    name: 'surname',
     label: 'Last name',
     type: 'text',
   },
   {
-    name: 'date',
+    name: 'birthdate',
     label: 'Birthdate',
     type: 'date',
     defaultValue: dayjs().format('YYYY-MM-DD'),
@@ -53,8 +54,8 @@ const SignUp = () => {
       email: '',
       password: '',
       'confirm-password': '',
-      'first-name': '',
-      'last-name': '',
+      'name': '',
+      'surname': '',
       date: dayjs().format('YYYY-MM-DD'),
     } });
   const { notify } = useNotification();
@@ -64,6 +65,9 @@ const SignUp = () => {
     signUp(data)
       .then(() => {
         notify('You have successfully sign up!', NotificationType.SUCCESS);
+        navigate(routes.login);
+      }).catch(() => {
+        notify(messages.unexpected, NotificationType.ERROR);
       });
   };
 

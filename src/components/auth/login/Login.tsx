@@ -37,7 +37,6 @@ const Login = () => {
       password: ''
     } });
   const { notify } = useNotification();
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -51,12 +50,8 @@ const Login = () => {
         setAuthToken(userData.accessToken);
         notify('You have successfully logged in!', NotificationType.SUCCESS);
       }).catch(() => {
-        notify(messages.unExpected, NotificationType.ERROR);
+        notify(messages.unexpected, NotificationType.ERROR);
       });
-  };
-
-  const onForgotPassword = () => {
-    navigate(routes.forgotPassword);
   };
 
   const onSignUp = () => {
@@ -77,9 +72,6 @@ const Login = () => {
               name={ input.name }
             />
           )) }
-          <div className={ styles.loginPageButtons }>
-            <Button text='Forgot password?' size='small' onClick={ onForgotPassword } />
-          </div>
           <div className={ styles.loginPageButtons }>
             <Button text='Sign up' onClick={ onSignUp }/>
             <Button text='Log in' variant='contained' type='submit'/>

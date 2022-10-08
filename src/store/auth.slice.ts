@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'types/auth.types';
+import { CompanyUser, User } from 'types/auth.types';
 
 type AuthStateType = {
-  user: User;
+  user: User | CompanyUser;
 };
 
 const initialState: AuthStateType = {

@@ -1,5 +1,5 @@
 const messages = {
-  unExpected: 'Something went wrong'
+  unexpected: 'Something went wrong'
 };
 
 export { messages };

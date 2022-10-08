@@ -16,7 +16,8 @@ import { setAuthToken } from 'utils/auth.utils';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 import useNotification from 'hooks/useNotification';
 import { NotificationType } from 'types/app.types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store/store';
 import { logoutUser } from 'store/auth.slice';
 import { useWeb3React } from '@web3-react/core';
 import useBlockchain from 'hooks/useBlockchain';
@@ -26,6 +27,7 @@ type Props = {
 } & WithSnackbarProps;
 
 const Navbar = ({ isLoggedIn }: Props ) => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const { notify } = useNotification();
   const { active } = useWeb3React();
   const { addMoney } = useBlockchain();
@@ -66,7 +68,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
           </Link>
           }
           <div className={ styles.rightNav }>
-            { active ?
+            { active && user != null ?
               <div className={ styles.connected }>
                 <Button
                   className={ styles.addMoneyButton }

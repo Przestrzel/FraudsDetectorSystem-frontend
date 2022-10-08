@@ -4,6 +4,15 @@ export type User = {
   email: string;
 };
 
+export type CompanyUser = User & {
+  blockchainPublicKey: string;
+  companyId: number;
+};
+
+export enum Roles {
+  USER = 'ROLE_USER',
+}
+
 type HashedUsername = string;
 export type UserAuth = {
   username: HashedUsername;
@@ -20,7 +29,11 @@ export type UserSignUpInputs = {
   email: string;
   password: string;
   confirmPassword: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  surname: string;
   birthdate: string;
+};
+
+export type CompanyUserSignUpInputs = UserSignUpInputs & {
+  blockchainPublicKey: string;
 };
