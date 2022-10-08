@@ -45,7 +45,9 @@ const useBlockchain = () => {
     const contract = await initContract();
     if(!contract) return;
 
-    contract.registerAdvertiser(name, city, { from: account });
+    contract.deployed().then(instance => {
+      instance.registerAdvertiser(name, city, { from: account });
+    });
   };
 
   return {

@@ -1,17 +1,17 @@
 version: '3.7'
 
 services:
-  react-dev:
-    depends_on:
-        - "ganache"
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - './src/:/app/src'
-    container_name: react
-    ports:
-      - '3000:3000'
+  # react-dev:
+  #   depends_on:
+  #       - "ganache"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - './src/:/app/src'
+  #   container_name: react
+  #   ports:
+  #     - '3000:3000'
 
   ganache:
     build:
