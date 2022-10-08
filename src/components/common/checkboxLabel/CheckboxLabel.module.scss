@@ -1,0 +1,12 @@
+@import 'styles/_variables.scss';
+
+.label{
+  display: flex;
+  align-items: center;
+
+  & > div {
+    color: $text-color;
+    font-size: 14px;
+    @include unselectableText;
+  }
+}
