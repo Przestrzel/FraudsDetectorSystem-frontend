@@ -11,7 +11,8 @@
     width: 400px;
   }
 }
-.email{
+.email,
+.birthdate{
   width: calc(95% + 10px);
   margin: 0 auto;
 }
@@ -19,8 +20,7 @@
 .password,
 .confirm-password,
 .name,
-.surname,
-.date{
+.surname{
   width: 47.5%;
   margin-right: 10px !important;
 }
