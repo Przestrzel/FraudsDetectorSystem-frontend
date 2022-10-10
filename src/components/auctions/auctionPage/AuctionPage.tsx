@@ -45,7 +45,8 @@ const AuctionPage = () => {
             <Pagination
               count={ totalPages }
               page={ page }
-              onChange={ (event, newPage) => setPage(newPage) } />
+              color='primary'
+              onChange={ (_, newPage) => setPage(newPage) } />
           </div>
         </div>
       </div>

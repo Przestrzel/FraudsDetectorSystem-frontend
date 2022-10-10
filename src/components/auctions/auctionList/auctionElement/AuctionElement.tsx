@@ -18,7 +18,7 @@ const AuctionElement = ({ auction }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   const onClick = useCallback(() => {
-    if(!user) {
+    if(!user && auction?.id) {
       return;
     }
     navigate(`${ routes.auctions }/${ auction.id }`);
