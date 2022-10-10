@@ -30,9 +30,9 @@ const Navbar = ({ isLoggedIn }: Props ) => {
   const user = useSelector((state: RootState) => state.auth.user);
   const { notify } = useNotification();
   const { active } = useWeb3React();
-  const { addMoney } = useBlockchain();
-  const navigate = useNavigate();
+  const { addMoney, registerAdvertiser } = useBlockchain();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const iconSx = useCallback((isOnLeft: boolean) => {
     return { display: { xs: 'none', md: 'flex' },
@@ -73,6 +73,10 @@ const Navbar = ({ isLoggedIn }: Props ) => {
           <div className={ styles.rightNav }>
             { active && user != null ?
               <div className={ styles.connected }>
+                <Button
+                  className={ styles.addMoneyButton }
+                  text='Register advertiser'
+                  onClick={ () => registerAdvertiser('ssssss', 'c23c') } />
                 <Button
                   className={ styles.addMoneyButton }
                   text='Add money'
