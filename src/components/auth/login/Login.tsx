@@ -50,13 +50,12 @@ const Login = () => {
 
   const onSubmit = (data) => {
     login(data)
-      .then(userData => {
-        console.log(userData);
+      .then(({ data: userData }) => {
         const user = cloneDeep(userData);
-        setAuthToken(userData.accessToken);
-        setAuthToken(userData.refreshToken, false);
-        delete user.accessToken;
-        delete user.refreshToken;
+        setAuthToken(userData.access_token);
+        setAuthToken(userData.refresh_token, true);
+        delete user.access_token;
+        delete user.refresh_token;
         dispatch(saveUser(user));
         notify('You have successfully logged in!', NotificationType.SUCCESS);
       }).catch(() => {

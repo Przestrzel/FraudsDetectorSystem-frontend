@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type User = {
   id: number;
   name: string;
@@ -13,8 +14,8 @@ export type CompanyUser = User & {
 type HashedEmail = string;
 export type UserAuth = {
   email: HashedEmail;
-  accessToken: string;
-  refreshToken: string;
+  access_token: string;
+  refresh_token: string;
 } & User;
 
 export type UserLoginInputs = {

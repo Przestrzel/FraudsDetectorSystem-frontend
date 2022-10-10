@@ -1,24 +1,16 @@
 import Loader from 'components/common/loader/Loader';
-import React, { useEffect, useState } from 'react';
-import { getAuctions } from 'services/__mocked__/auctions.service';
+import React from 'react';
 import { Auction } from 'types/auctions.types';
 import AuctionElement from './auctionElement/AuctionElement';
 
 import styles from './AuctionList.module.scss';
 
-const AuctionList = () => {
-  const [ auctions, setAuctions ] = useState<Auction[]>([]);
-  const [ isLoading, setIsLoading ] = useState(true);
+type Props = {
+  auctions: Auction[];
+  isLoading: boolean;
+};
 
-  useEffect(() => {
-    setIsLoading(true);
-    getAuctions().then(data => {
-      setAuctions(data);
-    }).finally(() => {
-      setIsLoading(false);
-    });
-  }, []);
-
+const AuctionList = ({ auctions, isLoading }: Props) => {
   return (
     <div className={ styles.auctionList }>
       { isLoading ?

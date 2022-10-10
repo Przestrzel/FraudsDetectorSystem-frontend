@@ -14,6 +14,9 @@ const endpoints = {
   login: '/api/login',
   registerUser: '/api/user/saveUser',
   logout: '/api/logout',
+  auctions: {
+    index: '/api/auctionsPaged',
+  }
 };
 
 const NOTIFICATION_DURATION = 2_000;
