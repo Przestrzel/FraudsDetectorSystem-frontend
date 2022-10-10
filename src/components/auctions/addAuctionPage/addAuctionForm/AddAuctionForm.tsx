@@ -36,12 +36,12 @@ const inputs = [
     label: 'City',
   },
   {
-    name: 'start_date',
+    name: 'startDate',
     type: 'date',
     label: 'Start date',
   },
   {
-    name: 'end_date',
+    name: 'endDate',
     type: 'date',
     label: 'End date',
   },
@@ -71,8 +71,8 @@ const AddAuctionForm = () => {
     defaultValues: {
       name: '',
       city: '',
-      start_date: dayjs(new Date()).format('YYYY-MM-DD'),
-      end_date: dayjs(new Date()).format('YYYY-MM-DD'),
+      startDate: dayjs(new Date()).format('YYYY-MM-DD'),
+      endDate: dayjs(new Date()).format('YYYY-MM-DD'),
       status: AuctionStatus.RESOLVED,
       criteria: 'price',
     } });

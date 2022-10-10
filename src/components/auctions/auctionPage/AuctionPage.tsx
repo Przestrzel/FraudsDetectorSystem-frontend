@@ -33,7 +33,7 @@ const AuctionPage = () => {
   }, [ page ]);
 
   const debouncedGetAuctions = useCallback(
-    debounce(getPaginatedAuctions, 100), [ page ]
+    debounce(getPaginatedAuctions, 1_000), []
   );
 
   useEffect(() => {

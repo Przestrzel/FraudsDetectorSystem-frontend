@@ -15,8 +15,8 @@ const AuctionList = ({ auctions, isLoading }: Props) => {
     <div className={ styles.auctionList }>
       { isLoading ?
         <Loader /> :
-        auctions.map((auction) => (
-          <AuctionElement key={ auction.id } auction={ auction } />
+        auctions.map((auction, index) => (
+          <AuctionElement key={ auction.id || index } auction={ auction } />
         ))
       }
     </div>

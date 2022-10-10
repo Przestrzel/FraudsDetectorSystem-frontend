@@ -1,8 +1,8 @@
-import { UserLoginInputs, UserSignUpInputs, UserAuth } from 'types/auth.types';
+import { UserLoginInputs, UserSignUpInputs } from 'types/auth.types';
 import { endpoints } from 'utils/config.utils';
 import http from 'utils/http.utils';
 
-const login = (data: UserLoginInputs): Promise<any> => {
+const login = (data: UserLoginInputs) => {
   return http.post(`${ endpoints.login }?email=${ data.email }&password=${ data.password }`);
 };
 
