@@ -28,7 +28,7 @@ export type UserSignUpInputs = {
   confirmPassword: string;
   name: string;
   surname: string;
-  birthdate: string;
+  birthdayDate: string;
 };
 
 export type CompanyUserSignUpInputs = UserSignUpInputs & {

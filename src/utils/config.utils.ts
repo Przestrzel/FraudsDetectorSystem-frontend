@@ -12,8 +12,7 @@ const routes = {
 
 const endpoints = {
   login: '/api/login',
-  registerUser: '/api/user/saveNormalUser',
-  registerCompanyUser: '/api/user/saveCompanyUser',
+  registerUser: '/api/user/saveUser',
   logout: '/api/logout',
 };
 

@@ -44,7 +44,7 @@ const App = () => {
           dispatch(saveUser(userData));
         });
     }
-    if(!active){
+    if(!active && isLoggedIn()){
       connect();
     }
   }, []);

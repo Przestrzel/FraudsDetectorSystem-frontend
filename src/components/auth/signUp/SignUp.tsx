@@ -20,15 +20,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const validationSchema = yup.object({
   email: yup.string().email().required(),
   password: yup.string().required(),
-  'confirm-password': yup.string().required().oneOf(
+  confirmPassword: yup.string().required().oneOf(
     [ yup.ref('password'), null ], 'Passwords must match'
   ),
   name: yup.string().required(),
   surname: yup.string().required(),
-  birthdate: yup.date().required(),
-  'company-name': yup.string().optional().nullable(),
-  nip: yup.string().optional().nullable(),
-  krs: yup.string().optional().nullable()
+  birthdayDate: yup.date().required(),
+  companyName: yup.string().optional().nullable(),
+  NIP: yup.string().optional().nullable(),
 });
 
 const inputs = [
@@ -43,7 +42,7 @@ const inputs = [
     type: 'password',
   },
   {
-    name: 'confirm-password',
+    name: 'confirmPassword',
     label: 'Confirm password',
     type: 'password',
   },
@@ -58,7 +57,7 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'birthdate',
+    name: 'birthdayDate',
     label: 'Birthdate',
     type: 'date',
     defaultValue: dayjs().format('YYYY-MM-DD'),
@@ -67,20 +66,14 @@ const inputs = [
 
 const companyInputs = [
   {
-    name: 'company-name',
+    name: 'companyName',
     label: 'Company name',
     type: 'text',
   },
   {
-    name: 'nip',
+    name: 'NIP',
     label: 'NIP',
     type: 'text',
-  },
-  {
-    name: 'krs',
-    label: 'KRS',
-    type: 'text',
-    defaultValue: dayjs().format('YYYY-MM-DD'),
   },
 ];
 
@@ -90,13 +83,13 @@ const SignUp = () => {
     defaultValues: {
       email: '',
       password: '',
-      'confirm-password': '',
-      'name': '',
-      'surname': '',
-      date: dayjs().format('YYYY-MM-DD'),
-      'company-name': null,
-      nip: null,
-      krs: null
+      confirmPassword: '',
+      name: '',
+      surname: '',
+      blockchainPublicKey: '0',
+      birthdayDate: dayjs().format('YYYY-MM-DD'),
+      companyName: null,
+      NIP: 2322321312,
     } });
   const { notify } = useNotification();
   const navigate = useNavigate();

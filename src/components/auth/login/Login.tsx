@@ -51,6 +51,7 @@ const Login = () => {
   const onSubmit = (data) => {
     login(data)
       .then(userData => {
+        console.log(userData);
         const user = cloneDeep(userData);
         setAuthToken(userData.accessToken);
         setAuthToken(userData.refreshToken, false);
