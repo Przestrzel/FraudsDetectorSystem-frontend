@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
+import React, { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { debounce } from 'lodash';
-import React, { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { getAuctions } from 'services/auctions.service';
 import { Auction } from 'types/auctions.types';
@@ -13,6 +13,8 @@ import styles from './AuctionPage.module.scss';
 const AuctionPage = () => {
   const [ auctions, setAuctions ] = useState<Auction[]>([]);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [ page, setPage ] = useState(1);
+  const [ totalPages, setTotalPages ] = useState(2);
   const { control, register } = useForm({ defaultValues: {
     auction: '',
     city: 0,
@@ -21,20 +23,25 @@ const AuctionPage = () => {
   } });
 
   const getPaginatedAuctions = useCallback(() => {
-    getAuctions().then(data => {
-      console.log(data);
-      setAuctions([]);
+    setIsLoading(true);
+    getAuctions(page).then(({ data })=> {
+      setAuctions(prev => [ ...prev, ...data.items ]);
+      setTotalPages(data.totalPages);
     }).finally(() => {
       setIsLoading(false);
     });
-  }, []);
+  }, [ page ]);
 
-  const debouncedGetAuctions = useCallback(debounce(getPaginatedAuctions, 500), []);
+  const debouncedGetAuctions = useCallback(
+    debounce(getPaginatedAuctions, 100), [ page ]
+  );
 
   useEffect(() => {
-    setIsLoading(true);
+    if(totalPages <= page) {
+      return;
+    }
     debouncedGetAuctions();
-  }, []);
+  }, [ page ]);
 
   return (
     <div className={ styles.auctionPage }>

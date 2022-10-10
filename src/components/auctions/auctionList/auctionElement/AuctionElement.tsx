@@ -7,6 +7,7 @@ import { routes } from 'utils/config.utils';
 import { RootState } from 'store/store';
 
 import styles from './AuctionElement.module.scss';
+import dayjs from 'dayjs';
 
 type Props = {
   auction: Auction;
@@ -32,11 +33,11 @@ const AuctionElement = ({ auction }: Props) => {
       <div className={ styles.auctionDetails }>
         <div className={ styles.auctionDetailsElement }>
           <div>Start date</div>
-          <div>{ auction.startDate }</div>
+          <div>{ dayjs(auction.startDate).format('YYYY-MM-DD') }</div>
         </div>
         <div className={ styles.auctionDetailsElement }>
           <div>End date</div>
-          <div>{ auction.endDate }</div>
+          <div>{ dayjs(auction.endDate).format('YYYY-MM-DD') }</div>
         </div>
         <div className={ styles.auctionDetailsElement }>
           <div>Status</div>
