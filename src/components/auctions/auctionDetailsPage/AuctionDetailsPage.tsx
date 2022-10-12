@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loader from 'components/common/loader/Loader';
+import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
 import { getAuction } from 'services/auctions.service';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -38,7 +39,8 @@ const AuctionDetailsPage = () => {
                 placement='top'
                 title={ `This auction is ${ auction.redFlag ? 'suspicious' : 'trusted' }` }
               >
-                <Flag className={ `${ styles.flag } ${ auction.redFlag ? styles.flagRed: '' }` } />
+                <Flag className={ `${ styles.flag }
+                  ${ auction.redFlag ? styles.flagRed: styles.flagGreen }` } />
               </Tooltip>
             </div>
             <div className={ styles.auctionInfo }>
@@ -49,11 +51,11 @@ const AuctionDetailsPage = () => {
               <div>
                 <div className={ styles.auctionInfoDetail }>
                   <div className={ styles.auctionLabel }>Start date:</div>
-                  <div>{ auction.startDate }</div>
+                  <div>{ dayjs(auction.startDate).format('YYYY-MM-DD') }</div>
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   <div className={ styles.auctionLabel }>End date:</div>
-                  <div>{ auction.endDate }</div>
+                  <div>{ dayjs(auction.endDate).format('YYYY-MM-DD') }</div>
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   <div className={ styles.auctionLabel }>Status:</div>
@@ -61,7 +63,7 @@ const AuctionDetailsPage = () => {
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   <div className={ styles.auctionLabel }>Criteria:</div>
-                  <div>{ auction.criteria }</div>
+                  <div>{ auction.criterium }</div>
                 </div>
               </div>
             </div>
@@ -71,7 +73,7 @@ const AuctionDetailsPage = () => {
                 <button
                   onClick={ () => setIsModalOpen(true) }
                   className={ styles.addOffer }>
-                  <AddCircleIcon />Add offer
+                  <AddCircleIcon /> Add offer
                 </button>
               </div>
               <AuctionOffers offers={ auction.offers } />

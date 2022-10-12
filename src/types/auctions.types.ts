@@ -15,7 +15,7 @@ export enum AuctionStatus {
 export type AuctionCriteria = 'price' | 'quality';
 
 export type AuctionDetails = Auction & {
-  criteria: AuctionCriteria;
+  criterium: AuctionCriteria;
   offers: AuctionOffer[];
   redFlag: boolean;
 };

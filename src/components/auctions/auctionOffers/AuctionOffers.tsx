@@ -9,7 +9,7 @@ type Props = {
 const AuctionOffers = ({ offers }: Props) => {
   return (
     <div className={ styles.offersGrid }>
-      { offers.map((offer) => (
+      { offers?.length ? offers.map((offer) => (
         <div className={ styles.offer } key={ offer.id }>
           <div className={ styles.offerRow }>
             <div className={ styles.offerLabel }>Name:</div>
@@ -20,7 +20,7 @@ const AuctionOffers = ({ offers }: Props) => {
             <div>{ offer.price } PLN</div>
           </div>
         </div>
-      )) }
+      )) : 'No auctions found' }
     </div>
   );
 };
