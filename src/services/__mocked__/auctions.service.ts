@@ -1,8 +1,8 @@
-import { Auction, AuctionDetails, AuctionOffer, AuctionStatus } from 'types/auctions.types';
+import { AuctionDetails, AuctionOffer, AuctionStatus } from 'types/auctions.types';
 import auctions from './data/auctions';
 
-const getAuctions = () => {
-  return Promise.resolve<Auction[]>(auctions);
+const getAuctions = (page = 1) => {
+  return Promise.resolve({ data: { items: auctions, totalPages: 5 } });
 };
 
 const getAuction = (id: string) => {

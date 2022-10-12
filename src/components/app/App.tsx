@@ -44,10 +44,13 @@ const App = () => {
           dispatch(saveUser(userData));
         });
     }
+  }, [ ]);
+
+  useEffect(() => {
     if(!active && isLoggedIn()){
       connect();
     }
-  }, []);
+  }, [ user ]);
 
   return (
     <SnackbarProvider maxSnack={ NOTIFICATION_SNACK_LENGTH }>

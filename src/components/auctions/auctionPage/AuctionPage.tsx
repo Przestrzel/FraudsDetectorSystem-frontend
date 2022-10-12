@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
-import { getAuctions } from 'services/auctions.service';
+import { getAuctions } from 'services/__mocked__/auctions.service';
 import { Auction } from 'types/auctions.types';
 import AuctionFilters from '../auctionFilters/AuctionFilters';
 import AuctionList from '../auctionList/AuctionList';
