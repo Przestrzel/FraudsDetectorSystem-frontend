@@ -16,6 +16,7 @@ const endpoints = {
   logout: '/api/logout',
   auctions: {
     index: '/api/auctionsPaged',
+    detail: '/api/auctions',
   }
 };
 

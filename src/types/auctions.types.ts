@@ -1,6 +1,6 @@
 export type Auction = {
   id: number;
-  name: string;
+  auctionName: string;
   startDate: string;
   endDate: string;
   status: AuctionStatus;

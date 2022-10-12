@@ -3,7 +3,7 @@ import { endpoints } from 'utils/config.utils';
 import http from 'utils/http.utils';
 
 const login = (data: UserLoginInputs) => {
-  return http.post(`${ endpoints.login }?email=${ data.email }&password=${ data.password }`);
+  return http.post(`${ endpoints.login }`, data);
 };
 
 const signUp = (data: UserSignUpInputs) => {

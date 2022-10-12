@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Loader from 'components/common/loader/Loader';
 import { useParams } from 'react-router-dom';
-import { getAuction } from 'services/__mocked__/auctions.service';
+import { getAuction } from 'services/auctions.service';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { AuctionDetails } from 'types/auctions.types';
 import { ReactComponent as Flag } from 'assets/icons/flag.svg';
@@ -21,8 +21,8 @@ const AuctionDetailsPage = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    getAuction(id).then(data => {
-      setAuction(data);
+    getAuction(+id).then(data => {
+      setAuction(data.data);
     }).finally(() => {
       setIsLoading(false);
     });
@@ -44,7 +44,7 @@ const AuctionDetailsPage = () => {
             <div className={ styles.auctionInfo }>
               <div>
                 <div className={ styles.auctionLabel }>Title</div>
-                <div className={ styles.auctionTitle }>{ auction.name }</div>
+                <div className={ styles.auctionTitle }>{ auction.auctionName }</div>
               </div>
               <div>
                 <div className={ styles.auctionInfoDetail }>
