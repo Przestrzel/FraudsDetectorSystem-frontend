@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CompanyUser, User } from 'types/auth.types';
+import { CompanyUser } from 'types/auth.types';
 
 type AuthStateType = {
-  user: User | CompanyUser;
+  user: CompanyUser;
 };
 
 const initialState: AuthStateType = {
@@ -13,7 +13,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    saveUser: (state, action: PayloadAction<User>) => {
+    saveUser: (state, action: PayloadAction<CompanyUser>) => {
       return {
         ...state,
         user: action.payload

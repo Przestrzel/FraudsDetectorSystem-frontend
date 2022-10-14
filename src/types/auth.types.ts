@@ -4,11 +4,17 @@ export type User = {
   name: string;
   surname: string;
   email: string;
+  birthdayDate: Date;
 };
 
 export type CompanyUser = User & {
-  blockchainPublicKey: string;
-  companyId: number;
+  companyName?: string;
+  NIP?: number;
+  KRS?: number;
+  institutionName?: string;
+  city?: string;
+  postalCode?: string;
+  isOrganization?: boolean;
 };
 
 type HashedEmail = string;

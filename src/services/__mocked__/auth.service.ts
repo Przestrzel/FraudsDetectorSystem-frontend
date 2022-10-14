@@ -4,7 +4,8 @@ const getUserData = () => {
     name: 'name',
     surname: 'surname',
     id: 0,
-    token: 'mocked__token'
+    token: 'mocked__token',
+    birthdayDate: new Date(),
   });
 };
 

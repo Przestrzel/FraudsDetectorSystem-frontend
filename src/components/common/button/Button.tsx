@@ -7,7 +7,7 @@ type Props = {
   size?: 'small' | 'medium';
   type?: 'button' | 'submit';
   className?: string;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 const Button = ({ text,

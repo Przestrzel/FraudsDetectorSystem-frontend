@@ -7,6 +7,8 @@ const routes = {
   home: '/',
   login: '/login',
   signUp: '/sign-up',
+  signUpCompany: '/sign-up/company',
+  signUpOrganisation: '/sign-up/organisation',
   forgotPassword: '/forgot-password',
   changePassword: '/change-password',
   auctions: '/auctions',

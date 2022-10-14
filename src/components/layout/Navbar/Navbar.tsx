@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { AppBar, Container, Toolbar } from '@mui/material';
+import React, { useCallback, useState } from 'react';
+import { AppBar, Container, Popover, Toolbar } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -28,6 +28,7 @@ type Props = {
 
 const Navbar = ({ isLoggedIn }: Props ) => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const [ anchorEl, setAnchorEl ] = useState<HTMLButtonElement>(null);
   const { notify } = useNotification();
   const { active } = useWeb3React();
   const { addMoney } = useBlockchain();
@@ -80,6 +81,35 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                 Connected <CheckCircleIcon />
               </div> :
               <div className={ styles.disconnected }>Not connected <RemoveCircleIcon /></div> }
+            { isLoggedIn && (!user?.companyName && !user?.institutionName) &&
+              <div>
+                <Button
+                  className={ styles.addMoneyButton }
+                  onClick={ (e) => setAnchorEl(e.currentTarget) }
+                  text='Profile options' />
+                <Popover
+                  open={ anchorEl != null }
+                  anchorEl={ anchorEl }
+                  onClose={ () => setAnchorEl(null) }
+                  anchorOrigin={ {
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  } }>
+                  <div
+                    className={ styles.popoverElement }
+                    onClick={ () => navigate(routes.signUpCompany) }
+                  >
+                    Register company
+                  </div>
+                  <div
+                    className={ styles.popoverElement }
+                    onClick={ () => navigate(routes.signUpCompany) }
+                  >
+                    Register organisation
+                  </div>
+                </Popover>
+              </div>
+            }
             { isLoggedIn ?
               <button className={ styles.logout } onClick={ onLogout }>
                 Logout
