@@ -4,7 +4,7 @@ export type User = {
   name: string;
   surname: string;
   email: string;
-  birthdayDate: Date;
+  birthdayDate: string;
 };
 
 export type CompanyUser = User & {

@@ -18,6 +18,7 @@ import AuctionDetailsPage from 'components/auctions/auctionDetailsPage/AuctionDe
 import AddAuctionPage from 'components/auctions/addAuctionPage/AddAuctionPage';
 import { useWeb3React } from '@web3-react/core';
 import { injected } from '../../blockchain/connectors';
+import SignUpCompany from 'components/auth/signUpGroup/SignUpCompany';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -40,7 +41,6 @@ const App = () => {
       getUserData()
         .then(data => {
           const userData = cloneDeep(data);
-          delete userData.token;
           dispatch(saveUser(userData));
         });
     }
@@ -70,6 +70,8 @@ const App = () => {
                 <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
+              <Route path={ routes.signUpCompany } element={ <SignUpCompany /> } />
+              <Route path={ routes.signUpOrganisation } />
               <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
           }
