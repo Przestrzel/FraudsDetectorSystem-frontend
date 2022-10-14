@@ -1,4 +1,7 @@
-export const apiUrl = 'http://localhost:8080';
+/* eslint-disable no-undef */
+export const apiUrl = process.env.REACT_APP_API_URL;
+export const ganacheUrl = process.env.REACT_APP_GANACHE_URL;
+export const contractAddress = process.env.REACT_APP_CONTRACT_ADRESS;
 
 const routes = {
   home: '/',
@@ -14,6 +17,7 @@ const endpoints = {
   login: '/api/login',
   registerUser: '/api/user/saveUser',
   logout: '/api/logout',
+  refreshToken: '/api/token/refresh',
   auctions: {
     index: '/api/auctionsPaged',
     detail: '/api/auctions',

@@ -19,4 +19,8 @@ const logout = () => {
   return {};
 };
 
-export { login, signUp, getUserData, logout };
+const refresh = (refreshToken: string) => {
+  return http.post(endpoints.refreshToken, { refreshToken });
+};
+
+export { login, signUp, getUserData, logout, refresh };

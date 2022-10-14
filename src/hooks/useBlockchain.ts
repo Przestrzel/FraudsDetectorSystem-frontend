@@ -1,8 +1,8 @@
 import { useWeb3React } from '@web3-react/core';
 import { ethers } from 'ethers';
 import { NotificationType } from 'types/app.types';
+import { contractAddress, ganacheUrl } from 'utils/config.utils';
 import Web3 from 'web3';
-import { getContractAddress } from '@ethersproject/address';
 import Auctions from '../build/contracts/Auctions.json';
 import useNotification from './useNotification';
 
@@ -15,12 +15,6 @@ const useBlockchain = () => {
       return null;
     }
     const signer = provider.getSigner();
-    const transactionCounts = await signer.getTransactionCount();
-    const contractAddress = getContractAddress({
-      from: account,
-      nonce: transactionCounts,
-    });
-
     return new ethers.Contract(contractAddress, Auctions.abi, signer);
   };
 
@@ -30,7 +24,7 @@ const useBlockchain = () => {
       return;
     };
 
-    const web2 = new Web3.providers.HttpProvider('http://localhost:8545');
+    const web2 = new Web3.providers.HttpProvider(ganacheUrl);
     const web4 = new Web3(web2);
 
     web4.eth.getAccounts(() => {
