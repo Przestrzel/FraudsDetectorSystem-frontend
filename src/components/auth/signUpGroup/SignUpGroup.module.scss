@@ -26,7 +26,10 @@
 }
 .companyName,
 .KRS,
-.NIP{
+.NIP,
+.city,
+.institutionName,
+.postalCode{
   width: calc(95% + 10px);
   margin: 0 auto;
 }

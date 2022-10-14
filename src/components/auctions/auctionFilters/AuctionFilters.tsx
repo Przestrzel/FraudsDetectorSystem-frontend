@@ -25,11 +25,11 @@ const AuctionFilters = ({ control, register }: Props) => {
     <div className={ styles.auctionFilters }>
       <FormControl sx={ { m: 1, minWidth: 360 } } >
         <Controller
-          { ...register('auction') }
           control={ control }
           name='auction'
           render={ ({ field }) => (
             <TextField
+              { ...register('auction') }
               size='small'
               label='Auction name'
               { ...field }
@@ -39,11 +39,11 @@ const AuctionFilters = ({ control, register }: Props) => {
       <FormControl sx={ { m: 1, minWidth: 120 } } size='small' >
         <InputLabel id='city-label'>City</InputLabel>
         <Controller
-          { ...register('city') }
           control={ control }
           name='city'
           render={ ({ field }) => (
             <Select
+              { ...register('city') }
               labelId='city-label'
               label='City'
               autoWidth={ true }
@@ -59,11 +59,11 @@ const AuctionFilters = ({ control, register }: Props) => {
       </FormControl>
       <FormControl sx={ { m: 1, minWidth: 90 } } >
         <Controller
-          { ...register('start_date') }
           control={ control }
           name='start_date'
           render={ ({ field }) => (
             <TextField
+              { ...register('start_date') }
               size='small'
               className={ field.value ? styles.active : '' }
               label='Start date'
@@ -74,11 +74,11 @@ const AuctionFilters = ({ control, register }: Props) => {
       </FormControl>
       <FormControl sx={ { m: 1, minWidth: 90 } } >
         <Controller
-          { ...register('end_date') }
           control={ control }
           name='end_date'
           render={ ({ field }) => (
             <TextField
+              { ...register('end_date') }
               size='small'
               className={ field.value ? styles.active : '' }
               label='End date'

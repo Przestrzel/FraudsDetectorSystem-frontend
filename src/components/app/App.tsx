@@ -19,6 +19,7 @@ import AddAuctionPage from 'components/auctions/addAuctionPage/AddAuctionPage';
 import { useWeb3React } from '@web3-react/core';
 import { injected } from '../../blockchain/connectors';
 import SignUpCompany from 'components/auth/signUpGroup/SignUpCompany';
+import SignUpOrganisation from 'components/auth/signUpGroup/SignUpOrganisation';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -70,8 +71,10 @@ const App = () => {
                 <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
-              <Route path={ routes.signUpCompany } element={ <SignUpCompany /> } />
-              <Route path={ routes.signUpOrganisation } />
+              <Route path={ routes.signUp }>
+                <Route path={ routes.signUpCompany } element={ <SignUpCompany /> } />
+                <Route path={ routes.signUpOrganisation } element={ <SignUpOrganisation /> } />
+              </Route>
               <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
           }

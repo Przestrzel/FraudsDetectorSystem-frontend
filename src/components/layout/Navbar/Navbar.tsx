@@ -97,13 +97,19 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                   } }>
                   <div
                     className={ styles.popoverElement }
-                    onClick={ () => navigate(routes.signUpCompany) }
+                    onClick={ () => {
+                      setAnchorEl(null);
+                      navigate(routes.signUpCompany);
+                    } }
                   >
                     Register company
                   </div>
                   <div
                     className={ styles.popoverElement }
-                    onClick={ () => navigate(routes.signUpCompany) }
+                    onClick={ () => {
+                      setAnchorEl(null);
+                      navigate(routes.signUpOrganisation);
+                    } }
                   >
                     Register organisation
                   </div>

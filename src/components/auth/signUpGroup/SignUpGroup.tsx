@@ -46,7 +46,7 @@ const SignUpGroup = ({ inputs, onSubmit, control, title, handleSubmit }: Props) 
             )) }
             <div className={ styles.signUpButtons }>
               <Button text='Go back' onClick={ onGoBack }/>
-              <Button text='Sign up' variant='contained' type='submit'/>
+              <Button text='Register' variant='contained' type='submit'/>
             </div>
           </div>
         </div>
