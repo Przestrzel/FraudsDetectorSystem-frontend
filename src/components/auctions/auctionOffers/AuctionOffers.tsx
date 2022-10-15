@@ -12,15 +12,15 @@ const AuctionOffers = ({ offers }: Props) => {
       { offers?.length ? offers.map((offer) => (
         <div className={ styles.offer } key={ offer.id }>
           <div className={ styles.offerRow }>
-            <div className={ styles.offerLabel }>Name:</div>
+            <div className={ styles.offerLabel }>Nazwa:</div>
             <div>{ offer.name }</div>
           </div>
           <div className={ styles.offerRow }>
-            <div className={ styles.offerLabel }>Price:</div>
+            <div className={ styles.offerLabel }>Cena:</div>
             <div>{ offer.price } PLN</div>
           </div>
         </div>
-      )) : 'No auctions found' }
+      )) : 'Nie znaleziono żadnych ofert...' }
     </div>
   );
 };

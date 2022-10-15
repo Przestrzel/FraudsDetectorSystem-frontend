@@ -61,7 +61,7 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
   };
 
   return (
-    <Modal isOpen={ isOpen } onClose={ onClose } title='Add new offer'>
+    <Modal isOpen={ isOpen } onClose={ onClose } title='Dodaj nową ofertę'>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.inputs }>
           { inputs.map((input) => (
@@ -76,8 +76,8 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
           )) }
         </div>
         <div className={ styles.buttons }>
-          <Button text='Clear' onClick={ clearForm }/>
-          <Button text='Add' variant='contained' type='submit'/>
+          <Button text='Wyczyść' onClick={ clearForm }/>
+          <Button text='Dodaj' variant='contained' type='submit'/>
         </div>
       </form>
     </Modal>

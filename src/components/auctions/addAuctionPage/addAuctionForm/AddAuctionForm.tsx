@@ -128,8 +128,8 @@ const AddAuctionForm = () => {
           inputs.map((input) => renderInput(input))
         }
         <div className={ styles.buttons }>
-          <Button text='Clear' onClick={ clearForm }/>
-          <Button text='Submit' variant='contained' type='submit'/>
+          <Button text='Wyczyść' onClick={ clearForm }/>
+          <Button text='Dodaj' variant='contained' type='submit'/>
         </div>
       </form>
     </div>
