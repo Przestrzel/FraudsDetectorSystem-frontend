@@ -35,8 +35,7 @@ const useBlockchain = () => {
       },
       (err) => {
         if (!err)
-          notify('You have 1 ETH added', NotificationType.SUCCESS);
-
+          notify('Doładowałeś 1 ETH do konta', NotificationType.INFO);
       });
     });
   };

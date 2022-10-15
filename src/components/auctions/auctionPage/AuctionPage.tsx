@@ -37,7 +37,7 @@ const AuctionPage = () => {
       <div className={ styles.auctionFilters }>
         <div>
           <div className={ styles.auctionFiltersTitle }>
-            Auction filters
+            Filtry
           </div>
           <AuctionFilters control={ control } register={ register }/>
           <AuctionList auctions={ auctions } isLoading={ isLoading } />

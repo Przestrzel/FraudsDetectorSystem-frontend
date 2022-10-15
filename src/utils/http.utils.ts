@@ -34,7 +34,7 @@ http.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    if(error?.response?.status === 403 && error?.message.includes('Token')){
+    if(error?.response?.status === 401){
       const token = getAuthToken(true);
       if(token){
         refresh(token).then(({ data }) => {

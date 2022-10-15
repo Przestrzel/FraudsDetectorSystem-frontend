@@ -24,11 +24,11 @@ const AuctionElement = ({ auction }: Props) => {
       <div className={ styles.auctionName }>{ auction.auctionName }</div>
       <div className={ styles.auctionDetails }>
         <div className={ styles.auctionDetailsElement }>
-          <div>Start date</div>
+          <div>Data rozpoczęcia</div>
           <div>{ dayjs(auction.startDate).format('YYYY-MM-DD') }</div>
         </div>
         <div className={ styles.auctionDetailsElement }>
-          <div>End date</div>
+          <div>Data zakończenia</div>
           <div>{ dayjs(auction.endDate).format('YYYY-MM-DD') }</div>
         </div>
         <div className={ styles.auctionDetailsElement }>

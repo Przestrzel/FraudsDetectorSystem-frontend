@@ -7,17 +7,17 @@ import SignUpGroup from './SignUpGroup';
 const inputs = [
   {
     name: 'institutionName',
-    label: 'Institution Name',
+    label: 'Nazwa instytucji',
     type: 'text'
   },
   {
     name: 'postalCode',
-    label: 'Postal Code',
+    label: 'Kod pocztowy',
     type: 'text',
   },
   {
     name: 'city',
-    label: 'City',
+    label: 'Miasto',
     type: 'text',
   },
 ];
@@ -43,7 +43,7 @@ const SignUpOrganisation = () => {
 
   return (
     <SignUpGroup
-      title='Register organisation'
+      title='Zarejestruj instytucję'
       inputs={ inputs }
       handleSubmit={ handleSubmit }
       onSubmit={ onSubmit }

@@ -35,27 +35,27 @@ const inputs = [
   },
   {
     name: 'password',
-    label: 'Password',
+    label: 'Hasło',
     type: 'password',
   },
   {
     name: 'confirmPassword',
-    label: 'Confirm password',
+    label: 'Potwierdź hasło',
     type: 'password',
   },
   {
     name: 'name',
-    label: 'First name',
+    label: 'Imię',
     type: 'text',
   },
   {
     name: 'surname',
-    label: 'Last name',
+    label: 'Nazwisko',
     type: 'text',
   },
   {
     name: 'birthdayDate',
-    label: 'Birthdate',
+    label: 'Data urodzenia',
     type: 'date',
     defaultValue: dayjs().format('YYYY-MM-DD'),
   },
@@ -79,7 +79,7 @@ const SignUp = () => {
   const onSubmit = (data) => {
     signUp(data)
       .then(() => {
-        notify('You have successfully sign up!', NotificationType.SUCCESS);
+        notify('Zarejestrowałeś się!', NotificationType.SUCCESS);
         navigate(routes.login);
       }).catch(() => {
         notify(messages.unexpected, NotificationType.ERROR);
@@ -92,7 +92,7 @@ const SignUp = () => {
 
   return (
     <AuthCard className={ styles.registerContainer }>
-      <h2>Register</h2>
+      <h2>Zarejestruj się</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.signUpPageInputs }>
           <div className={ styles.signUpPageInputsCentered }>
@@ -109,8 +109,8 @@ const SignUp = () => {
               />
             )) }
             <div className={ styles.signUpButtons }>
-              <Button text='Go back to login' onClick={ onGoBackToLogin }/>
-              <Button text='Sign up' variant='contained' type='submit'/>
+              <Button text='Wróć' onClick={ onGoBackToLogin }/>
+              <Button text='Rejestracja' variant='contained' type='submit'/>
             </div>
           </div>
         </div>

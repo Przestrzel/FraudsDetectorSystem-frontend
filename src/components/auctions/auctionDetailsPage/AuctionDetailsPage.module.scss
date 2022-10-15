@@ -75,6 +75,14 @@
     align-items: center;
     justify-content: space-between;
   }
+  .offerBig {
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
   .addOffer{
     display: flex;
     align-items: center;
@@ -86,6 +94,12 @@
     svg{
       fill: $primary;
       margin-right: 5px;
+    }
+
+    &Big{
+      width: 225px;
+      height: 60px;
+      font-size: 18px;
     }
 
     &:hover{

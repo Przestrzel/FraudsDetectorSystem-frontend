@@ -17,7 +17,8 @@ const cityOptions = [
   { label: 'Łomża', value: 0 },
   { label: 'Mława', value: 1 },
   { label: 'Lubawa', value: 2 },
-  { label: 'Grudziądz', value: 3 }
+  { label: 'Grudziądz', value: 3 },
+  { label: 'Gdańsk', value: 4 },
 ];
 
 const AuctionFilters = ({ control, register }: Props) => {
@@ -31,13 +32,13 @@ const AuctionFilters = ({ control, register }: Props) => {
             <TextField
               { ...register('auction') }
               size='small'
-              label='Auction name'
+              label='Nazwa'
               { ...field }
             />
           ) }/>
       </FormControl>
       <FormControl sx={ { m: 1, minWidth: 120 } } size='small' >
-        <InputLabel id='city-label'>City</InputLabel>
+        <InputLabel id='city-label'>Miasto</InputLabel>
         <Controller
           control={ control }
           name='city'
@@ -45,7 +46,7 @@ const AuctionFilters = ({ control, register }: Props) => {
             <Select
               { ...register('city') }
               labelId='city-label'
-              label='City'
+              label='Miasto'
               autoWidth={ true }
               { ...field }
             >
@@ -66,7 +67,7 @@ const AuctionFilters = ({ control, register }: Props) => {
               { ...register('start_date') }
               size='small'
               className={ field.value ? styles.active : '' }
-              label='Start date'
+              label='Data rozpoczęcia'
               type='date'
               { ...field }
             />
@@ -81,7 +82,7 @@ const AuctionFilters = ({ control, register }: Props) => {
               { ...register('end_date') }
               size='small'
               className={ field.value ? styles.active : '' }
-              label='End date'
+              label='Data zakończenia'
               type='date'
               { ...field }
             />

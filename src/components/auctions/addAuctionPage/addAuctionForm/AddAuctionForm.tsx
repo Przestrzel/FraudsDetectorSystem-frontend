@@ -28,22 +28,22 @@ const inputs = [
   {
     name: 'name',
     type: 'textarea',
-    label: 'Name',
+    label: 'Nazwa',
   },
   {
     name: 'city',
     type: 'text',
-    label: 'City',
+    label: 'Miasto',
   },
   {
     name: 'startDate',
     type: 'date',
-    label: 'Start date',
+    label: 'Data rozpoczęcia',
   },
   {
     name: 'endDate',
     type: 'date',
-    label: 'End date',
+    label: 'Data zakończenia',
   },
   {
     name: 'status',
@@ -57,10 +57,10 @@ const inputs = [
   {
     name: 'criteria',
     type: 'select',
-    label: 'Criteria',
+    label: 'Kryteria oceny',
     options: [
-      { label: 'Price', value: 'price', },
-      { label: 'Quality', value: 'quality', },
+      { label: 'Cena', value: 'price', },
+      { label: 'Jakość', value: 'quality', },
     ]
   },
 ];
@@ -82,11 +82,11 @@ const AddAuctionForm = () => {
       <FormControl className={ styles[ input.name ] } key={ input.label }>
         <InputLabel id={ input.label }>{ input.label }</InputLabel>
         <Controller
-          { ...register(input.name) }
           control={ control }
           name={ input.name }
           render={ ({ field }) => (
             <Select
+              { ...register(input.name) }
               labelId={ input.label }
               label={ input.label }
               { ...field }
@@ -102,7 +102,6 @@ const AddAuctionForm = () => {
     ) :
       (
         <Input
-          { ...register(input.name) }
           key={ input.label }
           control={ control }
           label={ input.label }

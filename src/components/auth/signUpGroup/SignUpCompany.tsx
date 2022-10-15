@@ -7,7 +7,7 @@ import SignUpGroup from './SignUpGroup';
 const inputs = [
   {
     name: 'companyName',
-    label: 'Company Name',
+    label: 'Nazwa firmy',
     type: 'text'
   },
   {
@@ -43,7 +43,7 @@ const SignUpCompany = () => {
 
   return (
     <SignUpGroup
-      title='Register company'
+      title='Zarejestruj firmę'
       inputs={ inputs }
       handleSubmit={ handleSubmit }
       onSubmit={ onSubmit }

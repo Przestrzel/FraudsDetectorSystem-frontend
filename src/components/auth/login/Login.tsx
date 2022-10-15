@@ -32,7 +32,7 @@ const inputs = [
   },
   {
     name: 'password',
-    label: 'Password',
+    label: 'Hasło',
     type: 'password',
   }
 ];
@@ -57,7 +57,7 @@ const Login = () => {
         delete user.access_token;
         delete user.refresh_token;
         dispatch(saveUser(user));
-        notify('You have successfully logged in!', NotificationType.SUCCESS);
+        notify('Zalogowałeś się!', NotificationType.SUCCESS);
       }).catch(() => {
         notify(messages.unexpected, NotificationType.ERROR);
       });
@@ -69,7 +69,7 @@ const Login = () => {
 
   return (
     <AuthCard>
-      <h2>Welcome!</h2>
+      <h2>Witaj!</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.loginPageInputs }>
           { inputs.map((input) => (
@@ -83,8 +83,8 @@ const Login = () => {
             />
           )) }
           <div className={ styles.loginPageButtons }>
-            <Button text='Sign up' onClick={ onSignUp }/>
-            <Button text='Log in' variant='contained' type='submit'/>
+            <Button text='Rejestracja' onClick={ onSignUp }/>
+            <Button text='Zaloguj się' variant='contained' type='submit'/>
           </div>
         </div>
       </form>

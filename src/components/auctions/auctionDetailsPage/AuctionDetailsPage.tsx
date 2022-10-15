@@ -21,9 +21,8 @@ const AuctionDetailsPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-
     getAuction(+id).then(data => {
-      setAuction(data.data);
+      setAuction(data?.data);
     }).finally(() => {
       setIsLoading(false);
     });
@@ -45,16 +44,16 @@ const AuctionDetailsPage = () => {
             </div>
             <div className={ styles.auctionInfo }>
               <div>
-                <div className={ styles.auctionLabel }>Title</div>
+                <div className={ styles.auctionLabel }>Nazwa</div>
                 <div className={ styles.auctionTitle }>{ auction.auctionName }</div>
               </div>
               <div>
                 <div className={ styles.auctionInfoDetail }>
-                  <div className={ styles.auctionLabel }>Start date:</div>
+                  <div className={ styles.auctionLabel }>Data rozpoczęcia:</div>
                   <div>{ dayjs(auction.startDate).format('YYYY-MM-DD') }</div>
                 </div>
                 <div className={ styles.auctionInfoDetail }>
-                  <div className={ styles.auctionLabel }>End date:</div>
+                  <div className={ styles.auctionLabel }>Data zakończenia:</div>
                   <div>{ dayjs(auction.endDate).format('YYYY-MM-DD') }</div>
                 </div>
                 <div className={ styles.auctionInfoDetail }>
@@ -62,21 +61,34 @@ const AuctionDetailsPage = () => {
                   <AuctionStatus status={ auction.status } />
                 </div>
                 <div className={ styles.auctionInfoDetail }>
-                  <div className={ styles.auctionLabel }>Criteria:</div>
+                  <div className={ styles.auctionLabel }>Kryteria:</div>
                   <div>{ auction.criterium }</div>
                 </div>
               </div>
             </div>
             <div className={ styles.offers }>
               <div className={ styles.auctionAddOffer }>
-                <div className={ styles.auctionLabel }>Offers</div>
-                <button
-                  onClick={ () => setIsModalOpen(true) }
-                  className={ styles.addOffer }>
-                  <AddCircleIcon /> Add offer
-                </button>
+                <div className={ styles.auctionLabel }>Oferty</div>
+                {
+                  auction.offers?.length &&
+                  <button
+                    onClick={ () => setIsModalOpen(true) }
+                    className={ styles.addOffer }>
+                    <AddCircleIcon /> Dodaj ofertę
+                  </button>
+                }
               </div>
               <AuctionOffers offers={ auction.offers } />
+              {
+                !auction.offers?.length &&
+                <div className={ styles.offerBig }>
+                  <button
+                    onClick={ () => setIsModalOpen(true) }
+                    className={ `${ styles.addOffer } ${ styles.addOfferBig }` }>
+                    <AddCircleIcon /> Dodaj pierwszą ofertę
+                  </button>
+                </div>
+              }
             </div>
           </div>
       }

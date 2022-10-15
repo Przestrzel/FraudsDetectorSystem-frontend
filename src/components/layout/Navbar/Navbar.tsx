@@ -52,7 +52,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
         setAuthToken('', true);
       })
       .finally(() => {
-        notify('You have been logged out', NotificationType.INFO);
+        notify('Wylogowałeś się!', NotificationType.INFO);
         navigate(routes.login);
       });
   }, []);
@@ -63,12 +63,12 @@ const Navbar = ({ isLoggedIn }: Props ) => {
         <Toolbar disableGutters={ true } variant='dense'>
           <Link to={ routes.auctions } className={ styles.link }>
             <DescriptionIcon sx={ iconSx(true) } />
-            Auctions
+            Lista przetargów
           </Link>
           { isLoggedIn &&
           <Link to={ routes.addAuction } className={ styles.link }>
             <AddCircleIcon sx={ iconSx(true) } />
-            Add auction
+            Dodaj przetarg
           </Link>
           }
           <div className={ styles.rightNav }>
@@ -76,11 +76,11 @@ const Navbar = ({ isLoggedIn }: Props ) => {
               <div className={ styles.connected }>
                 <Button
                   className={ styles.addMoneyButton }
-                  text='Add money'
+                  text='Doładuj konto'
                   onClick={ () => addMoney() } />
-                Connected <CheckCircleIcon />
+                Połączony <CheckCircleIcon />
               </div> :
-              <div className={ styles.disconnected }>Not connected <RemoveCircleIcon /></div> }
+              <div className={ styles.disconnected }>Brak połączenia <RemoveCircleIcon /></div> }
             { isLoggedIn && (!user?.companyName && !user?.institutionName) &&
               <div>
                 <Button
@@ -102,7 +102,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                       navigate(routes.signUpCompany);
                     } }
                   >
-                    Register company
+                    Zarejestruj firmę
                   </div>
                   <div
                     className={ styles.popoverElement }
@@ -111,18 +111,18 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                       navigate(routes.signUpOrganisation);
                     } }
                   >
-                    Register organisation
+                    Zarejestruj instytucję
                   </div>
                 </Popover>
               </div>
             }
             { isLoggedIn ?
               <button className={ styles.logout } onClick={ onLogout }>
-                Logout
+                Wyloguj się
                 <ExitToAppIcon sx={ iconSx(false) } />
               </button> :
               <Link to={ routes.login } className={ styles.logout }>
-                Log in
+                Zaloguj się
                 <LoginIcon sx={ iconSx(false) } />
               </Link>
             }
