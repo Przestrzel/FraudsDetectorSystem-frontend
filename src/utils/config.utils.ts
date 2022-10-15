@@ -31,4 +31,12 @@ const endpoints = {
 const NOTIFICATION_DURATION = 2_000;
 const NOTIFICATION_SNACK_LENGTH = 4;
 
+export const cityOptions = [
+  { label: 'Łomża', value: 'Łomża' },
+  { label: 'Mława', value: 'Mława' },
+  { label: 'Lubawa', value: 'Lubawa' },
+  { label: 'Grudziądz', value: 'Grudziądz' },
+  { label: 'Gdańsk', value: 'Gdańsk' },
+];
+
 export { endpoints, routes, NOTIFICATION_DURATION, NOTIFICATION_SNACK_LENGTH };

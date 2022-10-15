@@ -14,6 +14,7 @@ import { capitalizeFirstLetter } from 'utils/string.utils';
 import Button from 'components/common/button/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { cityOptions } from 'utils/config.utils';
 
 const validationSchema = yup.object({
   name: yup.string().email().required(),
@@ -32,8 +33,9 @@ const inputs = [
   },
   {
     name: 'city',
-    type: 'text',
+    type: 'select',
     label: 'Miasto',
+    options: cityOptions
   },
   {
     name: 'startDate',
@@ -70,7 +72,7 @@ const AddAuctionForm = () => {
     resolver: yupResolver(validationSchema),
     defaultValues: {
       name: '',
-      city: '',
+      city: cityOptions[ 0 ].value,
       startDate: dayjs(new Date()).format('YYYY-MM-DD'),
       endDate: dayjs(new Date()).format('YYYY-MM-DD'),
       status: AuctionStatus.RESOLVED,

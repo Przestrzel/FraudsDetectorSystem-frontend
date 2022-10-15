@@ -12,6 +12,7 @@ import { RootState } from 'store/store';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
+import { cloneDeep } from 'lodash';
 
 const inputs = [
   {
@@ -27,6 +28,26 @@ const inputs = [
   {
     name: 'city',
     label: 'Miasto',
+    type: 'text',
+  },
+  {
+    name: 'shareholders',
+    label: 'Udziałowcy',
+    type: 'text',
+  },
+  {
+    name: 'phone_number',
+    label: 'Numer telefonu',
+    type: 'text',
+  },
+  {
+    name: 'REGON',
+    label: 'REGON',
+    type: 'text',
+  },
+  {
+    name: 'legal_form',
+    label: 'Forma prawna',
     type: 'text',
   },
 ];
@@ -54,7 +75,11 @@ const SignUpOrganisation = () => {
     if(!user) {
       return;
     }
-    signUpOrganisation(data, user.email).then(() => {
+    const mappedData = cloneDeep(data);
+    mappedData.shareholders =
+      mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
+
+    signUpOrganisation(mappedData, user.email).then(() => {
       dispatch(saveUser({
         ...user,
         ...data

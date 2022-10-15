@@ -12,13 +12,13 @@ const signUp = (data: UserSignUpInputs) => {
 };
 
 const signUpCompany = (data, id) => {
-  return http.post('', data, {
+  return http.post(endpoints.signUpCompany, data, {
     params: { id }
   }).then(res => res);
 };
 
 const signUpOrganisation = (data, id) => {
-  return http.post('', data, {
+  return http.post(endpoints.signUpOrganisation, data, {
     params: { id }
   }).then(res => res);
 };

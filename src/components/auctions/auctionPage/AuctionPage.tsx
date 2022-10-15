@@ -9,15 +9,16 @@ import AuctionFilters from '../auctionFilters/AuctionFilters';
 import AuctionList from '../auctionList/AuctionList';
 
 import styles from './AuctionPage.module.scss';
+import { cityOptions } from 'utils/config.utils';
 
 const AuctionPage = () => {
   const [ auctions, setAuctions ] = useState<Auction[]>([]);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ page, setPage ] = useState(1);
   const [ totalPages, setTotalPages ] = useState(0);
-  const { control, register } = useForm({ defaultValues: {
+  const { handleSubmit, control, register } = useForm({ defaultValues: {
     auction: '',
-    city: 0,
+    city: cityOptions[ 0 ].value,
     start_date: dayjs(new Date()).format('YYYY-MM-DD'),
     end_date: dayjs(new Date()).format('YYYY-MM-DD'),
   } });
@@ -32,6 +33,10 @@ const AuctionPage = () => {
     });
   }, [ page ]);
 
+  const onFilter= (data) => {
+    console.log(data);
+  };
+
   return (
     <div className={ styles.auctionPage }>
       <div className={ styles.auctionFilters }>
@@ -39,7 +44,10 @@ const AuctionPage = () => {
           <div className={ styles.auctionFiltersTitle }>
             Filtry
           </div>
-          <AuctionFilters control={ control } register={ register }/>
+          <AuctionFilters
+            control={ control }
+            register={ register }
+            onSubmit={ handleSubmit(onFilter) }/>
           <AuctionList auctions={ auctions } isLoading={ isLoading } />
           <div className={ styles.pagination }>
             <Pagination
