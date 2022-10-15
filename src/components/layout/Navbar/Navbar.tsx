@@ -86,7 +86,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
                 <Button
                   className={ styles.addMoneyButton }
                   onClick={ (e) => setAnchorEl(e.currentTarget) }
-                  text='Profile options' />
+                  text='Profil' />
                 <Popover
                   open={ anchorEl != null }
                   anchorEl={ anchorEl }
