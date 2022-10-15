@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { routes, NOTIFICATION_SNACK_LENGTH } from 'utils/config.utils';
-
-import { cloneDeep } from 'lodash';
 import SignUp from 'components/auth/signUp/SignUp';
 import Login from 'components/auth/login/Login';
 import { SnackbarProvider } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import Layout from 'components/layout/Layout';
-import { getAuthToken } from 'utils/auth.utils';
-import { getUserData } from 'services/__mocked__/auth.service';
+import { getAuthToken, setAuthToken } from 'utils/auth.utils';
 import { saveUser } from 'store/auth.slice';
 import 'styles/index.scss';
 import AuctionPage from 'components/auctions/auctionPage/AuctionPage';
@@ -20,6 +17,8 @@ import { useWeb3React } from '@web3-react/core';
 import { injected } from '../../blockchain/connectors';
 import SignUpCompany from 'components/auth/signUpGroup/SignUpCompany';
 import SignUpOrganisation from 'components/auth/signUpGroup/SignUpOrganisation';
+import { refresh } from 'services/auth.service';
+import { cloneDeep } from 'lodash';
 
 const App = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -38,11 +37,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    if(getAuthToken()) {
-      getUserData()
+    const refreshToken = getAuthToken(true);
+    if(refreshToken && refreshToken !== '') {
+      refresh(refreshToken)
         .then(data => {
-          const userData = cloneDeep(data);
-          dispatch(saveUser(userData));
+          const userData = cloneDeep(data.data);
+          setAuthToken(userData.access_token);
+          setAuthToken(userData.refresh_token, true);
+          delete userData.refresh_token;
+          delete userData.access_token;
+          dispatch(saveUser(data.data));
+        }).catch(() => {
+          setAuthToken('');
+          setAuthToken('', true);
         });
     }
   }, [ ]);

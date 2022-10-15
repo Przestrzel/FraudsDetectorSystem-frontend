@@ -17,9 +17,11 @@ const routes = {
 
 const endpoints = {
   login: '/api/login',
-  registerUser: '/api/user/saveUser',
   logout: '/api/logout',
+  registerUser: '/api/user/saveUser',
   refreshToken: '/api/token/refresh',
+  signUpOrganisation: '/api/bidders/save',
+  signUpCompany: '/api/governmentInstitutions/save',
   auctions: {
     index: '/api/auctionsPaged',
     detail: '/api/auctions',

@@ -11,16 +11,30 @@ const signUp = (data: UserSignUpInputs) => {
     .then(res => res);
 };
 
-const getUserData = () => {
-  return {};
+const signUpCompany = (data, id) => {
+  return http.post('', data, {
+    params: { id }
+  }).then(res => res);
+};
+
+const signUpOrganisation = (data, id) => {
+  return http.post('', data, {
+    params: { id }
+  }).then(res => res);
 };
 
 const logout = () => {
-  return {};
+  return http.post(endpoints.logout).then(res => res);
 };
 
 const refresh = (refreshToken: string) => {
   return http.post(endpoints.refreshToken, { refreshToken });
 };
 
-export { login, signUp, getUserData, logout, refresh };
+export { login,
+  signUp,
+  logout,
+  refresh,
+  signUpOrganisation,
+  signUpCompany
+};

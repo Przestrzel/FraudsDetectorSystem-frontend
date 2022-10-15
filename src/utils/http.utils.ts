@@ -45,7 +45,11 @@ http.interceptors.response.use(
           delete user.refresh_token;
           store.dispatch(saveUser(user));
         });
+      } else {
+        return Promise.reject(error);
       }
+    } else {
+      return Promise.reject(error);
     }
   }
 );

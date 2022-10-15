@@ -3,6 +3,15 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import SignUpGroup from './SignUpGroup';
+import { signUpOrganisation } from 'services/auth.service';
+import { useNavigate } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUser } from 'store/auth.slice';
+import { routes } from 'utils/config.utils';
+import { RootState } from 'store/store';
+import { NotificationType } from 'types/app.types';
+import useNotification from 'hooks/useNotification';
+import { messages } from 'utils/messages.utils';
 
 const inputs = [
   {
@@ -29,6 +38,10 @@ const validationSchema = yup.object({
 });
 
 const SignUpOrganisation = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { notify } = useNotification();
+  const user = useSelector((state: RootState) => state.auth.user);
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -38,7 +51,19 @@ const SignUpOrganisation = () => {
     } });
 
   const onSubmit = (data) => {
-    console.log(data);
+    if(!user) {
+      return;
+    }
+    signUpOrganisation(data, user.email).then(() => {
+      dispatch(saveUser({
+        ...user,
+        ...data
+      }));
+      notify('Zarejestrowałeś instytucję!', NotificationType.INFO);
+      navigate(routes.auctions);
+    }).catch(() => {
+      notify(messages.unexpected, NotificationType.ERROR);
+    });
   };
 
   return (

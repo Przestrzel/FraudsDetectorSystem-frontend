@@ -11,7 +11,7 @@ import { routes } from 'utils/config.utils';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './Navbar.module.scss';
-import { logout } from 'services/__mocked__/auth.service';
+import { logout } from 'services/auth.service';
 import { setAuthToken } from 'utils/auth.utils';
 import { withSnackbar, WithSnackbarProps } from 'notistack';
 import useNotification from 'hooks/useNotification';
@@ -21,6 +21,7 @@ import { RootState } from 'store/store';
 import { logoutUser } from 'store/auth.slice';
 import { useWeb3React } from '@web3-react/core';
 import useBlockchain from 'hooks/useBlockchain';
+import { messages } from 'utils/messages.utils';
 
 type Props = {
   isLoggedIn: boolean;
@@ -50,10 +51,10 @@ const Navbar = ({ isLoggedIn }: Props ) => {
         dispatch(logoutUser());
         setAuthToken('');
         setAuthToken('', true);
-      })
-      .finally(() => {
         notify('Wylogowałeś się!', NotificationType.INFO);
         navigate(routes.login);
+      }).catch(() => {
+        notify(messages.unexpected, NotificationType.ERROR);
       });
   }, []);
 

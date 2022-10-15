@@ -28,6 +28,10 @@ const AuctionDetailsPage = () => {
     });
   }, [ id ]);
 
+  const getPriceCriterium = (criteria: string) => {
+    return criteria === 'PRICE' ? 'Cena' : 'Jakość';
+  };
+
   return (
     <div className={ styles.auctionDetailsPage }>
       {
@@ -62,7 +66,7 @@ const AuctionDetailsPage = () => {
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   <div className={ styles.auctionLabel }>Kryteria:</div>
-                  <div>{ auction.criterium }</div>
+                  <div>{ getPriceCriterium(auction.criterium) }</div>
                 </div>
               </div>
             </div>
