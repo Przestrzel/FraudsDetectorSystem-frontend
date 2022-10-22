@@ -8,16 +8,18 @@ export type User = {
 };
 
 export type CompanyUser = User & {
+  companyId?: number;
+  institutionId?: number;
   companyName?: string;
+  institutionName?: string;
   NIP?: number;
   KRS?: number;
-  institutionName?: string;
   city?: string;
   postalCode?: string;
-  shareholders: Shareholder[];
-  REGON: number;
-  legalForm: string;
-  phoneNumber: string;
+  shareholders?: Shareholder[];
+  REGON?: number;
+  legalForm?: string;
+  phoneNumber?: string;
 };
 
 type Shareholder = {

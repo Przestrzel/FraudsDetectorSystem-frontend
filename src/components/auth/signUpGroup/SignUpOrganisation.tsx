@@ -54,10 +54,10 @@ const SignUpOrganisation = () => {
     if(!user){
       return;
     }
-    signUpOrganisation(data, user.id).then(() => {
+    signUpOrganisation(data, user.id).then((res) => {
       dispatch(saveUser({
         ...user,
-        ...data
+        ...res.data
       }));
       notify('Zarejestrowałeś organizację!', NotificationType.INFO);
       navigate(routes.auctions);

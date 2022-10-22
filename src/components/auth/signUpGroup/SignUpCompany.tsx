@@ -16,7 +16,7 @@ import { cloneDeep } from 'lodash';
 
 const inputs = [
   {
-    name: 'institutionName',
+    name: 'name',
     label: 'Nazwa instytucji',
     type: 'text'
   },
@@ -36,7 +36,7 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'phone_number',
+    name: 'phoneNumber',
     label: 'Numer telefonu',
     type: 'text',
   },
@@ -46,14 +46,24 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'legal_form',
+    name: 'legalForm',
     label: 'Forma prawna',
     type: 'text',
+  },
+  {
+    name: 'NIP',
+    label: 'NIP',
+    type: 'number',
+  },
+  {
+    name: 'KRS',
+    label: 'KRS',
+    type: 'number',
   },
 ];
 
 const validationSchema = yup.object({
-  institutionName: yup.string().required(),
+  name: yup.string().required(),
   postalCode: yup.string().required(),
   city: yup.string().required()
 });
@@ -66,7 +76,7 @@ const SignUpCompany = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      institutionName: '',
+      name: '',
       postalCode: '',
       city: ''
     } });
@@ -78,12 +88,10 @@ const SignUpCompany = () => {
     const mappedData = cloneDeep(data);
     mappedData.shareholders =
       mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
-
-    signUpCompany(mappedData, user.id).then((cc) => {
-      console.log(cc);
+    signUpCompany(mappedData, user.id).then((res) => {
       dispatch(saveUser({
         ...user,
-        ...data
+        ...res.data
       }));
       notify('Zarejestrowałeś firmę!', NotificationType.INFO);
       navigate(routes.auctions);

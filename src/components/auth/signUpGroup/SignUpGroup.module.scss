@@ -4,9 +4,8 @@
   display: flex;
   align-items: flex-start;
   transition: all 0.1s linear;
-
   h2 {
-    margin-top: 80px;
+    margin-top: 100px;
   }
 }
 
@@ -22,12 +21,10 @@
   }
 }
 .companyName,
-.KRS,
-.NIP,
 .city,
-.institutionName,
+.name,
 .shareholders,
-.phone_number{
+.phoneNumber{
   width: calc(95% + 10px);
   margin: 0 auto;
 }
@@ -35,7 +32,9 @@
 .postalCode,
 .city,
 .REGON,
-.legal_form{
+.KRS,
+.NIP,
+.legalForm{
   width: 47.5%;
   margin-right: 10px !important;
 }
