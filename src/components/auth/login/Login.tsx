@@ -52,10 +52,10 @@ const Login = () => {
     login(data)
       .then(({ data: userData }) => {
         const user = cloneDeep(userData);
-        setAuthToken(userData.access_token);
-        setAuthToken(userData.refresh_token, true);
-        delete user.access_token;
-        delete user.refresh_token;
+        setAuthToken(userData.accessToken);
+        setAuthToken(userData.refreshToken, true);
+        delete user.accessToken;
+        delete user.refreshToken;
         dispatch(saveUser(user));
         notify('Zalogowałeś się!', NotificationType.SUCCESS);
       }).catch(() => {

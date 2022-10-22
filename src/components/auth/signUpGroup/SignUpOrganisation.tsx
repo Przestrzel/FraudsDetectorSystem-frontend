@@ -4,26 +4,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import SignUpGroup from './SignUpGroup';
 import { signUpOrganisation } from 'services/auth.service';
-import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveUser } from 'store/auth.slice';
 import { routes } from 'utils/config.utils';
+import { useNavigate } from 'react-router';
+import { saveUser } from 'store/auth.slice';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
-import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
+import { NotificationType } from 'types/app.types';
 import { messages } from 'utils/messages.utils';
-import { cloneDeep } from 'lodash';
 
 const inputs = [
   {
-    name: 'institutionName',
-    label: 'Nazwa instytucji',
+    name: 'name',
+    label: 'Nazwa firmy',
     type: 'text'
-  },
-  {
-    name: 'postalCode',
-    label: 'Kod pocztowy',
-    type: 'text',
   },
   {
     name: 'city',
@@ -31,31 +25,16 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'shareholders',
-    label: 'Udziałowcy',
-    type: 'text',
-  },
-  {
-    name: 'phone_number',
-    label: 'Numer telefonu',
-    type: 'text',
-  },
-  {
-    name: 'REGON',
-    label: 'REGON',
-    type: 'text',
-  },
-  {
-    name: 'legal_form',
-    label: 'Forma prawna',
+    name: 'postalCode',
+    label: 'Kod pocztowy',
     type: 'text',
   },
 ];
 
 const validationSchema = yup.object({
-  institutionName: yup.string().required(),
   postalCode: yup.string().required(),
-  city: yup.string().required()
+  city: yup.string().required(),
+  name: yup.string().required()
 });
 
 const SignUpOrganisation = () => {
@@ -66,25 +45,21 @@ const SignUpOrganisation = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      institutionName: '',
-      postalCode: '',
-      city: ''
+      name: '',
+      city: '',
+      postalCode: ''
     } });
 
   const onSubmit = (data) => {
-    if(!user) {
+    if(!user){
       return;
     }
-    const mappedData = cloneDeep(data);
-    mappedData.shareholders =
-      mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
-
-    signUpOrganisation(mappedData, user.email).then(() => {
+    signUpOrganisation(data, user.id).then(() => {
       dispatch(saveUser({
         ...user,
         ...data
       }));
-      notify('Zarejestrowałeś instytucję!', NotificationType.INFO);
+      notify('Zarejestrowałeś organizację!', NotificationType.INFO);
       navigate(routes.auctions);
     }).catch(() => {
       notify(messages.unexpected, NotificationType.ERROR);
@@ -93,7 +68,7 @@ const SignUpOrganisation = () => {
 
   return (
     <SignUpGroup
-      title='Zarejestruj instytucję'
+      title='Zarejestruj organizację'
       inputs={ inputs }
       handleSubmit={ handleSubmit }
       onSubmit={ onSubmit }

@@ -14,14 +14,23 @@ export type CompanyUser = User & {
   institutionName?: string;
   city?: string;
   postalCode?: string;
-  isOrganization?: boolean;
+  shareholders: Shareholder[];
+  REGON: number;
+  legalForm: string;
+  phoneNumber: string;
+};
+
+type Shareholder = {
+  id: number;
+  firstName: string;
+  lastName: string;
 };
 
 type HashedEmail = string;
 export type UserAuth = {
   email: HashedEmail;
-  access_token: string;
-  refresh_token: string;
+  accessToken: string;
+  refreshToken: string;
 } & User;
 
 export type UserLoginInputs = {

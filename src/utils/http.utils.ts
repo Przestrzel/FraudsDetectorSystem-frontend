@@ -38,11 +38,11 @@ http.interceptors.response.use(
       const token = getAuthToken(true);
       if(token){
         refresh(token).then(({ data }) => {
-          setAuthToken(data.access_token);
-          setAuthToken(data.refresh_token, true);
+          setAuthToken(data.accessToken);
+          setAuthToken(data.refreshToken, true);
           const user = cloneDeep(data);
-          delete user.access_token;
-          delete user.refresh_token;
+          delete user.accessToken;
+          delete user.refreshToken;
           store.dispatch(saveUser(user));
         });
       } else {

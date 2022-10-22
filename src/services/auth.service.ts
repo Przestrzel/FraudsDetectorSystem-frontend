@@ -24,7 +24,7 @@ const signUpOrganisation = (data, id) => {
 };
 
 const logout = () => {
-  return http.post(endpoints.logout).then(res => res);
+  return http.get(endpoints.logout).then(res => res);
 };
 
 const refresh = (refreshToken: string) => {

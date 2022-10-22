@@ -4,37 +4,58 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import SignUpGroup from './SignUpGroup';
 import { signUpCompany } from 'services/auth.service';
-import { routes } from 'utils/config.utils';
 import { useNavigate } from 'react-router';
-import { saveUser } from 'store/auth.slice';
 import { useDispatch, useSelector } from 'react-redux';
+import { saveUser } from 'store/auth.slice';
+import { routes } from 'utils/config.utils';
 import { RootState } from 'store/store';
-import useNotification from 'hooks/useNotification';
 import { NotificationType } from 'types/app.types';
+import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
+import { cloneDeep } from 'lodash';
 
 const inputs = [
   {
-    name: 'companyName',
-    label: 'Nazwa firmy',
+    name: 'institutionName',
+    label: 'Nazwa instytucji',
     type: 'text'
   },
   {
-    name: 'NIP',
-    label: 'NIP',
+    name: 'postalCode',
+    label: 'Kod pocztowy',
     type: 'text',
   },
   {
-    name: 'KRS',
-    label: 'KRS',
+    name: 'city',
+    label: 'Miasto',
+    type: 'text',
+  },
+  {
+    name: 'shareholders',
+    label: 'Udziałowcy',
+    type: 'text',
+  },
+  {
+    name: 'phone_number',
+    label: 'Numer telefonu',
+    type: 'text',
+  },
+  {
+    name: 'REGON',
+    label: 'REGON',
+    type: 'text',
+  },
+  {
+    name: 'legal_form',
+    label: 'Forma prawna',
     type: 'text',
   },
 ];
 
 const validationSchema = yup.object({
-  NIP: yup.number().required(),
-  KRS: yup.number().required(),
-  companyName: yup.string().required()
+  institutionName: yup.string().required(),
+  postalCode: yup.string().required(),
+  city: yup.string().required()
 });
 
 const SignUpCompany = () => {
@@ -45,16 +66,21 @@ const SignUpCompany = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      companyName: '',
-      NIP: '',
-      KRS: ''
+      institutionName: '',
+      postalCode: '',
+      city: ''
     } });
 
   const onSubmit = (data) => {
-    if(!user){
+    if(!user) {
       return;
     }
-    signUpCompany(data, user.id).then(() => {
+    const mappedData = cloneDeep(data);
+    mappedData.shareholders =
+      mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
+
+    signUpCompany(mappedData, user.id).then((cc) => {
+      console.log(cc);
       dispatch(saveUser({
         ...user,
         ...data

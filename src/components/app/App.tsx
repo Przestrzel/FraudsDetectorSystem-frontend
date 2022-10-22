@@ -42,10 +42,10 @@ const App = () => {
       refresh(refreshToken)
         .then(data => {
           const userData = cloneDeep(data.data);
-          setAuthToken(userData.access_token);
-          setAuthToken(userData.refresh_token, true);
-          delete userData.refresh_token;
-          delete userData.access_token;
+          setAuthToken(userData.accessToken);
+          setAuthToken(userData.refreshToken, true);
+          delete userData.refreshToken;
+          delete userData.accessToken;
           dispatch(saveUser(data.data));
         }).catch(() => {
           setAuthToken('');
