@@ -68,14 +68,18 @@ const App = () => {
             <Routes>
               <Route path={ routes.login } element={ <Login/> }/>
               <Route path={ routes.signUp } element={ <SignUp/> }/>
-              <Route path={ routes.auctions } element={ <AuctionPage /> }/>
+              <Route path={ routes.auctions }>
+                <Route path={ routes.auctions } element={ <AuctionPage /> }/>
+                <Route path=':id' element={ <AuctionDetailsPage /> }/>
+                <Route path='' element={ <AuctionPage /> }/>
+              </Route>
+
               <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
             :
             <Routes>
               <Route path={ routes.auctions }>
                 <Route path={ routes.addAuction } element={ <AddAuctionPage /> }/>
-                <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
               <Route path={ routes.signUp }>

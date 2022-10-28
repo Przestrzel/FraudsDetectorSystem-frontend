@@ -15,6 +15,7 @@ import Button from 'components/common/button/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { cityOptions } from 'utils/config.utils';
+import { cloneDeep } from 'lodash';
 
 const validationSchema = yup.object({
   name: yup.string().email().required(),
@@ -32,12 +33,6 @@ const inputs = [
     label: 'Nazwa',
   },
   {
-    name: 'city',
-    type: 'select',
-    label: 'Miasto',
-    options: cityOptions
-  },
-  {
     name: 'startDate',
     type: 'date',
     label: 'Data rozpoczęcia',
@@ -46,6 +41,12 @@ const inputs = [
     name: 'endDate',
     type: 'date',
     label: 'Data zakończenia',
+  },
+  {
+    name: 'city',
+    type: 'select',
+    label: 'Miasto',
+    options: cityOptions
   },
   {
     name: 'status',
@@ -65,6 +66,11 @@ const inputs = [
       { label: 'Jakość', value: 'quality', },
     ]
   },
+  {
+    name: 'cpv',
+    type: 'text',
+    label: 'CPV',
+  }
 ];
 
 const AddAuctionForm = () => {
@@ -77,6 +83,7 @@ const AddAuctionForm = () => {
       endDate: dayjs(new Date()).format('YYYY-MM-DD'),
       status: AuctionStatus.RESOLVED,
       criteria: 'price',
+      cpv: '',
     } });
 
   const renderInput = (input) => (
@@ -116,7 +123,9 @@ const AddAuctionForm = () => {
   );
 
   const onSubmitHandler = (data) => {
-    console.log(data);
+    const mappedData = cloneDeep(data);
+    mappedData.cpv = mappedData.cpv.split(',').map(cpv => cpv.trim());
+    console.log(mappedData);
   };
 
   const clearForm = () => {

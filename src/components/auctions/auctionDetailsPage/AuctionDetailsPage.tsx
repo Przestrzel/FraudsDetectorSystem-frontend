@@ -68,6 +68,16 @@ const AuctionDetailsPage = () => {
                   <div className={ styles.auctionLabel }>Kryteria:</div>
                   <div>{ getPriceCriterium(auction.criterium) }</div>
                 </div>
+                <div className={ styles.auctionInfoDetail }>
+                  {
+                    !auction.offers?.length &&
+                    <button
+                      onClick={ () => setIsModalOpen(true) }
+                      className={ styles.endAuction }>
+                      Zakończ przetarg
+                    </button>
+                  }
+                </div>
               </div>
             </div>
             <div className={ styles.offers }>

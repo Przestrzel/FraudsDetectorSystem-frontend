@@ -13,6 +13,7 @@ import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
 import { cloneDeep } from 'lodash';
+import styles from './SignUpGroup.module.scss';
 
 const inputs = [
   {
@@ -104,6 +105,7 @@ const SignUpCompany = () => {
     <SignUpGroup
       title='Zarejestruj firmę'
       inputs={ inputs }
+      className={ styles.signUpCompany }
       handleSubmit={ handleSubmit }
       onSubmit={ onSubmit }
       errors={ errors }

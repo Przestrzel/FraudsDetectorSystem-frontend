@@ -18,9 +18,10 @@ type Props = {
   handleSubmit: UseFormHandleSubmit<any>;
   title: string;
   errors: FieldErrorsImpl<any>;
+  className?: string;
 };
 
-const SignUpGroup = ({ inputs, onSubmit, control, title, handleSubmit }: Props) => {
+const SignUpGroup = ({ inputs, onSubmit, control, title, handleSubmit, className='' }: Props) => {
 
   const navigate = useNavigate();
   const onGoBack = () => {
@@ -28,7 +29,7 @@ const SignUpGroup = ({ inputs, onSubmit, control, title, handleSubmit }: Props) 
   };
 
   return (
-    <AuthCard className={ styles.registerContainer }>
+    <AuthCard className={ `${ styles.registerContainer } ${ className }` }>
       <h2>{ title }</h2>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.signUpPageInputs }>

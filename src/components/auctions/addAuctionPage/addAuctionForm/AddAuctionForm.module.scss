@@ -16,14 +16,26 @@
   .status {
     width: calc(50% - 8px);
     margin-right: 16px !important;
+    margin-bottom: 8px;
   }
-  .endDate,
-  .criteria{
+  .endDate{
     width: calc(50% - 8px);
+    margin-bottom: 8px;
+  }
+
+  .city,
+  .criteria,
+  .status {
+    width: calc(33.3% - 8px);
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+  .criteria {
+    margin-right: 0;
   }
 
   .buttons {
-    margin-top: 8px;
+    margin-top: px;
     width: 100%;
     display: flex;
     justify-content: space-between;
