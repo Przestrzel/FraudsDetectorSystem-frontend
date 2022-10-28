@@ -25,6 +25,7 @@ const endpoints = {
   auctions: {
     index: '/api/auctionsPaged',
     detail: '/api/auctions',
+    save: '/api/auctions/save'
   }
 };
 

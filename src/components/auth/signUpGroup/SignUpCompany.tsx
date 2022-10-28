@@ -17,8 +17,8 @@ import styles from './SignUpGroup.module.scss';
 
 const inputs = [
   {
-    name: 'name',
-    label: 'Nazwa instytucji',
+    name: 'bidderName',
+    label: 'Nazwa firmy',
     type: 'text'
   },
   {
@@ -64,7 +64,7 @@ const inputs = [
 ];
 
 const validationSchema = yup.object({
-  name: yup.string().required(),
+  bidderName: yup.string().required(),
   postalCode: yup.string().required(),
   city: yup.string().required()
 });
@@ -77,7 +77,7 @@ const SignUpCompany = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: '',
+      bidderName: '',
       postalCode: '',
       city: ''
     } });

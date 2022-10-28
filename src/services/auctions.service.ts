@@ -10,8 +10,16 @@ const getAuction = (id: number) => {
   return http.get<AuctionDetails>(`${ endpoints.auctions.detail }/${ id }`);
 };
 
+const createAuction = (auction, id) => {
+  return http.post(endpoints.auctions.save, auction, {
+    params: {
+      id
+    }
+  });
+};
+
 const postOffer = (id: number, offer: AuctionOffer) => {
   return { id, offer };
 };
 
-export { getAuctions, getAuction, postOffer };
+export { getAuctions, getAuction, postOffer, createAuction };

@@ -23,15 +23,14 @@
     margin-bottom: 8px;
   }
 
-  .city,
-  .criteria,
-  .status {
-    width: calc(33.3% - 8px);
-    margin-right: 8px;
+  .cpv,
+  .criteria {
+    width: calc(50% - 8px);
+    margin-right: 16px;
     margin-bottom: 8px;
   }
-  .criteria {
-    margin-right: 0;
+  .cpv{
+    margin-right: 0px;
   }
 
   .buttons {

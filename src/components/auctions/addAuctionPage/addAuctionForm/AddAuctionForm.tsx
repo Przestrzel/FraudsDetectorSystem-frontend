@@ -9,26 +9,28 @@ import dayjs from 'dayjs';
 
 import styles from './AddAuctionForm.module.scss';
 import { useForm } from 'react-hook-form';
-import { AuctionStatus } from 'types/auctions.types';
-import { capitalizeFirstLetter } from 'utils/string.utils';
 import Button from 'components/common/button/Button';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { cityOptions } from 'utils/config.utils';
 import { cloneDeep } from 'lodash';
+import { createAuction } from 'services/auctions.service';
+import { routes } from 'utils/config.utils';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
+import { NotificationType } from 'types/app.types';
+import useNotification from 'hooks/useNotification';
 
 const validationSchema = yup.object({
-  name: yup.string().email().required(),
-  city: yup.string().required(),
-  'start_date': yup.date().required(),
-  'end_date': yup.date().required(),
-  status: yup.string().required(),
+  auctionName: yup.string().required(),
+  startDate: yup.date().required(),
+  endDate: yup.date().required(),
   criteria: yup.string().required(),
 });
 
 const inputs = [
   {
-    name: 'name',
+    name: 'auctionName',
     type: 'textarea',
     label: 'Nazwa',
   },
@@ -41,21 +43,6 @@ const inputs = [
     name: 'endDate',
     type: 'date',
     label: 'Data zakończenia',
-  },
-  {
-    name: 'city',
-    type: 'select',
-    label: 'Miasto',
-    options: cityOptions
-  },
-  {
-    name: 'status',
-    type: 'select',
-    label: 'Status',
-    options: Object.values(AuctionStatus).map(status => ({
-      label: capitalizeFirstLetter(status),
-      value: status,
-    })),
   },
   {
     name: 'criteria',
@@ -74,14 +61,15 @@ const inputs = [
 ];
 
 const AddAuctionForm = () => {
+  const navigate = useNavigate();
+  const { notify } = useNotification();
+  const user = useSelector((state: RootState) => state.auth.user);
   const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: '',
-      city: cityOptions[ 0 ].value,
+      auctionName: '',
       startDate: dayjs(new Date()).format('YYYY-MM-DD'),
       endDate: dayjs(new Date()).format('YYYY-MM-DD'),
-      status: AuctionStatus.RESOLVED,
       criteria: 'price',
       cpv: '',
     } });
@@ -125,7 +113,15 @@ const AddAuctionForm = () => {
   const onSubmitHandler = (data) => {
     const mappedData = cloneDeep(data);
     mappedData.cpv = mappedData.cpv.split(',').map(cpv => cpv.trim());
-    console.log(mappedData);
+    const isPriceCriterium = mappedData.criteria === 'price';
+    delete mappedData.criteria;
+    mappedData.isPriceCriterium = isPriceCriterium;
+
+    createAuction(mappedData, user.id)
+      .then(() => {
+        navigate(routes.home);
+        notify('Przetarg został dodany!', NotificationType.INFO);
+      });
   };
 
   const clearForm = () => {

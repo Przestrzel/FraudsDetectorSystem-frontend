@@ -80,6 +80,7 @@ const App = () => {
             <Routes>
               <Route path={ routes.auctions }>
                 <Route path={ routes.addAuction } element={ <AddAuctionPage /> }/>
+                <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
               <Route path={ routes.signUp }>

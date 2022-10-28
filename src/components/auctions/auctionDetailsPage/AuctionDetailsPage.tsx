@@ -12,10 +12,12 @@ import { Tooltip } from '@mui/material';
 import AuctionOffers from '../auctionOffers/AuctionOffers';
 import AddOfferModal from '../addOfferModal/AddOfferModal';
 import AuctionStatus from '../auctionStatus/AuctionStatus';
+import EndAuctionModal from '../endAuctionModal/EndAuctionModal';
 
 const AuctionDetailsPage = () => {
   const [ auction, setAuction ] = useState<AuctionDetails>(null);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ isEndAuctionModalOpen, setIsEndAuctionModalOpen ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
 
@@ -72,7 +74,7 @@ const AuctionDetailsPage = () => {
                   {
                     !auction.offers?.length &&
                     <button
-                      onClick={ () => setIsModalOpen(true) }
+                      onClick={ () => setIsEndAuctionModalOpen(true) }
                       className={ styles.endAuction }>
                       Zakończ przetarg
                     </button>
@@ -110,6 +112,11 @@ const AuctionDetailsPage = () => {
         auctionId={ auction?.id }
         isOpen={ isModalOpen }
         onClose={ () => setIsModalOpen(false) }
+      />
+      <EndAuctionModal
+        offers={ auction?.offers }
+        isOpen={ isEndAuctionModalOpen }
+        onClose={ () => setIsEndAuctionModalOpen(false) }
       />
     </div>
   );

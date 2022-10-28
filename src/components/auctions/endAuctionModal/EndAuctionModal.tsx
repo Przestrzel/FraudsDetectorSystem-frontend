@@ -18,7 +18,7 @@ const inputs = (offers: AuctionOffer[]) => {
       name: 'winner',
       label: 'Zwycięzca',
       type: 'select',
-      options: offers.map((offer) => ({
+      options: offers?.map((offer) => ({
         value: offer.id,
         label: offer.name,
       })),
@@ -62,7 +62,7 @@ const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
               label={ input.label }
               { ...field }
             >
-              { input.options.map(option => <MenuItem
+              { input?.options?.map(option => <MenuItem
                 key={ option.value }
                 value={ option.value }>
                 { option.label }
@@ -85,14 +85,14 @@ const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
   );
 
   return (
-    <Modal isOpen={ isOpen } onClose={ onClose } title='Dodaj nową ofertę'>
+    <Modal isOpen={ isOpen } onClose={ onClose } title='Zakończ przetarg'>
       <form onSubmit={ handleSubmit(onSubmit) }>
         <div className={ styles.inputs }>
           { inputs(offers).map((input) => renderInput(input)) }
         </div>
         <div className={ styles.buttons }>
           <Button text='Wyczyść' onClick={ clearForm }/>
-          <Button text='Wybierz' variant='contained' type='submit'/>
+          <Button text='Zakończ' variant='contained' type='submit'/>
         </div>
       </form>
     </Modal>
