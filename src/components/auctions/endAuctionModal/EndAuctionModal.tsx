@@ -10,9 +10,14 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 const inputs = (offers: AuctionOffer[]) => {
   return [
     {
-      name: 'description',
-      label: 'Wyjaśnienie',
-      type: 'text'
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      options: [
+        { value: 'ACTIVE', label: 'ACTIVE' },
+        { value: 'ACTIVE', label: 'ACTIVE' },
+        { value: 'ACTIVE', label: 'ACTIVE' },
+      ]
     },
     {
       name: 'winner',
@@ -35,7 +40,6 @@ type Props = {
 const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
   const { handleSubmit, control, reset, formState: { errors }, register } = useForm({
     defaultValues: {
-      description: '',
       winner: 0,
     }
   });
@@ -60,6 +64,7 @@ const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
               { ...register(input.name) }
               labelId={ input.label }
               label={ input.label }
+              style={ { marginBottom: '16px' } }
               { ...field }
             >
               { input?.options?.map(option => <MenuItem

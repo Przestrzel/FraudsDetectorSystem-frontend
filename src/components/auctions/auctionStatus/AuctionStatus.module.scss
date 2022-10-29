@@ -11,3 +11,7 @@
 .Rozstrzygnięte{
   color: darken($success-green, 20%);
 }
+
+.inProgress {
+  color: darken($secondary, 5%);
+}

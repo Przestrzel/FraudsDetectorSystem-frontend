@@ -8,6 +8,9 @@ type Props = {
 };
 
 const AuctionStatus = ({ status }: Props) => {
+  if(!status){
+    return <div className={ styles.inProgress }>W trakcie</div>;
+  }
   return (
     <div className={ styles[ status ] }>{ status }</div>
   );

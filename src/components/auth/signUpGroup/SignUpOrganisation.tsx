@@ -15,7 +15,7 @@ import { messages } from 'utils/messages.utils';
 
 const inputs = [
   {
-    name: 'name',
+    name: 'institutionName',
     label: 'Nazwa firmy',
     type: 'text'
   },
@@ -34,7 +34,7 @@ const inputs = [
 const validationSchema = yup.object({
   postalCode: yup.string().required(),
   city: yup.string().required(),
-  name: yup.string().required()
+  institutionName: yup.string().required()
 });
 
 const SignUpOrganisation = () => {
@@ -45,19 +45,22 @@ const SignUpOrganisation = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: '',
+      institutionName: '',
       city: '',
       postalCode: ''
-    } });
+    }
+  });
 
   const onSubmit = (data) => {
     if(!user){
       return;
     }
     signUpOrganisation(data, user.id).then((res) => {
+      const response = res.data;
+      delete response.id;
       dispatch(saveUser({
         ...user,
-        ...res.data
+        ...response
       }));
       notify('Zarejestrowałeś organizację!', NotificationType.INFO);
       navigate(routes.auctions);

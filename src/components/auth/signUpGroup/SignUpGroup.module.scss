@@ -4,13 +4,18 @@
   display: flex;
   align-items: flex-start;
   transition: all 0.1s linear;
+  max-height: 320px;
   h2 {
-    margin-top: 100px;
+    margin-top: 60px;
   }
 }
 
 .signUpCompany{
   min-height: 600px;
+  max-height: none;
+  h2 {
+    margin-top: 100px;
+  }
 }
 
 .signUpPageInputs {
@@ -27,7 +32,7 @@
 .companyName,
 .city,
 .bidderName,
-.name,
+.institutionName,
 .shareholders,
 .phoneNumber{
   width: calc(95% + 10px);
@@ -36,9 +41,9 @@
 
 .postalCode,
 .city,
-.REGON,
-.KRS,
-.NIP,
+.regon,
+.krs,
+.nip,
 .legalForm{
   width: 47.5%;
   margin-right: 10px !important;

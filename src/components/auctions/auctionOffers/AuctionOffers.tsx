@@ -9,18 +9,20 @@ type Props = {
 const AuctionOffers = ({ offers }: Props) => {
   return (
     <div className={ styles.offersGrid }>
-      { offers?.length ? offers.map((offer) => (
-        <div className={ styles.offer } key={ offer.id }>
-          <div className={ styles.offerRow }>
-            <div className={ styles.offerLabel }>Nazwa:</div>
-            <div>{ offer.name }</div>
+      {
+        offers?.map((offer) => (
+          <div className={ styles.offer } key={ offer.id }>
+            <div className={ styles.offerRow }>
+              <div className={ styles.offerLabel }>Nazwa:</div>
+              <div>{ offer?.name }</div>
+            </div>
+            <div className={ styles.offerRow }>
+              <div className={ styles.offerLabel }>Cena:</div>
+              <div>{ offer?.price } PLN</div>
+            </div>
           </div>
-          <div className={ styles.offerRow }>
-            <div className={ styles.offerLabel }>Cena:</div>
-            <div>{ offer.price } PLN</div>
-          </div>
-        </div>
-      )) : 'Nie znaleziono żadnych ofert...' }
+        ))
+      }
     </div>
   );
 };

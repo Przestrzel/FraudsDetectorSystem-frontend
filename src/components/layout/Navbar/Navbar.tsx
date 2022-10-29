@@ -66,7 +66,7 @@ const Navbar = ({ isLoggedIn }: Props ) => {
             <DescriptionIcon sx={ iconSx(true) } />
             Lista przetargów
           </Link>
-          { isLoggedIn &&
+          { isLoggedIn && user.institutionName &&
           <Link to={ routes.addAuction } className={ styles.link }>
             <AddCircleIcon sx={ iconSx(true) } />
             Dodaj przetarg

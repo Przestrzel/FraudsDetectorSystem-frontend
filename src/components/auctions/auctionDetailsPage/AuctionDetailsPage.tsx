@@ -13,10 +13,13 @@ import AuctionOffers from '../auctionOffers/AuctionOffers';
 import AddOfferModal from '../addOfferModal/AddOfferModal';
 import AuctionStatus from '../auctionStatus/AuctionStatus';
 import EndAuctionModal from '../endAuctionModal/EndAuctionModal';
+import { RootState } from 'store/store';
+import { useSelector } from 'react-redux';
 
 const AuctionDetailsPage = () => {
   const [ auction, setAuction ] = useState<AuctionDetails>(null);
   const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const user = useSelector((state: RootState) => state.auth.user);
   const [ isEndAuctionModalOpen, setIsEndAuctionModalOpen ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
@@ -33,6 +36,10 @@ const AuctionDetailsPage = () => {
   const getPriceCriterium = (criteria: string) => {
     return criteria === 'PRICE' ? 'Cena' : 'Jakość';
   };
+
+  const areEmptyOffers = !auction?.offerLosers?.length && !auction?.offerWinners?.length;
+  const canEndOffer = !auction?.status && !auction?.offerWinners?.length;
+  const canAddOffer = user?.companyName && user?.companyName !== '';
 
   return (
     <div className={ styles.auctionDetailsPage }>
@@ -72,7 +79,7 @@ const AuctionDetailsPage = () => {
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   {
-                    !auction.offers?.length &&
+                    canEndOffer &&
                     <button
                       onClick={ () => setIsEndAuctionModalOpen(true) }
                       className={ styles.endAuction }>
@@ -86,7 +93,7 @@ const AuctionDetailsPage = () => {
               <div className={ styles.auctionAddOffer }>
                 <div className={ styles.auctionLabel }>Oferty</div>
                 {
-                  auction.offers?.length &&
+                  !areEmptyOffers && canAddOffer &&
                   <button
                     onClick={ () => setIsModalOpen(true) }
                     className={ styles.addOffer }>
@@ -94,9 +101,16 @@ const AuctionDetailsPage = () => {
                   </button>
                 }
               </div>
-              <AuctionOffers offers={ auction.offers } />
               {
-                !auction.offers?.length &&
+                auction?.offerWinners?.length ? <>
+                  <div className={ styles.auctionLabel }>Oferty wygrane:</div>
+                  <AuctionOffers offers={ auction.offerWinners } />
+                  <div className={ styles.auctionLabel }>Pozostałe oferty:</div>
+                </> : null
+              }
+              <AuctionOffers offers={ auction.offerLosers } />
+              {
+                areEmptyOffers && canAddOffer &&
                 <div className={ styles.offerBig }>
                   <button
                     onClick={ () => setIsModalOpen(true) }
@@ -114,7 +128,7 @@ const AuctionDetailsPage = () => {
         onClose={ () => setIsModalOpen(false) }
       />
       <EndAuctionModal
-        offers={ auction?.offers }
+        offers={ auction?.offerLosers }
         isOpen={ isEndAuctionModalOpen }
         onClose={ () => setIsEndAuctionModalOpen(false) }
       />

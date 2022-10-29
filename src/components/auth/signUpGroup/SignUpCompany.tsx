@@ -42,7 +42,7 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'REGON',
+    name: 'regon',
     label: 'REGON',
     type: 'text',
   },
@@ -52,12 +52,12 @@ const inputs = [
     type: 'text',
   },
   {
-    name: 'NIP',
+    name: 'nip',
     label: 'NIP',
     type: 'number',
   },
   {
-    name: 'KRS',
+    name: 'krs',
     label: 'KRS',
     type: 'number',
   },

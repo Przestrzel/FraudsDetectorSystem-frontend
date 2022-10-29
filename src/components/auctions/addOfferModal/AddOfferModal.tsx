@@ -5,15 +5,17 @@ import Input from 'components/common/input/Input';
 
 import styles from './AddOfferModal.module.scss';
 import Button from 'components/common/button/Button';
-import { postOffer } from 'services/__mocked__/auctions.service';
+import { postOffer } from 'services/auctions.service';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
+import { NotificationType } from 'types/app.types';
+import useNotification from 'hooks/useNotification';
 
 const validationSchema = yup.object({
   name: yup.string().required(),
-  price: yup.string().required(),
-  date: yup.date().required(),
+  price: yup.string().required()
 });
 
 const inputs = [
@@ -26,11 +28,6 @@ const inputs = [
     name: 'price',
     label: 'Price',
     type: 'number',
-  },
-  {
-    name: 'date',
-    label: 'Date',
-    type: 'date',
   }
 ];
 
@@ -41,18 +38,24 @@ type Props = {
 };
 
 const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const { notify } = useNotification();
   const { handleSubmit, control, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
       name: '',
-      price: '',
-      date: dayjs().format('YYYY-MM-DD'),
+      price: ''
     }
   });
 
   const onSubmit = (data) => {
-    postOffer(auctionId, data).then((offer) => {
-      console.log(offer);
+    postOffer(auctionId, user.id, data).then(() => {
+      notify('Dodałeś ofertę', NotificationType.INFO);
+      window.location.reload();
+    }).catch(() => {
+      notify('Nie udało się dodać oferty', NotificationType.ERROR);
+    }).finally(() => {
+      onClose();
     });
   };
 
