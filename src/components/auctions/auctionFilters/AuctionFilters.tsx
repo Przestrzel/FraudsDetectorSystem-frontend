@@ -8,7 +8,6 @@ import { Control, Controller, UseFormRegister } from 'react-hook-form';
 
 import styles from './AuctionFilters.module.scss';
 import { cityOptions } from 'utils/config.utils';
-import Button from 'components/common/button/Button';
 
 type Props = {
   control: Control<any, any>;
@@ -23,7 +22,7 @@ const AuctionFilters = ({ control, register, onSubmit }: Props) => {
         <FormControl sx={ { m: 1, minWidth: 360 } } >
           <Controller
             control={ control }
-            name='auction'
+            name='searchPhrase'
             render={ ({ field }) => (
               <TextField
                 { ...register('auction') }
@@ -57,10 +56,10 @@ const AuctionFilters = ({ control, register, onSubmit }: Props) => {
         <FormControl sx={ { m: 1, minWidth: 90 } } >
           <Controller
             control={ control }
-            name='start_date'
+            name='startDate'
             render={ ({ field }) => (
               <TextField
-                { ...register('start_date') }
+                { ...register('startDate') }
                 size='small'
                 className={ field.value ? styles.active : '' }
                 label='Data rozpoczęcia'
@@ -72,10 +71,10 @@ const AuctionFilters = ({ control, register, onSubmit }: Props) => {
         <FormControl sx={ { m: 1, minWidth: 90 } } >
           <Controller
             control={ control }
-            name='end_date'
+            name='endDate'
             render={ ({ field }) => (
               <TextField
-                { ...register('end_date') }
+                { ...register('endDate') }
                 size='small'
                 className={ field.value ? styles.active : '' }
                 label='Data zakończenia'
@@ -84,12 +83,6 @@ const AuctionFilters = ({ control, register, onSubmit }: Props) => {
               />
             ) }/>
         </FormControl>
-        <Button
-          type='submit'
-          variant='contained'
-          text='Szukaj'
-          className={ styles.filterButton }
-        />
       </form>
     </div>
   );

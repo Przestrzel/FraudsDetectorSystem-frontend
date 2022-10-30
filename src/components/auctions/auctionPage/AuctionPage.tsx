@@ -9,29 +9,50 @@ import AuctionFilters from '../auctionFilters/AuctionFilters';
 import AuctionList from '../auctionList/AuctionList';
 
 import styles from './AuctionPage.module.scss';
-import { cityOptions } from 'utils/config.utils';
 
 const AuctionPage = () => {
   const [ auctions, setAuctions ] = useState<Auction[]>([]);
   const [ isLoading, setIsLoading ] = useState(true);
   const [ page, setPage ] = useState(1);
   const [ totalPages, setTotalPages ] = useState(0);
-  const { handleSubmit, control, register } = useForm({ defaultValues: {
-    auction: '',
-    city: cityOptions[ 0 ].value,
-    start_date: dayjs(new Date()).format('YYYY-MM-DD'),
-    end_date: dayjs(new Date()).format('YYYY-MM-DD'),
+  const { handleSubmit, control, register, watch } = useForm({ defaultValues: {
+    searchPhrase: '',
+    city: '',
+    startDate: null,
+    endDate: null,
   } });
+  const searchPhrase = watch('searchPhrase');
+  const city = watch('city');
+  const startDate = watch('startDate');
+  const endDate = watch('endDate');
+
+  const getFilters = () => {
+    const filters = {};
+    if(searchPhrase !== ''){
+      filters[ 'searchPhrase' ] = searchPhrase;
+    }
+    if(city !== ''){
+      filters[ 'city' ] = city;
+    }
+    if(startDate !== null){
+      filters[ 'startDate' ] = dayjs(startDate).format('YYYY-MM-DD');
+    }
+    if(endDate !== null){
+      filters[ 'endDate' ] = dayjs(endDate).format('YYYY-MM-DD');
+    }
+    return filters;
+  };
 
   useEffect(() => {
     setIsLoading(true);
-    getAuctions(page).then(({ data })=> {
+    const filters = getFilters();
+    getAuctions(page, filters).then(({ data })=> {
       setAuctions(data.items);
       setTotalPages(data.totalPages);
     }).finally(() => {
       setIsLoading(false);
     });
-  }, [ page ]);
+  }, [ page, searchPhrase ]);
 
   const onFilter= (data) => {
     console.log(data);

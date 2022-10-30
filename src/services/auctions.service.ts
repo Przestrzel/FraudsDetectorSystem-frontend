@@ -2,8 +2,12 @@ import { AuctionDetails, AuctionOffer } from 'types/auctions.types';
 import { endpoints } from 'utils/config.utils';
 import http from 'utils/http.utils';
 
-const getAuctions = (page = 1) => {
-  return http.get(`${ endpoints.auctions.index }?pageNumber=${ page }&pageSize=5`);
+const getAuctions = (page = 1, filters) => {
+  return http.get(`${ endpoints.auctions.index }?pageNumber=${ page }&pageSize=5`, {
+    params: {
+      ...filters
+    }
+  });
 };
 
 const getAuction = (id: number) => {
