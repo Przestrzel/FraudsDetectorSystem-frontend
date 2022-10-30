@@ -14,7 +14,7 @@ const AuctionOffers = ({ offers }: Props) => {
           <div className={ styles.offer } key={ offer.id }>
             <div className={ styles.offerRow }>
               <div className={ styles.offerLabel }>Nazwa:</div>
-              <div>{ offer?.name }</div>
+              <div>{ offer?.bidderName }</div>
             </div>
             <div className={ styles.offerRow }>
               <div className={ styles.offerLabel }>Cena:</div>

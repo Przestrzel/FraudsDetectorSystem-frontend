@@ -39,7 +39,7 @@ const AuctionDetailsPage = () => {
 
   const areEmptyOffers = !auction?.offerLosers?.length && !auction?.offerWinners?.length;
   const canEndOffer = !auction?.status && !auction?.offerWinners?.length;
-  const canAddOffer = user?.companyName && user?.companyName !== '';
+  const canAddOffer = user?.companyName != null && user?.companyName !== '';
 
   return (
     <div className={ styles.auctionDetailsPage }>
@@ -128,6 +128,7 @@ const AuctionDetailsPage = () => {
         onClose={ () => setIsModalOpen(false) }
       />
       <EndAuctionModal
+        auctionId={ auction?.id }
         offers={ auction?.offerLosers }
         isOpen={ isEndAuctionModalOpen }
         onClose={ () => setIsEndAuctionModalOpen(false) }

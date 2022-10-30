@@ -12,17 +12,18 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
+import dayjs from 'dayjs';
 
 const validationSchema = yup.object({
-  name: yup.string().required(),
+  date: yup.date().required(),
   price: yup.string().required()
 });
 
 const inputs = [
   {
-    name: 'name',
-    label: 'Name',
-    type: 'text'
+    name: 'date',
+    label: 'Data',
+    type: 'date'
   },
   {
     name: 'price',
@@ -43,7 +44,7 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
   const { handleSubmit, control, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: '',
+      date: dayjs(new Date()).format('YYYY-MM-DD'),
       price: ''
     }
   });

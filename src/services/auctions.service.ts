@@ -26,4 +26,12 @@ const postOffer = (auctionId: number, userId: number, offer: AuctionOffer) => {
   });
 };
 
-export { getAuctions, getAuction, postOffer, createAuction };
+const endAuction = (auctionId: number, userId: number, data) => {
+  return http.post(`${ endpoints.auctions.detail }/${ auctionId }/endAuction`, data, {
+    params: {
+      id: userId
+    }
+  });
+};
+
+export { getAuctions, getAuction, postOffer, createAuction, endAuction };

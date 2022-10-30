@@ -23,6 +23,6 @@ export type AuctionDetails = Auction & {
 
 export type AuctionOffer = {
   id: number;
-  name: string;
+  bidderName: string;
   price: number;
 };

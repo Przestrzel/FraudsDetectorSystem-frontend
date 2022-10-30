@@ -6,17 +6,20 @@ import styles from '../addOfferModal/AddOfferModal.module.scss';
 import Button from 'components/common/button/Button';
 import Input from 'components/common/input/Input';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
+import { endAuction } from 'services/auctions.service';
 
 const inputs = (offers: AuctionOffer[]) => {
   return [
     {
-      name: 'status',
+      name: 'auctionStatus',
       label: 'Status',
       type: 'select',
       options: [
-        { value: 'ACTIVE', label: 'ACTIVE' },
-        { value: 'ACTIVE', label: 'ACTIVE' },
-        { value: 'ACTIVE', label: 'ACTIVE' },
+        { value: 'Rozstrzygnięte', label: 'Rozstrzygnięte' },
+        { value: 'Zamknięte', label: 'Zamknięte' },
+        { value: 'Anulowane', label: 'Anulowane' },
       ]
     },
     {
@@ -25,7 +28,7 @@ const inputs = (offers: AuctionOffer[]) => {
       type: 'select',
       options: offers?.map((offer) => ({
         value: offer.id,
-        label: offer.name,
+        label: offer.bidderName,
       })),
     }
   ];
@@ -35,9 +38,11 @@ type Props = {
   offers: AuctionOffer[];
   isOpen: boolean;
   onClose: () => void;
+  auctionId: number;
 };
 
-const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
+const EndAuctionModal = ({ isOpen, onClose, offers, auctionId }: Props) => {
+  const user = useSelector((state: RootState) => state.auth.user);
   const { handleSubmit, control, reset, formState: { errors }, register } = useForm({
     defaultValues: {
       winner: 0,
@@ -45,7 +50,9 @@ const EndAuctionModal = ({ isOpen, onClose, offers }: Props) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    endAuction(auctionId, user.id, data).then(() => {
+      window.location.reload();
+    });
   };
 
   const clearForm = () => {
