@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Loader from 'components/common/loader/Loader';
 import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
-import { getAuction } from 'services/auctions.service';
+import { getAuction, isAuctionCreator } from 'services/auctions.service';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { AuctionDetails } from 'types/auctions.types';
 import { ReactComponent as Flag } from 'assets/icons/flag.svg';
@@ -21,6 +21,7 @@ const AuctionDetailsPage = () => {
   const [ isModalOpen, setIsModalOpen ] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
   const [ isEndAuctionModalOpen, setIsEndAuctionModalOpen ] = useState(false);
+  const [ isCreator, setIsCreator ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
   const { id } = useParams();
 
@@ -33,12 +34,18 @@ const AuctionDetailsPage = () => {
     });
   }, [ id ]);
 
+  useEffect(() => {
+    if(!user) return;
+    isAuctionCreator(+id, user?.id).then(data => {
+      setIsCreator(data.data);
+    });
+  }, [ id, user ]);
+
   const getPriceCriterium = (criteria: string) => {
     return criteria === 'PRICE' ? 'Cena' : 'Jakość';
   };
 
   const areEmptyOffers = !auction?.offerLosers?.length && !auction?.offerWinners?.length;
-  const canEndOffer = !auction?.status && !auction?.offerWinners?.length;
   const canAddOffer = user?.companyName != null && user?.companyName !== '';
 
   return (
@@ -79,7 +86,7 @@ const AuctionDetailsPage = () => {
                 </div>
                 <div className={ styles.auctionInfoDetail }>
                   {
-                    canEndOffer &&
+                    isCreator && !auction.status &&
                     <button
                       onClick={ () => setIsEndAuctionModalOpen(true) }
                       className={ styles.endAuction }>
@@ -103,9 +110,17 @@ const AuctionDetailsPage = () => {
               </div>
               {
                 auction?.offerWinners?.length ? <>
-                  <div className={ styles.auctionLabel }>Oferty wygrane:</div>
+                  <div
+                    style={ { marginTop: '16px' } }
+                    className={ styles.auctionLabel }>
+                    Oferty wygrane:
+                  </div>
                   <AuctionOffers offers={ auction.offerWinners } />
-                  <div className={ styles.auctionLabel }>Pozostałe oferty:</div>
+                  <div
+                    style={ { marginTop: '8px' } }
+                    className={ styles.auctionLabel }>
+                    Pozostałe oferty:
+                  </div>
                 </> : null
               }
               <AuctionOffers offers={ auction.offerLosers } />

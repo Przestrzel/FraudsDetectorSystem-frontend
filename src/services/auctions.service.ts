@@ -34,4 +34,12 @@ const endAuction = (auctionId: number, userId: number, data) => {
   });
 };
 
-export { getAuctions, getAuction, postOffer, createAuction, endAuction };
+const isAuctionCreator = (auctionId: number, userId: number) => {
+  return http.get(`${ endpoints.auctions.detail }/${ auctionId }/isCreator`, {
+    params: {
+      id: userId
+    }
+  });
+};
+
+export { getAuctions, getAuction, postOffer, createAuction, endAuction, isAuctionCreator };
