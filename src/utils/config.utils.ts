@@ -34,11 +34,11 @@ const NOTIFICATION_DURATION = 2_000;
 const NOTIFICATION_SNACK_LENGTH = 4;
 
 export const cityOptions = [
-  { label: 'Łomża', value: 'Łomża' },
-  { label: 'Mława', value: 'Mława' },
+  { label: 'Łomża', value: 'Lomza' },
+  { label: 'Mława', value: 'Mlawa' },
   { label: 'Lubawa', value: 'Lubawa' },
-  { label: 'Grudziądz', value: 'Grudziądz' },
-  { label: 'Gdańsk', value: 'Gdańsk' },
+  { label: 'Grudziądz', value: 'Grudziadz' },
+  { label: 'Gdańsk', value: 'Gdansk' },
 ];
 
 export { endpoints, routes, NOTIFICATION_DURATION, NOTIFICATION_SNACK_LENGTH };

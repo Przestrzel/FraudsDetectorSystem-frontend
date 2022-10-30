@@ -44,6 +44,10 @@ const AuctionPage = () => {
   };
 
   useEffect(() => {
+    setPage(1);
+  }, [ searchPhrase, city, startDate, endDate ]);
+
+  useEffect(() => {
     setIsLoading(true);
     const filters = getFilters();
     getAuctions(page, filters).then(({ data })=> {
@@ -52,7 +56,7 @@ const AuctionPage = () => {
     }).finally(() => {
       setIsLoading(false);
     });
-  }, [ page, searchPhrase ]);
+  }, [ page, searchPhrase, city, startDate, endDate ]);
 
   const onFilter= (data) => {
     console.log(data);
