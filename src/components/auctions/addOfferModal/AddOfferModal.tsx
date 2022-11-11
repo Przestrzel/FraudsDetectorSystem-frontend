@@ -22,11 +22,6 @@ const validationSchema = yup.object({
 
 const inputs = [
   {
-    name: 'date',
-    label: 'Data',
-    type: 'date'
-  },
-  {
     name: 'price',
     label: 'Price',
     type: 'number',

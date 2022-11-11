@@ -23,11 +23,6 @@ const inputs = [
     type: 'text'
   },
   {
-    name: 'postalCode',
-    label: 'Kod pocztowy',
-    type: 'text',
-  },
-  {
     name: 'city',
     label: 'Miasto',
     type: 'text',

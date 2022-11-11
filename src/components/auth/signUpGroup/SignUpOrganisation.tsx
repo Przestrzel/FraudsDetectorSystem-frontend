@@ -17,19 +17,14 @@ import useBlockchain from 'hooks/useBlockchain';
 const inputs = [
   {
     name: 'institutionName',
-    label: 'Nazwa firmy',
+    label: 'Nazwa instytucji',
     type: 'text'
   },
   {
     name: 'city',
     label: 'Miasto',
     type: 'text',
-  },
-  {
-    name: 'postalCode',
-    label: 'Kod pocztowy',
-    type: 'text',
-  },
+  }
 ];
 
 const validationSchema = yup.object({
