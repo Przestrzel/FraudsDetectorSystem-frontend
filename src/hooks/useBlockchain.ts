@@ -60,12 +60,12 @@ const useBlockchain = () => {
     });
   };
 
-  const registerOfferent = async (name: string, NIP: string, owner: string) => {
+  const registerOfferent = async (name: string, NIP: string) => {
     const contract = await initContract();
     if(!contract) return;
 
     contract.deployed().then(instance => {
-      instance.registerOfferent(name, NIP, owner, { from: account });
+      instance.registerOfferent(name, NIP, { from: account });
     }).catch((err) => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if(err.message.includes('Name has to be provided')){

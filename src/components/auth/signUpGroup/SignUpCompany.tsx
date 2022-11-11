@@ -92,7 +92,7 @@ const SignUpCompany = () => {
     mappedData.shareholders =
       mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
 
-    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP, user.id.toString())
+    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP)
       .then(() => {
         signUpCompany(mappedData, user.id).then((res) => {
           dispatch(saveUser({

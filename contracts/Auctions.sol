@@ -21,7 +21,6 @@ contract Auctions {
   struct Offerent {
     string offerent_name;
     uint256 NIP;
-    string owner; // in offerents or diff place?
   }
 
   struct Offer {
@@ -51,17 +50,15 @@ contract Auctions {
   //should be called each time an offerent creates account
   function registerOfferent(
     string memory name,
-    uint256 NIP,
-    string memory owner
+    uint256 NIP
   ) public {
     require(bytes(name).length != 0, 'Name has to be provided');
-    require(bytes(owner).length != 0, 'Owner has to be provided');
     require(NIP >= 1000000000 && NIP <= 9999999999, 'NIP has to be 10 digits long'); //easiest way to require 10 digits
     require(
       bytes(offerents[msg.sender].offerent_name).length == 0,
       'Offerent with this account is already registered'
     );
-    Offerent memory newOfferent = Offerent(name, NIP, owner);
+    Offerent memory newOfferent = Offerent(name, NIP);
     offerents[msg.sender] = newOfferent;
   }
 
