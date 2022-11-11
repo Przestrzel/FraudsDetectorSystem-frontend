@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
+import useBlockchain from 'hooks/useBlockchain';
 
 const validationSchema = yup.object({
   auctionName: yup.string().required(),
@@ -64,6 +65,7 @@ const AddAuctionForm = () => {
   const navigate = useNavigate();
   const { notify } = useNotification();
   const user = useSelector((state: RootState) => state.auth.user);
+  const blockchainService = useBlockchain();
   const { control, handleSubmit, register, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues: {
@@ -116,11 +118,16 @@ const AddAuctionForm = () => {
     const isPriceCriterium = mappedData.criteria === 'price';
     delete mappedData.criteria;
     mappedData.isPriceCriterium = isPriceCriterium;
-
     createAuction(mappedData, user.id)
-      .then(() => {
+      .then((res) => {
         navigate(routes.home);
         notify('Przetarg został dodany!', NotificationType.INFO);
+        blockchainService.createAuction(
+          res.data.id,
+          mappedData.auctionName,
+          mappedData.startDate,
+          mappedData.endDate
+        );
       });
   };
 

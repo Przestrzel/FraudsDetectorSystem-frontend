@@ -46,6 +46,73 @@ const useBlockchain = () => {
 
     contract.deployed().then(instance => {
       instance.registerAdvertiser(name, city, { from: account });
+    }).catch(err => {
+      notify('Transakcja nie powiodła się', NotificationType.ERROR);
+      if(err.message.includes('Name has to be provided')){
+        notify('Nazwa musi być podana', NotificationType.ERROR);
+      }
+      else if(err.message.includes('City has to be provided')) {
+        notify('Miasto musi być podane', NotificationType.ERROR);
+      }
+      else if (err.message.includes('Advertiser with this account is already registered')) {
+        notify('Nie można utworzyć dwóch kont z tym samym adresem', NotificationType.ERROR);
+      }
+    });
+  };
+
+  const registerOfferent = async (name: string, NIP: string, owner: string) => {
+    const contract = await initContract();
+    if(!contract) return;
+
+    contract.deployed().then(instance => {
+      instance.registerOfferent(name, NIP, owner, { from: account });
+    }).catch((err) => {
+      notify('Transakcja nie powiodła się', NotificationType.ERROR);
+      if(err.message.includes('Name has to be provided')){
+        notify('Nazwa jest wymagana', NotificationType.ERROR);
+      }
+      else if(err.message.includes('City has to be provided')){
+        notify('Miasto jest wymagane', NotificationType.ERROR);
+      }
+      else if (err.message.includes('Advertiser with this account is already registered')){
+        notify('Nie można utworzyc dwóch kont z tym samym adresem', NotificationType.ERROR);
+      }
+    });
+  };
+
+  const createAuction = async (id: number, name: string, startDate: string, endDate: string) => {
+    const contract = await initContract();
+    if(!contract) return;
+    contract.deployed().then(instance => {
+      instance.createAuction(id, name, startDate, endDate, { from: account });
+    }).catch(err => {
+      notify('Transakcja nie powiodła się', NotificationType.ERROR);
+      if (err.message.includes('You are not registered as an advertiser')) {
+        notify('Aby dodać przetarg należy być zarejestrowanym', NotificationType.ERROR);
+      }
+      else if(err.message.includes('Name has to be provided')){
+        notify('Nazwa przetargu jest wymagana', NotificationType.ERROR);
+      }
+      else if(err.message.includes('End date must be later than start date')){
+        notify('Data zamknięcia musi być późniejsza niż data początkowa', NotificationType.ERROR);
+      }
+      //Delete auction from database
+    });
+  };
+
+  const makeOffer = async (auctionId: number, name: string, price: number) => {
+    const contract = await initContract();
+    if(!contract) return;
+    contract.deployed().then(instance => {
+      instance.makeOffer(auctionId, name, price, { from: account });
+    }).catch(err => {
+      notify('Transakcja nie powiodła się', NotificationType.ERROR);
+      if (err.message.includes('You are not registered as an offerent')) {
+        notify('Aby dodać ofertę należy być zarejestrowanym', NotificationType.ERROR);
+      }
+      else if(err.message.includes('There is no auction with this id')){
+        notify('Podany przetarg nie został zarejestrowany w blockchainie', NotificationType.ERROR);
+      }
     });
   };
 
@@ -53,7 +120,10 @@ const useBlockchain = () => {
     contract: initContract(),
     account,
     addMoney,
-    registerAdvertiser
+    registerAdvertiser,
+    registerOfferent,
+    createAuction,
+    makeOffer
   };
 };
 

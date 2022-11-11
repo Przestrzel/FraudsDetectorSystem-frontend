@@ -13,6 +13,7 @@ import { RootState } from 'store/store';
 import { NotificationType } from 'types/app.types';
 import useNotification from 'hooks/useNotification';
 import dayjs from 'dayjs';
+import useBlockchain from 'hooks/useBlockchain';
 
 const validationSchema = yup.object({
   date: yup.date().required(),
@@ -40,6 +41,7 @@ type Props = {
 
 const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user);
+  const blockchainService = useBlockchain();
   const { notify } = useNotification();
   const { handleSubmit, control, reset, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
@@ -50,14 +52,17 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
   });
 
   const onSubmit = (data) => {
-    postOffer(auctionId, user.id, data).then(() => {
-      notify('Dodałeś ofertę', NotificationType.INFO);
-      window.location.reload();
-    }).catch(() => {
-      notify('Nie udało się dodać oferty', NotificationType.ERROR);
-    }).finally(() => {
-      onClose();
-    });
+    blockchainService.makeOffer(auctionId, user.companyName, data.price)
+      .then(() => {
+        postOffer(auctionId, user.id, data).then(() => {
+          notify('Dodałeś ofertę', NotificationType.INFO);
+          window.location.reload();
+        }).catch(() => {
+          notify('Nie udało się dodać oferty', NotificationType.ERROR);
+        }).finally(() => {
+          onClose();
+        });
+      });
   };
 
   const clearForm = () => {

@@ -12,6 +12,7 @@ import { RootState } from 'store/store';
 import useNotification from 'hooks/useNotification';
 import { NotificationType } from 'types/app.types';
 import { messages } from 'utils/messages.utils';
+import useBlockchain from 'hooks/useBlockchain';
 
 const inputs = [
   {
@@ -40,6 +41,7 @@ const validationSchema = yup.object({
 const SignUpOrganisation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const blockchainService = useBlockchain();
   const { notify } = useNotification();
   const user = useSelector((state: RootState) => state.auth.user);
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -55,18 +57,21 @@ const SignUpOrganisation = () => {
     if(!user){
       return;
     }
-    signUpOrganisation(data, user.id).then((res) => {
-      const response = res.data;
-      delete response.id;
-      dispatch(saveUser({
-        ...user,
-        ...response
-      }));
-      notify('Zarejestrowałeś organizację!', NotificationType.INFO);
-      navigate(routes.auctions);
-    }).catch(() => {
-      notify(messages.unexpected, NotificationType.ERROR);
-    });
+    blockchainService.registerAdvertiser(data.institutionName, data.city)
+      .then(() => {
+        signUpOrganisation(data, user.id).then((res) => {
+          const response = res.data;
+          delete response.id;
+          dispatch(saveUser({
+            ...user,
+            ...response
+          }));
+          notify('Zarejestrowałeś organizację!', NotificationType.INFO);
+          navigate(routes.auctions);
+        }).catch(() => {
+          notify(messages.unexpected, NotificationType.ERROR);
+        });
+      });
   };
 
   return (

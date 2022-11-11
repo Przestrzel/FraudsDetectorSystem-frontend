@@ -73,7 +73,6 @@ const App = () => {
                 <Route path=':id' element={ <AuctionDetailsPage /> }/>
                 <Route path='' element={ <AuctionPage /> }/>
               </Route>
-
               <Route path='*' element={ <Navigate to={ routes.auctions }/> }/>
             </Routes>
             :

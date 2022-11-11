@@ -14,6 +14,7 @@ import useNotification from 'hooks/useNotification';
 import { messages } from 'utils/messages.utils';
 import { cloneDeep } from 'lodash';
 import styles from './SignUpGroup.module.scss';
+import useBlockchain from 'hooks/useBlockchain';
 
 const inputs = [
   {
@@ -72,6 +73,7 @@ const validationSchema = yup.object({
 const SignUpCompany = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const blockchainService = useBlockchain();
   const { notify } = useNotification();
   const user = useSelector((state: RootState) => state.auth.user);
   const { control, handleSubmit, formState: { errors } } = useForm({
@@ -89,16 +91,20 @@ const SignUpCompany = () => {
     const mappedData = cloneDeep(data);
     mappedData.shareholders =
       mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
-    signUpCompany(mappedData, user.id).then((res) => {
-      dispatch(saveUser({
-        ...user,
-        ...res.data
-      }));
-      notify('Zarejestrowałeś firmę!', NotificationType.INFO);
-      navigate(routes.auctions);
-    }).catch(() => {
-      notify(messages.unexpected, NotificationType.ERROR);
-    });
+
+    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP, user.id.toString())
+      .then(() => {
+        signUpCompany(mappedData, user.id).then((res) => {
+          dispatch(saveUser({
+            ...user,
+            ...res.data
+          }));
+          notify('Zarejestrowałeś firmę!', NotificationType.INFO);
+          navigate(routes.auctions);
+        }).catch(() => {
+          notify(messages.unexpected, NotificationType.ERROR);
+        });
+      });
   };
 
   return (
