@@ -18,8 +18,8 @@ const AuctionPage = () => {
   const { handleSubmit, control, register, watch } = useForm({ defaultValues: {
     searchPhrase: '',
     city: '',
-    startDate: null,
-    endDate: null,
+    startDate: '',
+    endDate: '',
   } });
   const searchPhrase = watch('searchPhrase');
   const city = watch('city');
@@ -28,18 +28,12 @@ const AuctionPage = () => {
 
   const getFilters = () => {
     const filters = {};
-    if(searchPhrase !== ''){
-      filters[ 'searchPhrase' ] = searchPhrase;
-    }
-    if(city !== ''){
-      filters[ 'city' ] = city;
-    }
-    if(startDate !== null){
-      filters[ 'startDate' ] = dayjs(startDate).format('YYYY-MM-DD');
-    }
-    if(endDate !== null){
-      filters[ 'endDate' ] = dayjs(endDate).format('YYYY-MM-DD');
-    }
+
+    filters[ 'searchPhrase' ] = searchPhrase;
+    filters[ 'city' ] = city;
+    filters[ 'startDate' ] = startDate ? dayjs(startDate).format('YYYY-MM-DD') : '';
+    filters[ 'endDate' ] = endDate ? dayjs(endDate).format('YYYY-MM-DD') : '';
+
     return filters;
   };
 

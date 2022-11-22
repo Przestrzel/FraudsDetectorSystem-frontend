@@ -18,7 +18,7 @@ const AuctionOffers = ({ offers }: Props) => {
             </div>
             <div className={ styles.offerRow }>
               <div className={ styles.offerLabel }>Cena:</div>
-              <div>{ offer?.price } PLN</div>
+              <div>{ offer?.price }</div>
             </div>
           </div>
         ))

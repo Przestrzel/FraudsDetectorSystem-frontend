@@ -56,10 +56,11 @@ const AuctionDetailsPage = () => {
             <div className={ styles.flagBox }>
               <Tooltip
                 placement='top'
-                title={ `Ten przetarg jest ${ auction.redFlag ? 'podejrzany' : 'zaufany' }` }
+                title={ `Ten przetarg jest
+                ${ auction.redFlags.length ? 'podejrzany' : 'zaufany' }` }
               >
                 <Flag className={ `${ styles.flag }
-                  ${ auction.redFlag ? styles.flagRed: styles.flagGreen }` } />
+                  ${ auction.redFlags.length ? styles.flagRed: styles.flagGreen }` } />
               </Tooltip>
             </div>
             <div className={ styles.auctionInfo }>

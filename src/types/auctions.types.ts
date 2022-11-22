@@ -18,7 +18,7 @@ export type AuctionDetails = Auction & {
   criterium: AuctionCriteria;
   offerLosers: AuctionOffer[];
   offerWinners: AuctionOffer[];
-  redFlag: boolean;
+  redFlags: string[];
 };
 
 export type AuctionOffer = {
