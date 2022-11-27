@@ -3,7 +3,7 @@ import { endpoints } from 'utils/config.utils';
 import http from 'utils/http.utils';
 
 const getAuctions = (page = 1, filters) => {
-  return http.get(`${ endpoints.auctions.index }?pageNumber=${ page }&pageSize=5`, {
+  return http.get(`${ endpoints.auctions.index }?pageNumber=${ page }&pageSize=6`, {
     params: {
       ...filters
     }

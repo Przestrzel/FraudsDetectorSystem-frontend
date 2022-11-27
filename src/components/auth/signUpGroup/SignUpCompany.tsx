@@ -61,8 +61,13 @@ const inputs = [
 
 const validationSchema = yup.object({
   bidderName: yup.string().required(),
-  postalCode: yup.string().required(),
-  city: yup.string().required()
+  city: yup.string().required(),
+  shareholders: yup.string().required(),
+  phoneNumber: yup.string().required(),
+  regon: yup.string().required(),
+  legalForm: yup.string().required(),
+  nip: yup.string().required(),
+  krs: yup.string().required(),
 });
 
 const SignUpCompany = () => {

@@ -42,7 +42,7 @@ const AuctionDetailsPage = () => {
   }, [ id, user ]);
 
   const getPriceCriterium = (criteria: string) => {
-    return criteria === 'PRICE' ? 'Cena' : 'Jakość';
+    return criteria === 'price' ? 'Cena' : 'Jakość';
   };
 
   const areEmptyOffers = !auction?.offerLosers?.length && !auction?.offerWinners?.length;
