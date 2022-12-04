@@ -45,8 +45,9 @@ const useBlockchain = () => {
     if(!contract) throw Error('Contract not initialized');
 
     return contract.deployed().then(instance => {
-      instance.registerAdvertiser(name, city, { from: account });
-      successCallback();
+      instance.registerAdvertiser(name, city, { from: account }).then(() => {
+        successCallback();
+      });
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if(err.message.includes('Name has to be provided')){
@@ -66,9 +67,11 @@ const useBlockchain = () => {
     if(!contract) throw Error('Contract not initialized');
 
     return contract.deployed().then(instance => {
-      instance.registerOfferent(name, NIP, { from: account });
-      successCallback();
+      instance.registerOfferent(name, NIP.toString(), { from: account }).then(() => {
+        successCallback();
+      });
     }).catch((err) => {
+      console.log(err);
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if(err.message.includes('Name has to be provided')){
         notify('Nazwa jest wymagana', NotificationType.ERROR);
@@ -89,9 +92,11 @@ const useBlockchain = () => {
     successCallback: () => void) => {
     const contract = await initContract();
     if(!contract) throw Error('Contract not initialized');
+
     contract.deployed().then(instance => {
-      instance.createAuction(id, name, startDate, endDate, { from: account });
-      successCallback();
+      instance.createAuction(id, name, startDate, endDate, { from: account }).then(() => {
+        successCallback();
+      });
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if (err.message.includes('You are not registered as an advertiser')) {
@@ -115,8 +120,9 @@ const useBlockchain = () => {
     if(!contract) throw Error('Contract not initialized');
 
     return contract.deployed().then(instance => {
-      instance.makeOffer(auctionId, name, price, { from: account });
-      successCallback();
+      instance.makeOffer(auctionId, name, price, { from: account }).then(() => {
+        successCallback();
+      });
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if (err.message.includes('You are not registered as an offerent')) {

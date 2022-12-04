@@ -104,7 +104,7 @@ const SignUpCompany = () => {
         notify(messages.unexpected, NotificationType.ERROR);
       });
     };
-    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP, callback);
+    blockchainService.registerOfferent(mappedData.bidderName, mappedData.nip, callback);
   };
 
   return (
