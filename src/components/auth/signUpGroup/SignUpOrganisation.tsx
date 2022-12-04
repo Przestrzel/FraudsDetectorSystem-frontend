@@ -28,7 +28,6 @@ const inputs = [
 ];
 
 const validationSchema = yup.object({
-  postalCode: yup.string().required(),
   city: yup.string().required(),
   institutionName: yup.string().required()
 });
@@ -52,21 +51,21 @@ const SignUpOrganisation = () => {
     if(!user){
       return;
     }
-    blockchainService.registerAdvertiser(data.institutionName, data.city)
-      .then(() => {
-        signUpOrganisation(data, user.id).then((res) => {
-          const response = res.data;
-          delete response.id;
-          dispatch(saveUser({
-            ...user,
-            ...response
-          }));
-          notify('Zarejestrowałeś organizację!', NotificationType.INFO);
-          navigate(routes.auctions);
-        }).catch(() => {
-          notify(messages.unexpected, NotificationType.ERROR);
-        });
+    const callback = () => {
+      signUpOrganisation(data, user.id).then((res) => {
+        const response = res.data;
+        delete response.id;
+        dispatch(saveUser({
+          ...user,
+          ...response
+        }));
+        notify('Zarejestrowałeś organizację!', NotificationType.INFO);
+        navigate(routes.auctions);
+      }).catch(() => {
+        notify(messages.unexpected, NotificationType.ERROR);
       });
+    };
+    blockchainService.registerAdvertiser(data.institutionName, data.city, callback);
   };
 
   return (

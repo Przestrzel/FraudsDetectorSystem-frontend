@@ -40,12 +40,13 @@ const useBlockchain = () => {
     });
   };
 
-  const registerAdvertiser = async (name: string, city: string) => {
+  const registerAdvertiser = async (name: string, city: string, successCallback: () => void) => {
     const contract = await initContract();
-    if(!contract) return;
+    if(!contract) throw Error('Contract not initialized');
 
-    contract.deployed().then(instance => {
+    return contract.deployed().then(instance => {
       instance.registerAdvertiser(name, city, { from: account });
+      successCallback();
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if(err.message.includes('Name has to be provided')){
@@ -60,12 +61,13 @@ const useBlockchain = () => {
     });
   };
 
-  const registerOfferent = async (name: string, NIP: string) => {
+  const registerOfferent = async (name: string, NIP: string, successCallback: () => void) => {
     const contract = await initContract();
-    if(!contract) return;
+    if(!contract) throw Error('Contract not initialized');
 
-    contract.deployed().then(instance => {
+    return contract.deployed().then(instance => {
       instance.registerOfferent(name, NIP, { from: account });
+      successCallback();
     }).catch((err) => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if(err.message.includes('Name has to be provided')){
@@ -80,11 +82,16 @@ const useBlockchain = () => {
     });
   };
 
-  const createAuction = async (id: number, name: string, startDate: string, endDate: string) => {
+  const createAuction = async (id: number,
+    name: string,
+    startDate: string,
+    endDate: string,
+    successCallback: () => void) => {
     const contract = await initContract();
-    if(!contract) return;
+    if(!contract) throw Error('Contract not initialized');
     contract.deployed().then(instance => {
       instance.createAuction(id, name, startDate, endDate, { from: account });
+      successCallback();
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if (err.message.includes('You are not registered as an advertiser')) {
@@ -96,15 +103,20 @@ const useBlockchain = () => {
       else if(err.message.includes('End date must be later than start date')){
         notify('Data zamknięcia musi być późniejsza niż data początkowa', NotificationType.ERROR);
       }
-      //Delete auction from database
     });
   };
 
-  const makeOffer = async (auctionId: number, name: string, price: number) => {
+  const makeOffer = async (
+    auctionId: number,
+    name: string,
+    price: number,
+    successCallback: () => void) => {
     const contract = await initContract();
-    if(!contract) return;
-    contract.deployed().then(instance => {
+    if(!contract) throw Error('Contract not initialized');
+
+    return contract.deployed().then(instance => {
       instance.makeOffer(auctionId, name, price, { from: account });
+      successCallback();
     }).catch(err => {
       notify('Transakcja nie powiodła się', NotificationType.ERROR);
       if (err.message.includes('You are not registered as an offerent')) {

@@ -44,17 +44,17 @@ const AddOfferModal = ({ isOpen, onClose, auctionId }: Props) => {
   });
 
   const onSubmit = (data) => {
-    blockchainService.makeOffer(auctionId, user.companyName, data.price)
-      .then(() => {
-        postOffer(auctionId, user.id, data).then(() => {
-          notify('Dodałeś ofertę', NotificationType.INFO);
-          window.location.reload();
-        }).catch(() => {
-          notify('Nie udało się dodać oferty', NotificationType.ERROR);
-        }).finally(() => {
-          onClose();
-        });
+    const callback = () => {
+      postOffer(auctionId, user.id, data).then(() => {
+        notify('Dodałeś ofertę', NotificationType.INFO);
+        window.location.reload();
+      }).catch(() => {
+        notify('Nie udało się dodać oferty', NotificationType.ERROR);
+      }).finally(() => {
+        onClose();
       });
+    };
+    blockchainService.makeOffer(auctionId, user.companyName, data.price, callback);
   };
 
   const clearForm = () => {

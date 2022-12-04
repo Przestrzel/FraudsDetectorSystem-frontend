@@ -92,19 +92,19 @@ const SignUpCompany = () => {
     mappedData.shareholders =
       mappedData.shareholders.split(',').map((shareholder) => shareholder.trim());
 
-    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP)
-      .then(() => {
-        signUpCompany(mappedData, user.id).then((res) => {
-          dispatch(saveUser({
-            ...user,
-            ...res.data
-          }));
-          notify('Zarejestrowałeś firmę!', NotificationType.INFO);
-          navigate(routes.auctions);
-        }).catch(() => {
-          notify(messages.unexpected, NotificationType.ERROR);
-        });
+    const callback = () => {
+      signUpCompany(mappedData, user.id).then((res) => {
+        dispatch(saveUser({
+          ...user,
+          ...res.data
+        }));
+        notify('Zarejestrowałeś firmę!', NotificationType.INFO);
+        navigate(routes.auctions);
+      }).catch(() => {
+        notify(messages.unexpected, NotificationType.ERROR);
       });
+    };
+    blockchainService.registerOfferent(mappedData.bidderName, mappedData.NIP, callback);
   };
 
   return (

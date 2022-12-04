@@ -126,7 +126,8 @@ const AddAuctionForm = () => {
           res.data.id,
           mappedData.auctionName,
           mappedData.startDate,
-          mappedData.endDate
+          mappedData.endDate,
+          () => null
         );
       });
   };
